@@ -1,0 +1,6 @@
+
+导航栏添加返回按钮:
+UIButton *btn = [Tools getBackBarBtn];
+[btn addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+UIBarButtonItem *testItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
+self.navigationItem.leftBarButtonItem = testItem;

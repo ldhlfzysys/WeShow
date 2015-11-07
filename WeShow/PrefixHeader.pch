@@ -1,0 +1,43 @@
+//
+//  PrefixHeader.pch
+//  ShopNCApp
+//
+//  Created by liudonghuan on 15/6/3.
+//  Copyright (c) 2015年 liudonghuan. All rights reserved.
+//
+
+#ifndef ShopNCApp_PrefixHeader_pch
+#define ShopNCApp_PrefixHeader_pch
+//网络引擎，AFNetworking的wrapper
+#import "NetWorkManager.h"
+#import "URLAPI.h"
+//数据库
+#import "DataCenterManager.h"
+//加载时提示框
+#import <SVProgressHUD.h>
+//图片管理工具
+#import <SDImageCache.h>
+#import <UIImageView+WebCache.h>
+//刷新控件
+#import <MJRefresh.h>
+//全局工具包
+#import "NSDictionary+Utils.h"
+#import "UIView+Sizes.h"
+#import "Tools.h"
+#endif
+
+//无状态栏高度
+#define SCREEN_WIDTH_REAL [UIScreen mainScreen].applicationFrame.size.width
+
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define EAFrame CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+//状态栏高度
+#define STATUSBAR [[UIApplication sharedApplication] statusBarFrame]
+
+//沙盒路径
+#define PATH_OF_DOCUMENT    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+
+//颜色宏
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

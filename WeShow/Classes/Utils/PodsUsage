@@ -1,0 +1,71 @@
+项目中通过cocoaspod引入第三方项目，本文件作为对第三方项目的使用举例
+新增第三方项目时，请在这里添加使用举例
+一、AFNetworking*******************************************
+1、发起一个Get请求
+AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+[manager GET:@"http://example.com/resources.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+NSLog(@"JSON: %@", responseObject);
+} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+NSLog(@"Error: %@", error);
+}];
+2、发起一个Post请求
+AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+NSDictionary *parameters = @{@"foo": @"bar"};
+[manager POST:@"http://example.com/resources.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+NSLog(@"JSON: %@", responseObject);
+} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+NSLog(@"Error: %@", error);
+}];
+//更多其他用法https://github.com/ldhlfzysys/AFNetworking
+
+
+二、MJRefresh*******************************************
+1、传统的上拉下拉刷新
+[self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+[self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+2、带图片的上拉下拉刷新
+// 添加动画图片的下拉刷新
+// 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+[self.tableView addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+// 设置普通状态的动画图片
+[self.tableView.gifHeader setImages:idleImages forState:MJRefreshHeaderStateIdle];
+// 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+[self.tableView.gifHeader setImages:pullingImages forState:MJRefreshHeaderStatePulling];
+// 设置正在刷新状态的动画图片
+[self.tableView.gifHeader setImages:refreshingImages forState:MJRefreshHeaderStateRefreshing];
+3、加载完后要结束刷新状态
+[self.mainTableView.header endRefreshing];
+[self.mainTableView.footer endRefreshing];
+4、直接发起一个刷新
+[self.tableView.header beginRefreshing];
+[self.mainTableView.footer beginRefreshing];
+5、设置不自动刷新（上拉时触碰到底部就自动刷新）
+self.tableView.footer.automaticallyRefresh = NO;
+更多使用https://github.com/ldhlfzysys/MJRefresh
+
+三、SDWebImage*******************************************
+1、用于tableview的cell
+[cell.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://www.domain.com/path/to/image.jpg"]
+placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+2、更多使用https://github.com/ldhlfzysys/SDWebImage
+
+四、SVProgressHUD*******************************************
+1、普通使用
+[SVProgressHUD show];
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+// time-consuming task
+dispatch_async(dispatch_get_main_queue(), ^{
+[SVProgressHUD dismiss];
+});
+});
+2、设置颜色之类
++ (void)setBackgroundColor:(UIColor*)color;                 // default is [UIColor whiteColor]
++ (void)setForegroundColor:(UIColor*)color;                 // default is [UIColor blackColor]
++ (void)setRingThickness:(CGFloat)width;                    // default is 4 pt
++ (void)setFont:(UIFont*)font;                              // default is [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]
++ (void)setInfoImage:(UIImage*)image;                       // default is the bundled info image provided by Freepik
++ (void)setSuccessImage:(UIImage*)image;                    // default is bundled success image from Freepik
++ (void)setErrorImage:(UIImage*)image;                      // default is bundled error image from Freepik
++ (void)setDefaultMaskType:(SVProgressHUDMaskType)maskType; // default is SVProgressHUDMaskTypeNone
++ (void)setViewForExtension:(UIView*)view;                  // default is nil, only used if #define SV_APP_EXTENSIONS is set
+3、更多使用https://github.com/ldhlfzysys/SVProgressHUD

@@ -1,0 +1,28 @@
+1、项目目录结构说明
+-EasyApp
+    -AppDelegate.*              程序启动Delegate
+    -Classes
+        -MainViewControllers    启动页控制器和主要的5个页面
+        -ViewControllers        其他的VC
+        -Cards                  所有的View
+        -Models                 模型
+        -DataCenter             本地化数据管理单例
+        -NetWrok                网络引擎
+        -Utils                  工具包
+    -Resources                  资源文件
+    -Supporting Files           支持文件
+        -PrefixHeader.pch       全局引用的文件在这里import
+-Products                       忽视
+-Pods                           Pod管理
+-Frameworks                     框架包
+
+2、项目创建者联系方式
+QQ:411455886（qq邮箱）
+Tel:15345096789
+
+3、项目证书说明
+Pods目前引用的AFnetworking、MJRefresh、SDWebImage、SVProgressHUD为开源项目
+本项目为商业项目，其源码若作为他用，将追究法律责任。
+
+3、开发说明
+希望项目的后续开发者在开发前阅读并沿用DevelopStandard保持项目的统一和美观。
