@@ -26,6 +26,8 @@
 #import "Tools.h"
 #endif
 
+
+#define mapAPIKEY @"9c9bc6aaa2e392ecf6080b8d2529c531"
 //无状态栏高度
 #define SCREEN_WIDTH_REAL [UIScreen mainScreen].applicationFrame.size.width
 
