@@ -15,4 +15,5 @@ typedef enum {
 +(UINavigationController *)getNavByType:(NavType)type controller:(UIViewController *)con;
 + (UILabel *)getTitleLab:(NSString *)title;
 + (UIButton *)getBackBarBtn;
++ (UIButton *)getNavigationItemWithImage:(NSString *)imageName;
 @end

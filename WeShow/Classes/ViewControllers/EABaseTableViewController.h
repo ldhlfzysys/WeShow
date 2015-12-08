@@ -10,5 +10,6 @@
 #import "EABaseCardView.h"
 #import "EACard.h"
 
-@interface EABaseViewController : UIViewController
+@interface EABaseTableViewController : UITableViewController
+@property (nonatomic,retain) NSMutableArray *cards;
 @end

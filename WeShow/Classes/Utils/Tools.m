@@ -19,7 +19,7 @@
     navC.tabBarItem = tabBarItem;
     
     navC.navigationBar.translucent = NO;//半透明有光泽
-    navC.navigationBar.barTintColor = UIColorFromRGB(0x1abd9b);
+    navC.navigationBar.barTintColor = UIColorFromRGB(0x495262);
     //自定义标题
     UILabel *label = [[UILabel alloc] init];
     navC.navigationBar.topItem.titleView=label;
@@ -30,7 +30,7 @@
             //后面那句就让图片能正常显示了
             tabBarItem.selectedImage = [[UIImage imageNamed:@"tabbar_1_se.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             tabBarItem.title = @"发现";
-            label.text = @"快聘";
+            label.text = @"WeShow";
             break;
         }
 
@@ -62,6 +62,14 @@
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 24, 40)];
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 13, 14, 14)];
     img.image = [UIImage imageNamed:@"back.png"];
+    [btn addSubview:img];
+    return btn;
+}
+
++ (UIButton *)getNavigationItemWithImage:(NSString *)imageName{
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+    img.image = [UIImage imageNamed:imageName];
     [btn addSubview:img];
     return btn;
 }
