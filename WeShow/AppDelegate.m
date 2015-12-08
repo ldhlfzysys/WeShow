@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "cameraViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -19,9 +20,13 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
-    MainViewController *mainVC = [[MainViewController alloc]init];
-    UINavigationController *mainNav = [Tools getNavByType:NavTypeMainPage controller:mainVC];
-    [self.window setRootViewController:mainNav];
+//    MainViewController *mainVC = [[MainViewController alloc]init];
+//    UINavigationController *mainNav = [Tools getNavByType:NavTypeMainPage controller:mainVC];
+//    [self.window setRootViewController:mainNav];
+    cameraViewController *VC = [[cameraViewController alloc]init];
+    
+    //[self presentModalViewController:ipc animated:YES];
+    [self.window setRootViewController:VC];
     
     [NetWorkManager sharedManager];
     [DataCenterManager sharedManager];

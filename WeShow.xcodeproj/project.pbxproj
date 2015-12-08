@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EBA3F611C1689CA00E2F817 /* cameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA3F601C1689CA00E2F817 /* cameraViewController.m */; };
+		3EBA3F641C16BC5C00E2F817 /* map_create.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EBA3F631C16BC5C00E2F817 /* map_create.png */; };
+		3EBA3F681C16DB0300E2F817 /* circleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA3F671C16DB0300E2F817 /* circleProgressView.m */; };
 		3EBBC1941C1539BB008C53CB /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1931C1539BB008C53CB /* MAMapKit.framework */; };
 		3EBBC1961C1539C6008C53CB /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */; };
 		4DE17127B550BF5C66B1D71E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A56768EEA638E15239E03D /* libPods.a */; };
@@ -31,6 +34,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3EBA3F5F1C1689CA00E2F817 /* cameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cameraViewController.h; sourceTree = "<group>"; };
+		3EBA3F601C1689CA00E2F817 /* cameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cameraViewController.m; sourceTree = "<group>"; };
+		3EBA3F631C16BC5C00E2F817 /* map_create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_create.png; sourceTree = "<group>"; };
+		3EBA3F661C16DB0300E2F817 /* circleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = circleProgressView.h; sourceTree = "<group>"; };
+		3EBA3F671C16DB0300E2F817 /* circleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = circleProgressView.m; sourceTree = "<group>"; };
 		3EBBC1931C1539BB008C53CB /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = Pods/AMap2DMap/MAMapKit.framework; sourceTree = "<group>"; };
 		3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = Pods/AMapSearch/AMapSearchKit.framework; sourceTree = "<group>"; };
 		3FDEBCDB569EA7EE40FE7AE2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +128,7 @@
 			children = (
 				B81A655E1BEDD19A008116E9 /* Classes */,
 				B81A655C1BEDD163008116E9 /* ProjectDeclare */,
+				3EBA3F631C16BC5C00E2F817 /* map_create.png */,
 				B81A65591BEDD14A008116E9 /* Default-568h@2x.png */,
 				B81A655B1BEDD15A008116E9 /* PrefixHeader.pch */,
 				B81A65451BEDD0E2008116E9 /* AppDelegate.h */,
@@ -220,6 +229,8 @@
 			children = (
 				B81A657A1BEDD19A008116E9 /* EABaseViewController.h */,
 				B81A657B1BEDD19A008116E9 /* EABaseViewController.m */,
+				3EBA3F5F1C1689CA00E2F817 /* cameraViewController.h */,
+				3EBA3F601C1689CA00E2F817 /* cameraViewController.m */,
 				B81A657C1BEDD19A008116E9 /* ExampleDemo */,
 			);
 			path = ViewControllers;
@@ -232,6 +243,8 @@
 				B81A657F1BEDD19A008116E9 /* EABaseCardView.m */,
 				B81A65801BEDD19A008116E9 /* EABaseTableViewCell.h */,
 				B81A65811BEDD19A008116E9 /* EABaseTableViewCell.m */,
+				3EBA3F661C16DB0300E2F817 /* circleProgressView.h */,
+				3EBA3F671C16DB0300E2F817 /* circleProgressView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,6 +292,7 @@
 				TargetAttributes = {
 					B81A653E1BEDD0E2008116E9 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = Q4Y3Y3NH8S;
 					};
 				};
 			};
@@ -307,6 +321,7 @@
 			files = (
 				B81A658D1BEDD19A008116E9 /* ExampleDemo in Resources */,
 				B81A65891BEDD19A008116E9 /* PodsUsage in Resources */,
+				3EBA3F641C16BC5C00E2F817 /* map_create.png in Resources */,
 				B81A655A1BEDD14A008116E9 /* Default-568h@2x.png in Resources */,
 				B81A655D1BEDD163008116E9 /* ProjectDeclare in Resources */,
 			);
@@ -368,9 +383,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B81A65871BEDD19A008116E9 /* NetWorkManager.m in Sources */,
+				3EBA3F681C16DB0300E2F817 /* circleProgressView.m in Sources */,
 				B81A658A1BEDD19A008116E9 /* Tools.m in Sources */,
 				B81A65861BEDD19A008116E9 /* EACard.m in Sources */,
 				B81A65821BEDD19A008116E9 /* DataCenterManager.m in Sources */,
+				3EBA3F611C1689CA00E2F817 /* cameraViewController.m in Sources */,
 				B81A658B1BEDD19A008116E9 /* UIView+Sizes.m in Sources */,
 				B81A658C1BEDD19A008116E9 /* EABaseViewController.m in Sources */,
 				B81A65471BEDD0E2008116E9 /* AppDelegate.m in Sources */,
@@ -472,6 +489,8 @@
 			baseConfigurationReference = 3FDEBCDB569EA7EE40FE7AE2 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/AMap2DMap",
@@ -483,6 +502,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -491,6 +511,8 @@
 			baseConfigurationReference = 9BCDA592E0BD754126669508 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/AMap2DMap",
@@ -502,6 +524,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
