@@ -13,9 +13,12 @@
 
 @interface cameraViewController ()<AVCaptureFileOutputRecordingDelegate>
 @property (strong,nonatomic) AVCaptureMovieFileOutput *output;
-@property (strong,nonatomic) circleProgressView *progress;
+@property (strong,nonatomic) CAShapeLayer *belowLayer;
+@property (strong,nonatomic) CAShapeLayer *upLayer;
+@property (strong,nonatomic) UIButton *capButton;
 @property (assign,nonatomic) NSTimeInterval startTimestamp;
 @property (assign,nonatomic) NSTimeInterval endTimestamp;
+
 @end
 
 @implementation cameraViewController
@@ -24,22 +27,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self videoInit];
-    UIButton *capButton = [[UIButton alloc]initWithFrame:CGRectMake(120,667 - 195,55,55)];
-    [capButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
-    [capButton setBackgroundColor:[UIColor clearColor]];
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(120,667 - 195,55,55)];
+    [_capButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    [_capButton setBackgroundColor:[UIColor clearColor]];
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoBtn:)];
     longPressGr.minimumPressDuration = 0;
-    [capButton addGestureRecognizer:longPressGr];
+    [_capButton addGestureRecognizer:longPressGr];
     
-    [self.view addSubview:capButton];
+    [self.view addSubview:_capButton];
     
-    _progress = [[circleProgressView alloc]initWithFrame:CGRectMake(120, 667 - 295, 60, 60)];
-    _progress.arcFinishColor = [UIColor whiteColor];
-    _progress.centerColor = [UIColor clearColor];
-    _progress.arcUnfinishColor = [UIColor redColor];
-    _progress.arcBackColor = [UIColor clearColor];
-    _progress.percent = 1;
-    [self.view addSubview:_progress];
+    _belowLayer = [[CAShapeLayer alloc] init];
+    _upLayer = [[CAShapeLayer alloc] init];
+    [self.view.layer addSublayer:_belowLayer];
+    [self.view.layer addSublayer:_upLayer];
 }
 
 - (void)videoInit
@@ -106,6 +106,34 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)startProgressAnimation
+{
+    CGPoint point = [_capButton center];
+    UIBezierPath *belowpath = [UIBezierPath bezierPathWithArcCenter:point radius:50 startAngle:0 endAngle:M_PI clockwise:YES];
+    _belowLayer.path = belowpath.CGPath;
+    _belowLayer.fillColor = [UIColor clearColor].CGColor;
+    _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.duration = 4.0f;
+    animation.fromValue = [NSNumber numberWithFloat:1.0];
+    animation.toValue = [NSNumber numberWithFloat:0];
+    [_belowLayer addAnimation:animation forKey:@"startAnimation"];
+    
+    UIBezierPath *uppath = [UIBezierPath bezierPathWithArcCenter:point radius:50 startAngle:M_PI endAngle:2*M_PI clockwise:YES];
+    _upLayer.path = uppath.CGPath;
+    _upLayer.fillColor = [UIColor clearColor].CGColor;
+    _upLayer.strokeColor = [UIColor whiteColor].CGColor;
+    
+    [_upLayer addAnimation:animation forKey:@"startAnimation"];
+}
+
+- (void)kickbackProgressAnimation
+{
+    CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
+    _belowLayer.timeOffset = pausedTime;
+    _upLayer.timeOffset = pausedTime;
+}
 
 - (void)clickVideoBtn:(UILongPressGestureRecognizer *)gesture
 {
@@ -121,6 +149,7 @@
     
     if (gesture.state == UIGestureRecognizerStateBegan) {
         NSLog(@"开始");
+        [self startProgressAnimation];
         NSDate* currentDate = [NSDate date];
         _startTimestamp = [currentDate timeIntervalSince1970];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
@@ -129,11 +158,11 @@
         _endTimestamp = [currentDate timeIntervalSince1970];
         if (_endTimestamp - _startTimestamp < 4) {
             NSLog(@"不足4秒");
-
-            //回弹动画
+            [self kickbackProgressAnimation];
             return;
         }
         NSLog(@"结束");
+        [self.output stopRecording];
         //10.开始录制视频
         //设置录制视频保存的路径
         NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVidio.mov"];
@@ -145,10 +174,7 @@
         [self.output startRecordingToOutputFileURL:url recordingDelegate:self];
     }else if (gesture.state == UIGestureRecognizerStateChanged)
     {
-        //进度条处理
-        NSDate* currentDate = [NSDate date];
-        NSTimeInterval currentTime = [currentDate timeIntervalSince1970];
-        [_progress setPercent:(currentTime - _startTimestamp)/8];
+
     }else
     {
         NSLog(@"意外");
