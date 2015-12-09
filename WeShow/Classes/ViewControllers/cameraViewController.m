@@ -56,8 +56,6 @@
     [turnAroundButton setBackgroundColor:[UIColor clearColor]];
     [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:turnAroundButton];
-    
-    [self initAnimationLayer];
 }
 
 - (void) initAnimationLayer
@@ -115,6 +113,7 @@
 {
     [super viewWillAppear:animated];
     [_capButton setEnabled:YES];
+    [self initAnimationLayer];
     //[self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -186,10 +185,10 @@
 - (void) startCircleProgressAnimation
 {
     CGPoint point = [_capButton center];
-    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:4.0f];
-    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:4.0f];
-    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:4.0f];
-    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:4.0f];
+    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:8.0f];
+    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:8.0f];
+    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:8.0f];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:8.0f];
 }
 - (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
 {
@@ -231,14 +230,18 @@
     _videoEnoughTime = YES;
 }
 
-- (void)kickbackCircleProgressAnimation
+- (void)kickbackProgressAnimation
 {
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.timeOffset = pausedTime;
     _upLayer.timeOffset = pausedTime;
+    _rightLayer.timeOffset = 0;
+    _leftLayer.timeOffset = 0;
+    _leftLayer.speed = 0.0f;
+    _rightLayer.speed = 0.0f;
 }
 
-- (void)pauseCircleProgressAnimation
+- (void)pauseProgressAnimation
 {
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.speed = 0.0f;
@@ -270,11 +273,11 @@
         if (!_videoEnoughTime) {
             NSLog(@"不足4秒");
             [_showSecondAniTime invalidate];
-            [self kickbackCircleProgressAnimation];
+            [self kickbackProgressAnimation];
             return;
         }
         //停止动画
-        [self pauseCircleProgressAnimation];
+        [self pauseProgressAnimation];
         [_capButton setEnabled:NO];
 
         NSLog(@"结束");
