@@ -68,6 +68,17 @@
     [self.view.layer addSublayer:_upLayer];
     [self.view.layer addSublayer:_leftLayer];
     [self.view.layer addSublayer:_rightLayer];
+    
+    CGPoint point = [_capButton center];
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES];
+    _belowLayer.path = path.CGPath;
+    _belowLayer.fillColor = [UIColor clearColor].CGColor;
+    _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
+    
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:M_PI endAngle:2*M_PI clockwise:YES];
+    _upLayer.path = path1.CGPath;
+    _upLayer.fillColor = [UIColor clearColor].CGColor;
+    _upLayer.strokeColor = [UIColor whiteColor].CGColor;
 }
 
 - (void)videoInit
@@ -114,6 +125,7 @@
     [super viewWillAppear:animated];
     [_capButton setEnabled:YES];
     [self initAnimationLayer];
+    _videoEnoughTime = NO;
     //[self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -194,7 +206,6 @@
 {
     CGPoint point = [_capButton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:startAngle endAngle:endAngle clockwise:YES];
-    path.lineWidth = 4;
     layer.path = path.CGPath;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
@@ -212,7 +223,6 @@
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:startPoint];
     [path addLineToPoint:endPoint];
-    path.lineWidth = 4;
     layer.path = path.CGPath;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
@@ -221,6 +231,7 @@
     animation.duration = time;
     animation.fromValue = [NSNumber numberWithFloat:0];
     animation.toValue = [NSNumber numberWithFloat:1.0];
+    animation.fillMode = kCAFillModeBackwards;
     
     [layer addAnimation:animation forKey:@"LineAnimation"];
 }
@@ -235,10 +246,8 @@
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.timeOffset = pausedTime;
     _upLayer.timeOffset = pausedTime;
-    _rightLayer.timeOffset = 0;
-    _leftLayer.timeOffset = 0;
-    _leftLayer.speed = 0.0f;
-    _rightLayer.speed = 0.0f;
+    _rightLayer.timeOffset = _rightLayer.beginTime + 4 - pausedTime;
+    _leftLayer.timeOffset =  _leftLayer.beginTime + 4 - pausedTime;
 }
 
 - (void)pauseProgressAnimation
@@ -298,7 +307,12 @@
     if (_videoEnoughTime) {
         NSLog(@"完成录制,可以自己做进一步的处理");
         soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:outputFileURL];
-        [self presentViewController:VC animated:YES completion:nil];
+        [self presentViewController:VC animated:YES completion:^{
+            [_belowLayer removeFromSuperlayer];
+            [_upLayer removeFromSuperlayer];
+            [_leftLayer removeFromSuperlayer];
+            [_rightLayer removeFromSuperlayer];
+        }];
     }
 }
 
