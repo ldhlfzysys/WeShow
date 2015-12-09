@@ -31,7 +31,7 @@
 }
 
 - (CGFloat)EA_Right{
-    return self.frame.origin.y + self.frame.size.width;
+    return self.frame.origin.x + self.frame.size.width;
 }
 
 - (void)setEA_Right:(CGFloat)right{
@@ -65,5 +65,26 @@
 - (void)setEA_CenterY:(CGFloat)y{
     self.center = CGPointMake(self.center.x, y);
 }
+
+- (CGFloat)EA_Width{
+    return self.frame.size.width;
+}
+
+- (void)setEA_Width:(CGFloat)EA_Width{
+    CGRect frame = self.frame;
+    frame.size.width = EA_Width;
+    self.frame = frame;
+}
+
+- (CGFloat)EA_Height{
+    return self.frame.size.height;
+}
+
+- (void)setEA_Height:(CGFloat)EA_Height{
+    CGRect frame = self.frame;
+    frame.size.height = EA_Height;
+    self.frame = frame;
+}
+
 
 @end

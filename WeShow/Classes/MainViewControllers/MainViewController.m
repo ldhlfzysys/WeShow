@@ -10,6 +10,7 @@
 #import "MAMapKit/MAMapKit.h"
 #import "PulsingHaloLayer.h"
 #import "cameraViewController.h"
+#import "IncidentView.h"
 
 @interface MainViewController ()<MAMapViewDelegate>
 {
@@ -17,14 +18,16 @@
     UIButton * arrowButton;
     UIButton *rightButton;
     UIButton *leftButton;
-    UIView *bottomView;
-    UIImageView *bottomViewTap;
+    PullView *bottomView;
     UIScrollView *mainScrollView;
     PulsingHaloLayer *testLayer1;
     PulsingHaloLayer *testLayer2;
     UIImageView *testDot;
     
     CGPoint originPoint;
+    
+    CGFloat bottomViewHeight;
+    
 }
 @end
 
@@ -74,25 +77,20 @@
         testLayer2.pulseInterval = 0;
         [testDot.layer addSublayer:testLayer2];
         
-        
-        
         //可拉起菜单
-        bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 27 - 64, 320, 400)];
-        UIImageView *bottomViewBackground = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 400)];
-        bottomViewBackground.image = [UIImage imageNamed:@"map_pull"];
-        [bottomView addSubview:bottomViewBackground];
-        
-
+        bottomViewHeight = self.view.EA_Width * 1.215;
+        bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 17 - 64, self.view.EA_Width, bottomViewHeight)];
+        bottomView.delegate = self;
         [self.view addSubview:bottomView];
         
-        bottomViewTap = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, 30, 7)];
-        bottomViewTap.EA_CenterX = bottomView.frame.size.width/2;
-        bottomViewTap.image = [UIImage imageNamed:@"map_pull_up"];
-        bottomViewTap.userInteractionEnabled = YES;
-        [bottomView addSubview:bottomViewTap];
+        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(20, bottomView.EA_Width * 0.04 + 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
+        [bottomView.mainScorll addSubview:test1];
         
-        UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(bottomViewPositionDidChange:)];
-        [bottomViewTap addGestureRecognizer:panGes];
+        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(20, bottomView.EA_Width * 0.04 + 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
+        [bottomView.mainScorll addSubview:test2];
+        
+        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(20, bottomView.EA_Width * 0.04 + 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
+        [bottomView.mainScorll addSubview:test3];
         
 
     }
@@ -108,51 +106,40 @@
 
 }
 
-- (void)bottomViewPositionDidChange:(UIPanGestureRecognizer *)rec
+#pragma mark - PullViewDelegate
+
+- (void)pullViewPositionChange:(UIPanGestureRecognizer *)gesture
 {
-    switch (rec.state) {
+    switch (gesture.state) {
         case UIGestureRecognizerStateBegan:
         {
-            originPoint = [rec locationInView:self.view];
+            originPoint = [gesture locationInView:self.view];
             break;
         }
         case UIGestureRecognizerStateEnded:
         {
-            CGPoint point = [rec locationInView:self.view];
+            CGPoint point = [gesture locationInView:self.view];
             if ((point.y - originPoint.y) > 20)
             {
                 [UIView animateWithDuration:0.5 animations:^{
-                bottomView.EA_Top = self.view.frame.size.height - 27;
-                bottomViewTap.image = [UIImage imageNamed:@"map_pull_up"];
+                bottomView.EA_Top = self.view.frame.size.height - 17;
+                bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_up"];
                 }];
             }
             else
             {
                 [UIView animateWithDuration:0.5 animations:^{
-                bottomView.EA_Top = self.view.frame.size.height - 400;
-                bottomViewTap.image = [UIImage imageNamed:@"map_pull_down"];
+                bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight;
+                bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_down"];
                 }];
             }
-//            if (point.y >= self.view.frame.size.height - 200 && point.y <= self.view.frame.size.height)
-//            {
-//                [UIView animateWithDuration:0.5 animations:^{
-//                    rec.view.EA_Top = self.view.frame.size.height - 27;
-//                    bottomViewTap.image = [UIImage imageNamed:@"map_pull_up"];
-//                }];
-//            }else if (point.y > 0 && point.y < self.view.frame.size.height - 200)
-//            {
-//                [UIView animateWithDuration:0.5 animations:^{
-//                    rec.view.EA_Top = self.view.frame.size.height - 400;
-//                    bottomViewTap.image = [UIImage imageNamed:@"map_pull_down"];
-//                }];
-//            }
         
             break;
         }
         case UIGestureRecognizerStateChanged:
         {
-            CGPoint point = [rec locationInView:self.view];
-            if (point.y> self.view.frame.size.height - 400 && point.y < self.view.frame.size.height - 27) {
+            CGPoint point = [gesture locationInView:self.view];
+            if (point.y> self.view.frame.size.height - bottomViewHeight && point.y < self.view.frame.size.height - 17) {
                 bottomView.EA_Top = point.y;
             }
             break;
@@ -161,8 +148,11 @@
         default:
             break;
     }
+}
+
+- (void)pullViewDidScroll:(UIScrollView *)scrollView
+{
     
-//    [rec setTranslation:CGPointMake(0, 0) inView:self.view];
 }
 
 -(void) viewDidAppear:(BOOL)animated

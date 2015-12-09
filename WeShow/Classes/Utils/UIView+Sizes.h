@@ -17,4 +17,7 @@
 @property (nonatomic) CGFloat EA_CenterX;
 @property (nonatomic) CGFloat EA_CenterY;
 
+@property (nonatomic) CGFloat EA_Width;
+@property (nonatomic) CGFloat EA_Height;
+
 @end
