@@ -19,6 +19,7 @@
 @property (strong,nonatomic) UIButton *capButton;
 @property (strong,nonatomic) NSTimer *showSecondAniTime;
 @property (assign,nonatomic) BOOL videoEnoughTime;
+@property (strong,nonatomic) AVCaptureSession *session;
 
 @property (assign,nonatomic) NSTimeInterval startTimestamp;
 @property (assign,nonatomic) NSTimeInterval endTimestamp;
@@ -37,9 +38,20 @@
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoBtn:)];
     longPressGr.minimumPressDuration = 0;
     [_capButton addGestureRecognizer:longPressGr];
-    
     [self.view addSubview:_capButton];
     [self initAnimationLayer];
+    
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(40, 40, 55, 55)];
+    [backbutton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    [backbutton setBackgroundColor:[UIColor clearColor]];
+    [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backbutton];
+    
+    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(225, 40, 55, 55)];
+    [turnAroundButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    [turnAroundButton setBackgroundColor:[UIColor clearColor]];
+    [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:turnAroundButton];
 }
 
 - (void) initAnimationLayer
@@ -66,32 +78,33 @@
     self.output = output; //保存output，方便下面操作
     
     //6.初始化一个会话
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];
+    _session = [[AVCaptureSession alloc] init];
     
     //7.将输入输出设备添加到会话中
-    if ([session canAddInput:inputVideo]) {
-        [session addInput:inputVideo];
+    if ([_session canAddInput:inputVideo]) {
+        [_session addInput:inputVideo];
     }
-    if ([session canAddInput:inputAudio]) {
-        [session addInput:inputAudio];
+    if ([_session canAddInput:inputAudio]) {
+        [_session addInput:inputAudio];
     }
-    if ([session canAddOutput:output]) {
-        [session addOutput:output];
+    if ([_session canAddOutput:output]) {
+        [_session addOutput:output];
     }
     
     //8.创建一个预览涂层
-    AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
+    AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
     //设置图层的大小
     preLayer.frame = self.view.bounds;
     //添加到view上
     [self.view.layer addSublayer:preLayer];
     
-    [session startRunning];
+    [_session startRunning];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [_capButton setEnabled:YES];
     //[self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -105,59 +118,94 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)dismissVC
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
-*/
+
+- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for ( AVCaptureDevice *device in devices )
+        if ( device.position == position )
+            return device;
+    return nil;
+}
+
+- (void)turnAround
+{
+    NSArray *inputs = self.session.inputs;
+    for ( AVCaptureDeviceInput *input in inputs ) {
+        AVCaptureDevice *device = input.device;
+        if ( [device hasMediaType:AVMediaTypeVideo] ) {
+            AVCaptureDevicePosition position = device.position;
+            AVCaptureDevice *newCamera = nil;
+            AVCaptureDeviceInput *newInput = nil;
+            
+            if (position == AVCaptureDevicePositionFront)
+                newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
+            else
+                newCamera = [self cameraWithPosition:AVCaptureDevicePositionFront];
+            newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
+            
+            // beginConfiguration ensures that pending changes are not applied immediately
+            [self.session beginConfiguration];
+            
+            [self.session removeInput:input];
+            [self.session addInput:newInput];
+            
+            // Changes take effect once the outermost commitConfiguration is invoked.
+            [self.session commitConfiguration];
+            break;
+        }
+    }
+}
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 - (void)startCircleProgressAnimation
 {
     CGPoint point = [_capButton center];
-    UIBezierPath *belowpath = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES];
+    
+    UIBezierPath *belowpath = [UIBezierPath bezierPath];
+    [belowpath moveToPoint:CGPointMake(310, point.y)];
+    [belowpath addLineToPoint:CGPointMake(point.x + progressRadius, point.y)];
+    //拼接半圆
+    [belowpath appendPath:[UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES]];
     _belowLayer.path = belowpath.CGPath;
     _belowLayer.fillColor = [UIColor clearColor].CGColor;
     _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
     
     
-    UIBezierPath *uppath = [UIBezierPath bezierPathWithArcCenter:point radius:50 startAngle:M_PI endAngle:2*M_PI clockwise:YES];
+    UIBezierPath *uppath = [UIBezierPath bezierPath];
+    [uppath moveToPoint:CGPointMake(10, point.y)];
+    [uppath addLineToPoint:CGPointMake(point.x - progressRadius, point.y)];
+    [uppath appendPath:[UIBezierPath bezierPathWithArcCenter:point radius:50 startAngle:M_PI endAngle:2*M_PI clockwise:YES]];
     _upLayer.path = uppath.CGPath;
     _upLayer.fillColor = [UIColor clearColor].CGColor;
     _upLayer.strokeColor = [UIColor whiteColor].CGColor;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.duration = 4.0f;
+    animation.duration = 8.0f;
     animation.fromValue = [NSNumber numberWithFloat:1.0];
     animation.toValue = [NSNumber numberWithFloat:0];
-    [_belowLayer addAnimation:animation forKey:@"startCircleAnimation"];
     
-    [_upLayer addAnimation:animation forKey:@"startCircleAnimation"];
+    [_belowLayer addAnimation:animation forKey:@"CircleAnimation"];
+    [_upLayer addAnimation:animation forKey:@"CircleAnimation"];
 }
 
-- (void) startLineProgressAnimation
+- (void) videoIsLongEnough
 {
     _videoEnoughTime = YES;
-    
-    CGPoint point = [_capButton center];
-    UIBezierPath *leftpath = [UIBezierPath bezierPath];
-    [leftpath moveToPoint:CGPointMake(10, point.y)];
-    [leftpath addLineToPoint:CGPointMake(point.x - progressRadius, point.y)];
-    _belowLayer.path = leftpath.CGPath;
-    
-    UIBezierPath *rightpath = [UIBezierPath bezierPath];
-    [rightpath moveToPoint:CGPointMake(310, point.y)];
-    [rightpath addLineToPoint:CGPointMake(point.x + progressRadius, point.y)];
-    _upLayer.path = rightpath.CGPath;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.duration = 4.0f;
-    animation.fromValue = [NSNumber numberWithFloat:1.0];
-    animation.toValue = [NSNumber numberWithFloat:0];
-    [_belowLayer addAnimation:animation forKey:@"LineAnimation"];
-    [_upLayer addAnimation:animation forKey:@"LineAnimation"];
 }
 
 - (void)kickbackCircleProgressAnimation
@@ -167,17 +215,17 @@
     _upLayer.timeOffset = pausedTime;
 }
 
+- (void)pauseCircleProgressAnimation
+{
+    CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
+    _belowLayer.speed = 0.0f;
+    _upLayer.speed = 0.0f;
+    _belowLayer.timeOffset = pausedTime;
+    _upLayer.timeOffset = pausedTime;
+}
+
 - (void)clickVideoBtn:(UILongPressGestureRecognizer *)gesture
 {
-    //判断是否在录制,如果在录制，就停止，并设置按钮title
-//    if ([self.output isRecording]) {
-//        [self.output stopRecording];
-//        [sender setTitle:@"录制" forState:UIControlStateNormal];
-//        return;
-//    }
-    
-    //设置按钮的title
-    //[sender setTitle:@"停止" forState:UIControlStateNormal];
     if (gesture.state == UIGestureRecognizerStateBegan) {
         NSLog(@"开始");
         //设置录制视频保存的路径
@@ -189,7 +237,7 @@
         //开始录制,并设置控制器为录制的代理
         [self.output startRecordingToOutputFileURL:url recordingDelegate:self];
         [self startCircleProgressAnimation];
-        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(startLineProgressAnimation) userInfo:nil repeats:NO];
+        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         [self.output stopRecording];
@@ -200,14 +248,14 @@
             return;
         }
         //停止动画
-        _belowLayer.speed = 0;
-        _upLayer.speed = 0;
-        
+        [self pauseCircleProgressAnimation];
+        [_capButton setEnabled:NO];
+        //pushViewController
         NSLog(@"结束");
-
+        
     }else if (gesture.state == UIGestureRecognizerStateChanged)
     {
-
+        
     }else
     {
         NSLog(@"意外");
@@ -218,7 +266,9 @@
 //录制完成代理
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {
-    NSLog(@"完成录制,可以自己做进一步的处理");
+    if (_videoEnoughTime) {
+        NSLog(@"完成录制,可以自己做进一步的处理");
+    }
 }
 
 @end

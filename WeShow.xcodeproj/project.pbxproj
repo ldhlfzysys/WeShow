@@ -365,6 +365,7 @@
 				TargetAttributes = {
 					B81A653E1BEDD0E2008116E9 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 38Y9CH359W;
 					};
 				};
 			};
@@ -584,6 +585,8 @@
 			baseConfigurationReference = 3FDEBCDB569EA7EE40FE7AE2 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/AMap2DMap",
@@ -593,8 +596,9 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.xx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -603,6 +607,8 @@
 			baseConfigurationReference = 9BCDA592E0BD754126669508 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/AMap2DMap",
@@ -612,8 +618,9 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.xx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
