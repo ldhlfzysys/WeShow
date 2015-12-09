@@ -52,6 +52,8 @@
 		B8E691C01C1806D200392B7B /* map_pull_point_select.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691B81C1806D200392B7B /* map_pull_point_select.png */; };
 		B8E691C11C1806D200392B7B /* map_pull_point.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691B91C1806D200392B7B /* map_pull_point.png */; };
 		B8E691C41C1806FB00392B7B /* IncidentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E691C31C1806FB00392B7B /* IncidentView.m */; };
+		B8E691C71C180D3400392B7B /* cameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E691C61C180D3400392B7B /* cameraViewController.m */; };
+		B8E691C91C180D4100392B7B /* map_create.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691C81C180D4100392B7B /* map_create.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +124,9 @@
 		B8E691B91C1806D200392B7B /* map_pull_point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pull_point.png; sourceTree = "<group>"; };
 		B8E691C21C1806FB00392B7B /* IncidentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidentView.h; sourceTree = "<group>"; };
 		B8E691C31C1806FB00392B7B /* IncidentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidentView.m; sourceTree = "<group>"; };
+		B8E691C51C180D3400392B7B /* cameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cameraViewController.h; sourceTree = "<group>"; };
+		B8E691C61C180D3400392B7B /* cameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cameraViewController.m; sourceTree = "<group>"; };
+		B8E691C81C180D4100392B7B /* map_create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_create.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +267,8 @@
 		B81A65791BEDD19A008116E9 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B8E691C51C180D3400392B7B /* cameraViewController.h */,
+				B8E691C61C180D3400392B7B /* cameraViewController.m */,
 				B86D9D551C17123B00D844B7 /* EABaseTableViewController.h */,
 				B86D9D561C17123B00D844B7 /* EABaseTableViewController.m */,
 				B81A657A1BEDD19A008116E9 /* EABaseViewController.h */,
@@ -289,6 +296,7 @@
 		B86D9D3C1C170E9D00D844B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B8E691C81C180D4100392B7B /* map_create.png */,
 				B8E691B21C1806D200392B7B /* 2 Home p2.png */,
 				B8E691B31C1806D200392B7B /* Artboard 18 Copy 2.png */,
 				B8E691B41C1806D200392B7B /* map_live_big.png */,
@@ -385,6 +393,7 @@
 			files = (
 				B86D9D591C171CD900D844B7 /* map_background.png in Resources */,
 				B8E691BE1C1806D200392B7B /* map_pull_live.png in Resources */,
+				B8E691C91C180D4100392B7B /* map_create.png in Resources */,
 				B8E691BC1C1806D200392B7B /* map_live_big.png in Resources */,
 				B86D9D501C170EAB00D844B7 /* map_profile.png in Resources */,
 				B86D9D4F1C170EAB00D844B7 /* map_positioning.png in Resources */,
@@ -467,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B86D9D5C1C171F6200D844B7 /* PulsingHaloLayer.m in Sources */,
+				B8E691C71C180D3400392B7B /* cameraViewController.m in Sources */,
 				B81A65871BEDD19A008116E9 /* NetWorkManager.m in Sources */,
 				B81A658A1BEDD19A008116E9 /* Tools.m in Sources */,
 				B86D9D571C17123B00D844B7 /* EABaseTableViewController.m in Sources */,
