@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "EABaseViewController.h"
-@interface MainViewController : EABaseViewController
+#import "PullView.h"
+
+@interface MainViewController : EABaseViewController<PullViewDelegate>
 
 @end
