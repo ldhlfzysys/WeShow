@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "MAMapKit/MAMapKit.h"
 #import "PulsingHaloLayer.h"
+#import "cameraViewController.h"
 
 @interface MainViewController ()<MAMapViewDelegate>
 {
@@ -35,6 +36,7 @@
         leftButton = [Tools getNavigationItemWithImage:@"map_history"];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
         rightButton = [Tools getNavigationItemWithImage:@"map_profile"];
+        [rightButton addTarget:self action:@selector(testClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
         //背景地图
         mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
@@ -95,6 +97,15 @@
 
     }
     return self;
+}
+
+- (void)testClick
+{
+    cameraViewController *camerVC = [[cameraViewController alloc]init];
+    [self.navigationController presentViewController:camerVC animated:YES completion:^{
+        
+    }];
+
 }
 
 - (void)bottomViewPositionDidChange:(UIPanGestureRecognizer *)rec
