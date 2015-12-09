@@ -22,6 +22,8 @@
     PulsingHaloLayer *testLayer1;
     PulsingHaloLayer *testLayer2;
     UIImageView *testDot;
+    
+    CGPoint originPoint;
 }
 @end
 
@@ -77,14 +79,18 @@
         UIImageView *bottomViewBackground = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 400)];
         bottomViewBackground.image = [UIImage imageNamed:@"map_pull"];
         [bottomView addSubview:bottomViewBackground];
-        UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(bottomViewPositionDidChange:)];
-        [bottomView addGestureRecognizer:panGes];
+        
+
         [self.view addSubview:bottomView];
         
         bottomViewTap = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, 30, 7)];
         bottomViewTap.EA_CenterX = bottomView.frame.size.width/2;
         bottomViewTap.image = [UIImage imageNamed:@"map_pull_up"];
+        bottomViewTap.userInteractionEnabled = YES;
         [bottomView addSubview:bottomViewTap];
+        
+        UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(bottomViewPositionDidChange:)];
+        [bottomViewTap addGestureRecognizer:panGes];
         
 
     }
@@ -94,22 +100,41 @@
 - (void)bottomViewPositionDidChange:(UIPanGestureRecognizer *)rec
 {
     switch (rec.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            originPoint = [rec locationInView:self.view];
+            break;
+        }
         case UIGestureRecognizerStateEnded:
         {
             CGPoint point = [rec locationInView:self.view];
-            if (point.y >= self.view.frame.size.height - 200 && point.y <= self.view.frame.size.height)
+            if ((point.y - originPoint.y) > 20)
             {
                 [UIView animateWithDuration:0.5 animations:^{
-                    rec.view.EA_Top = self.view.frame.size.height - 27;
-                    bottomViewTap.image = [UIImage imageNamed:@"map_pull_up"];
-                }];
-            }else if (point.y > 0 && point.y < self.view.frame.size.height - 200)
-            {
-                [UIView animateWithDuration:0.5 animations:^{
-                    rec.view.EA_Top = self.view.frame.size.height - 400;
-                    bottomViewTap.image = [UIImage imageNamed:@"map_pull_down"];
+                bottomView.EA_Top = self.view.frame.size.height - 27;
+                bottomViewTap.image = [UIImage imageNamed:@"map_pull_up"];
                 }];
             }
+            else
+            {
+                [UIView animateWithDuration:0.5 animations:^{
+                bottomView.EA_Top = self.view.frame.size.height - 400;
+                bottomViewTap.image = [UIImage imageNamed:@"map_pull_down"];
+                }];
+            }
+//            if (point.y >= self.view.frame.size.height - 200 && point.y <= self.view.frame.size.height)
+//            {
+//                [UIView animateWithDuration:0.5 animations:^{
+//                    rec.view.EA_Top = self.view.frame.size.height - 27;
+//                    bottomViewTap.image = [UIImage imageNamed:@"map_pull_up"];
+//                }];
+//            }else if (point.y > 0 && point.y < self.view.frame.size.height - 200)
+//            {
+//                [UIView animateWithDuration:0.5 animations:^{
+//                    rec.view.EA_Top = self.view.frame.size.height - 400;
+//                    bottomViewTap.image = [UIImage imageNamed:@"map_pull_down"];
+//                }];
+//            }
         
             break;
         }
@@ -117,7 +142,7 @@
         {
             CGPoint point = [rec locationInView:self.view];
             if (point.y> self.view.frame.size.height - 400 && point.y < self.view.frame.size.height - 27) {
-                rec.view.EA_Top = point.y;
+                bottomView.EA_Top = point.y;
             }
             break;
         }
