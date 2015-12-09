@@ -9,13 +9,18 @@
 #import "cameraViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
+#import "soundViewController.h"
 
 #define progressRadius 50
 
 @interface cameraViewController ()<AVCaptureFileOutputRecordingDelegate>
 @property (strong,nonatomic) AVCaptureMovieFileOutput *output;
+
 @property (strong,nonatomic) CAShapeLayer *belowLayer;
 @property (strong,nonatomic) CAShapeLayer *upLayer;
+@property (strong,nonatomic) CAShapeLayer *leftLayer;
+@property (strong,nonatomic) CAShapeLayer *rightLayer;
+
 @property (strong,nonatomic) UIButton *capButton;
 @property (strong,nonatomic) NSTimer *showSecondAniTime;
 @property (assign,nonatomic) BOOL videoEnoughTime;
@@ -58,8 +63,12 @@
 {
     _belowLayer = [[CAShapeLayer alloc] init];
     _upLayer = [[CAShapeLayer alloc] init];
+    _leftLayer = [[CAShapeLayer alloc] init];
+    _rightLayer = [[CAShapeLayer alloc] init];
     [self.view.layer addSublayer:_belowLayer];
     [self.view.layer addSublayer:_upLayer];
+    [self.view.layer addSublayer:_leftLayer];
+    [self.view.layer addSublayer:_rightLayer];
 }
 
 - (void)videoInit
@@ -172,35 +181,48 @@
  // Pass the selected object to the new view controller.
  }
  */
-- (void)startCircleProgressAnimation
+
+- (void) startCircleProgressAnimation
 {
     CGPoint point = [_capButton center];
-    
-    UIBezierPath *belowpath = [UIBezierPath bezierPath];
-    [belowpath moveToPoint:CGPointMake(310, point.y)];
-    [belowpath addLineToPoint:CGPointMake(point.x + progressRadius, point.y)];
-    //拼接半圆
-    [belowpath appendPath:[UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES]];
-    _belowLayer.path = belowpath.CGPath;
-    _belowLayer.fillColor = [UIColor clearColor].CGColor;
-    _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
-    
-    
-    UIBezierPath *uppath = [UIBezierPath bezierPath];
-    [uppath moveToPoint:CGPointMake(10, point.y)];
-    [uppath addLineToPoint:CGPointMake(point.x - progressRadius, point.y)];
-    [uppath appendPath:[UIBezierPath bezierPathWithArcCenter:point radius:50 startAngle:M_PI endAngle:2*M_PI clockwise:YES]];
-    _upLayer.path = uppath.CGPath;
-    _upLayer.fillColor = [UIColor clearColor].CGColor;
-    _upLayer.strokeColor = [UIColor whiteColor].CGColor;
+    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:4.0f];
+    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:4.0f];
+    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:4.0f];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:4.0f];
+}
+- (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
+{
+    CGPoint point = [_capButton center];
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:startAngle endAngle:endAngle clockwise:YES];
+    path.lineWidth = 4;
+    layer.path = path.CGPath;
+    layer.fillColor = [UIColor clearColor].CGColor;
+    layer.strokeColor = [UIColor whiteColor].CGColor;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.duration = 8.0f;
+    animation.duration = time;
     animation.fromValue = [NSNumber numberWithFloat:1.0];
     animation.toValue = [NSNumber numberWithFloat:0];
     
-    [_belowLayer addAnimation:animation forKey:@"CircleAnimation"];
-    [_upLayer addAnimation:animation forKey:@"CircleAnimation"];
+    [layer addAnimation:animation forKey:@"CircleAnimation"];
+}
+
+- (void)startLineProgressAnimation:(CAShapeLayer *)layer startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint duration:(CFTimeInterval) time
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:startPoint];
+    [path addLineToPoint:endPoint];
+    path.lineWidth = 4;
+    layer.path = path.CGPath;
+    layer.fillColor = [UIColor clearColor].CGColor;
+    layer.strokeColor = [UIColor whiteColor].CGColor;
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.duration = time;
+    animation.fromValue = [NSNumber numberWithFloat:0];
+    animation.toValue = [NSNumber numberWithFloat:1.0];
+    
+    [layer addAnimation:animation forKey:@"LineAnimation"];
 }
 
 - (void) videoIsLongEnough
@@ -220,20 +242,23 @@
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.speed = 0.0f;
     _upLayer.speed = 0.0f;
+    _leftLayer.speed = 0.0f;
+    _rightLayer.speed = 0.0f;
     _belowLayer.timeOffset = pausedTime;
     _upLayer.timeOffset = pausedTime;
+    _leftLayer.timeOffset = pausedTime;
+    _rightLayer.timeOffset = pausedTime;
 }
 
 - (void)clickVideoBtn:(UILongPressGestureRecognizer *)gesture
 {
+    //设置录制视频保存的路径
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVidio.mov"];
+    
+    //转为视频保存的url
+    NSURL *url = [NSURL fileURLWithPath:path];
     if (gesture.state == UIGestureRecognizerStateBegan) {
         NSLog(@"开始");
-        //设置录制视频保存的路径
-        NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVidio.mov"];
-        
-        //转为视频保存的url
-        NSURL *url = [NSURL fileURLWithPath:path];
-        
         //开始录制,并设置控制器为录制的代理
         [self.output startRecordingToOutputFileURL:url recordingDelegate:self];
         [self startCircleProgressAnimation];
@@ -250,7 +275,7 @@
         //停止动画
         [self pauseCircleProgressAnimation];
         [_capButton setEnabled:NO];
-        //pushViewController
+
         NSLog(@"结束");
         
     }else if (gesture.state == UIGestureRecognizerStateChanged)
@@ -268,6 +293,8 @@
 {
     if (_videoEnoughTime) {
         NSLog(@"完成录制,可以自己做进一步的处理");
+        soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:outputFileURL];
+        [self presentViewController:VC animated:YES completion:nil];
     }
 }
 
