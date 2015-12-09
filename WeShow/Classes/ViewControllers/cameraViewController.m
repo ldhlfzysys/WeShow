@@ -44,7 +44,6 @@
     longPressGr.minimumPressDuration = 0;
     [_capButton addGestureRecognizer:longPressGr];
     [self.view addSubview:_capButton];
-    [self initAnimationLayer];
     
     UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(40, 40, 55, 55)];
     [backbutton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
@@ -57,6 +56,8 @@
     [turnAroundButton setBackgroundColor:[UIColor clearColor]];
     [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:turnAroundButton];
+    
+    [self initAnimationLayer];
 }
 
 - (void) initAnimationLayer
