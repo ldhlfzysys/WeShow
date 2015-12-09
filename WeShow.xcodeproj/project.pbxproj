@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E8E6AAC1C181AF500897F03 /* soundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E8E6AAB1C181AF500897F03 /* soundViewController.m */; };
 		3EBBC1941C1539BB008C53CB /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1931C1539BB008C53CB /* MAMapKit.framework */; };
 		3EBBC1961C1539C6008C53CB /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */; };
 		4DE17127B550BF5C66B1D71E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A56768EEA638E15239E03D /* libPods.a */; };
@@ -57,6 +58,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E8E6AAA1C181AF500897F03 /* soundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundViewController.h; sourceTree = "<group>"; };
+		3E8E6AAB1C181AF500897F03 /* soundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = soundViewController.m; sourceTree = "<group>"; };
 		3EBBC1931C1539BB008C53CB /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = Pods/AMap2DMap/MAMapKit.framework; sourceTree = "<group>"; };
 		3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = Pods/AMapSearch/AMapSearchKit.framework; sourceTree = "<group>"; };
 		3FDEBCDB569EA7EE40FE7AE2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 			children = (
 				B8E691C51C180D3400392B7B /* cameraViewController.h */,
 				B8E691C61C180D3400392B7B /* cameraViewController.m */,
+				3E8E6AAA1C181AF500897F03 /* soundViewController.h */,
+				3E8E6AAB1C181AF500897F03 /* soundViewController.m */,
 				B86D9D551C17123B00D844B7 /* EABaseTableViewController.h */,
 				B86D9D561C17123B00D844B7 /* EABaseTableViewController.m */,
 				B81A657A1BEDD19A008116E9 /* EABaseViewController.h */,
@@ -365,7 +370,7 @@
 				TargetAttributes = {
 					B81A653E1BEDD0E2008116E9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 38Y9CH359W;
+						DevelopmentTeam = Q4Y3Y3NH8S;
 					};
 				};
 			};
@@ -492,6 +497,7 @@
 				B81A658F1BEDD19A008116E9 /* EABaseTableViewCell.m in Sources */,
 				B81A65851BEDD19A008116E9 /* EABaseModel.m in Sources */,
 				B81A65881BEDD19A008116E9 /* NSDictionary+Utils.m in Sources */,
+				3E8E6AAC1C181AF500897F03 /* soundViewController.m in Sources */,
 				B81A65831BEDD19A008116E9 /* MainViewController.m in Sources */,
 				B8E691C41C1806FB00392B7B /* IncidentView.m in Sources */,
 			);
@@ -596,7 +602,7 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.xx;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.insomnia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -618,7 +624,7 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.xx;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.insomnia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
