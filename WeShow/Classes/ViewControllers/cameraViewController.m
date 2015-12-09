@@ -104,6 +104,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [_capButton setEnabled:YES];
     //[self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -246,6 +247,7 @@
         }
         //停止动画
         [self pauseCircleProgressAnimation];
+        [_capButton setEnabled:NO];
         //pushViewController
         NSLog(@"结束");
 
