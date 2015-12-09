@@ -9,13 +9,17 @@
 #import "cameraViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
-#import "circleProgressView.h"
+
+#define progressRadius 50
 
 @interface cameraViewController ()<AVCaptureFileOutputRecordingDelegate>
 @property (strong,nonatomic) AVCaptureMovieFileOutput *output;
 @property (strong,nonatomic) CAShapeLayer *belowLayer;
 @property (strong,nonatomic) CAShapeLayer *upLayer;
 @property (strong,nonatomic) UIButton *capButton;
+@property (strong,nonatomic) NSTimer *showSecondAniTime;
+@property (assign,nonatomic) BOOL videoEnoughTime;
+
 @property (assign,nonatomic) NSTimeInterval startTimestamp;
 @property (assign,nonatomic) NSTimeInterval endTimestamp;
 
@@ -35,7 +39,11 @@
     [_capButton addGestureRecognizer:longPressGr];
     
     [self.view addSubview:_capButton];
-    
+    [self initAnimationLayer];
+}
+
+- (void) initAnimationLayer
+{
     _belowLayer = [[CAShapeLayer alloc] init];
     _upLayer = [[CAShapeLayer alloc] init];
     [self.view.layer addSublayer:_belowLayer];
@@ -106,29 +114,53 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (void)startProgressAnimation
+- (void)startCircleProgressAnimation
 {
     CGPoint point = [_capButton center];
-    UIBezierPath *belowpath = [UIBezierPath bezierPathWithArcCenter:point radius:50 startAngle:0 endAngle:M_PI clockwise:YES];
+    UIBezierPath *belowpath = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES];
     _belowLayer.path = belowpath.CGPath;
     _belowLayer.fillColor = [UIColor clearColor].CGColor;
     _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
     
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.duration = 4.0f;
-    animation.fromValue = [NSNumber numberWithFloat:1.0];
-    animation.toValue = [NSNumber numberWithFloat:0];
-    [_belowLayer addAnimation:animation forKey:@"startAnimation"];
     
     UIBezierPath *uppath = [UIBezierPath bezierPathWithArcCenter:point radius:50 startAngle:M_PI endAngle:2*M_PI clockwise:YES];
     _upLayer.path = uppath.CGPath;
     _upLayer.fillColor = [UIColor clearColor].CGColor;
     _upLayer.strokeColor = [UIColor whiteColor].CGColor;
     
-    [_upLayer addAnimation:animation forKey:@"startAnimation"];
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.duration = 4.0f;
+    animation.fromValue = [NSNumber numberWithFloat:1.0];
+    animation.toValue = [NSNumber numberWithFloat:0];
+    [_belowLayer addAnimation:animation forKey:@"startCircleAnimation"];
+    
+    [_upLayer addAnimation:animation forKey:@"startCircleAnimation"];
 }
 
-- (void)kickbackProgressAnimation
+- (void) startLineProgressAnimation
+{
+    _videoEnoughTime = YES;
+    
+    CGPoint point = [_capButton center];
+    UIBezierPath *leftpath = [UIBezierPath bezierPath];
+    [leftpath moveToPoint:CGPointMake(10, point.y)];
+    [leftpath addLineToPoint:CGPointMake(point.x - progressRadius, point.y)];
+    _belowLayer.path = leftpath.CGPath;
+    
+    UIBezierPath *rightpath = [UIBezierPath bezierPath];
+    [rightpath moveToPoint:CGPointMake(310, point.y)];
+    [rightpath addLineToPoint:CGPointMake(point.x + progressRadius, point.y)];
+    _upLayer.path = rightpath.CGPath;
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.duration = 4.0f;
+    animation.fromValue = [NSNumber numberWithFloat:1.0];
+    animation.toValue = [NSNumber numberWithFloat:0];
+    [_belowLayer addAnimation:animation forKey:@"LineAnimation"];
+    [_upLayer addAnimation:animation forKey:@"LineAnimation"];
+}
+
+- (void)kickbackCircleProgressAnimation
 {
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.timeOffset = pausedTime;
@@ -146,24 +178,8 @@
     
     //设置按钮的title
     //[sender setTitle:@"停止" forState:UIControlStateNormal];
-    
     if (gesture.state == UIGestureRecognizerStateBegan) {
         NSLog(@"开始");
-        [self startProgressAnimation];
-        NSDate* currentDate = [NSDate date];
-        _startTimestamp = [currentDate timeIntervalSince1970];
-    }else if (gesture.state == UIGestureRecognizerStateEnded)
-    {
-        NSDate* currentDate = [NSDate date];
-        _endTimestamp = [currentDate timeIntervalSince1970];
-        if (_endTimestamp - _startTimestamp < 4) {
-            NSLog(@"不足4秒");
-            [self kickbackProgressAnimation];
-            return;
-        }
-        NSLog(@"结束");
-        [self.output stopRecording];
-        //10.开始录制视频
         //设置录制视频保存的路径
         NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVidio.mov"];
         
@@ -172,6 +188,23 @@
         
         //开始录制,并设置控制器为录制的代理
         [self.output startRecordingToOutputFileURL:url recordingDelegate:self];
+        [self startCircleProgressAnimation];
+        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(startLineProgressAnimation) userInfo:nil repeats:NO];
+    }else if (gesture.state == UIGestureRecognizerStateEnded)
+    {
+        [self.output stopRecording];
+        if (!_videoEnoughTime) {
+            NSLog(@"不足4秒");
+            [_showSecondAniTime invalidate];
+            [self kickbackCircleProgressAnimation];
+            return;
+        }
+        //停止动画
+        _belowLayer.speed = 0;
+        _upLayer.speed = 0;
+        
+        NSLog(@"结束");
+
     }else if (gesture.state == UIGestureRecognizerStateChanged)
     {
 
