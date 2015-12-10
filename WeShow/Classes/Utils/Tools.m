@@ -33,6 +33,15 @@
             label.text = @"WeShow";
             break;
         }
+        case NavTypeCreatePage:
+        {
+            tabBarItem.image  = [UIImage imageNamed:@"tabbar_1.png"];
+            //后面那句就让图片能正常显示了
+            tabBarItem.selectedImage = [[UIImage imageNamed:@"tabbar_1_se.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            tabBarItem.title = @"发现";
+            label.text = @"创建实况";
+            break;
+        }
 
         default:
             break;
@@ -52,7 +61,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:18.0];
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor blackColor];
+    label.textColor = [UIColor whiteColor];
     label.text = title;
     return label;
     

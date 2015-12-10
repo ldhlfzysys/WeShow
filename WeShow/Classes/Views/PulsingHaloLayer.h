@@ -17,4 +17,7 @@
 @property (nonatomic, assign) NSTimeInterval animationDuration; // default:3s
 @property (nonatomic, assign) NSTimeInterval pulseInterval; // default is 0s
 
+@property (nonatomic, strong) NSArray *alphas;
+
+- (instancetype)initWithAlphas:(NSArray *)alphas;
 @end

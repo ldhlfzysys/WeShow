@@ -12,6 +12,7 @@
 #import "cameraViewController.h"
 #import "IncidentView.h"
 #import "DotView.h"
+#import "CreateViewController.h"
 
 @interface MainViewController ()<MAMapViewDelegate>
 {
@@ -19,7 +20,7 @@
     UIButton * arrowButton;
     UIButton *rightButton;
     UIButton *leftButton;
-    PullView *bottomView;
+
     UIScrollView *mainScrollView;
     CGPoint originPoint;
     CGFloat bottomViewHeight;
@@ -28,6 +29,7 @@
     DotView *dot2;
     DotView *dot3;
 }
+@property (nonatomic,strong) PullView *bottomView;
 @end
 
 @implementation MainViewController
@@ -51,44 +53,47 @@
         [mainScrollView addSubview:scrollViewBackground];
         [self.view addSubview:mainScrollView];
         
-        dot1 = [[DotView alloc]initWithFrame:CGRectMake(180, 180, 120, 120)];
+        dot1 = [[DotView alloc]initWithFrame:CGRectMake(180, 180, 100, 100)];
         dot1.tag = 0;
         [mainScrollView addSubview:dot1];
+        __block MainViewController *blockSelf = self;
         [dot1 setClickBlock:^{
-            
+            CreateViewController *create = [[CreateViewController alloc]init];
+            [blockSelf.navigationController pushViewController:create animated:YES];
+            [blockSelf.bottomView scrollToIndex:0];
         }];
         
-        dot2 = [[DotView alloc]initWithFrame:CGRectMake(200, 350, 120, 120)];
+        dot2 = [[DotView alloc]initWithFrame:CGRectMake(200, 350, 80, 80)];
         dot2.tag = 0;
         [mainScrollView addSubview:dot2];
         [dot2 setClickBlock:^{
-            
+            [blockSelf.bottomView scrollToIndex:1];
         }];
         
-        dot3 = [[DotView alloc]initWithFrame:CGRectMake(250, 80, 120, 120)];
+        dot3 = [[DotView alloc]initWithFrame:CGRectMake(250, 80, 60, 60)];
         dot3.tag = 0;
         [mainScrollView addSubview:dot3];
         
         [dot3 setClickBlock:^{
-            
+            [blockSelf.bottomView scrollToIndex:2];
         }];
 
 
         
         //可拉起菜单
         bottomViewHeight = self.view.EA_Width * 1.215;
-        bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 17 - 64, self.view.EA_Width, bottomViewHeight)];
-        bottomView.delegate = self;
-        [self.view addSubview:bottomView];
+        _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 17 - 64, self.view.EA_Width, bottomViewHeight)];
+        _bottomView.delegate = self;
+        [self.view addSubview:_bottomView];
         
-        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(50,  10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
-        [bottomView.mainScorll addSubview:test1];
+        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(50,  10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        [_bottomView.mainScorll addSubview:test1];
         
-        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(20 + bottomView.mainScorll.EA_Width,  10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
-        [bottomView.mainScorll addSubview:test2];
+        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(20 + _bottomView.mainScorll.EA_Width,  10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        [_bottomView.mainScorll addSubview:test2];
         
-        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(bottomView.mainScorll.EA_Width*2 - 10, 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
-        [bottomView.mainScorll addSubview:test3];
+        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 - 10, 10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        [_bottomView.mainScorll addSubview:test3];
         
 
     }
@@ -139,15 +144,15 @@
             if ((point.y - originPoint.y) > 20)
             {
                 [UIView animateWithDuration:0.5 animations:^{
-                bottomView.EA_Top = self.view.frame.size.height - 17;
-                bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_up"];
+                _bottomView.EA_Top = self.view.frame.size.height - 17;
+                _bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_up"];
                 }];
             }
             else
             {
                 [UIView animateWithDuration:0.5 animations:^{
-                bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight;
-                bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_down"];
+                _bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight;
+                _bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_down"];
                 }];
             }
         
@@ -157,7 +162,7 @@
         {
             CGPoint point = [gesture locationInView:self.view];
             if (point.y> self.view.frame.size.height - bottomViewHeight && point.y < self.view.frame.size.height - 17) {
-                bottomView.EA_Top = point.y;
+                _bottomView.EA_Top = point.y;
             }
             break;
         }

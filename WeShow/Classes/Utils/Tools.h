@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 typedef enum {
     NavTypeMainPage = 0,
+    NavTypeCreatePage,
 }NavType;
 
 @interface Tools : NSObject
