@@ -11,6 +11,7 @@
 #import "PulsingHaloLayer.h"
 #import "cameraViewController.h"
 #import "IncidentView.h"
+#import "DotView.h"
 
 @interface MainViewController ()<MAMapViewDelegate>
 {
@@ -20,14 +21,12 @@
     UIButton *leftButton;
     PullView *bottomView;
     UIScrollView *mainScrollView;
-    PulsingHaloLayer *testLayer1;
-    PulsingHaloLayer *testLayer2;
-    UIImageView *testDot;
-    
     CGPoint originPoint;
-    
     CGFloat bottomViewHeight;
     
+    DotView *dot1;
+    DotView *dot2;
+    DotView *dot3;
 }
 @end
 
@@ -43,7 +42,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
         //背景地图
         mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
-        mainScrollView.contentSize = CGSizeMake(640, 640);
+        mainScrollView.contentSize = CGSizeMake(2000, 2000);
         mainScrollView.bounces = NO;
         mainScrollView.showsHorizontalScrollIndicator = NO;
         mainScrollView.showsVerticalScrollIndicator = NO;
@@ -51,31 +50,30 @@
         scrollViewBackground.image = [UIImage imageNamed:@"map_background"];
         [mainScrollView addSubview:scrollViewBackground];
         [self.view addSubview:mainScrollView];
+        
+        dot1 = [[DotView alloc]initWithFrame:CGRectMake(180, 180, 120, 120)];
+        dot1.tag = 0;
+        [mainScrollView addSubview:dot1];
+        [dot1 setClickBlock:^{
+            
+        }];
+        
+        dot2 = [[DotView alloc]initWithFrame:CGRectMake(200, 350, 120, 120)];
+        dot2.tag = 0;
+        [mainScrollView addSubview:dot2];
+        [dot2 setClickBlock:^{
+            
+        }];
+        
+        dot3 = [[DotView alloc]initWithFrame:CGRectMake(250, 80, 120, 120)];
+        dot3.tag = 0;
+        [mainScrollView addSubview:dot3];
+        
+        [dot3 setClickBlock:^{
+            
+        }];
 
-        
-        testDot = [[UIImageView alloc]initWithFrame:CGRectMake(50, 50, 120, 120)];
-        testDot.image = [UIImage imageNamed:@"map_range"];
-        [mainScrollView addSubview:testDot];
-        
-        UIImageView *testDotTag = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 21, 21)];
-        testDotTag.image = [UIImage imageNamed:@"map_live"];
-        testDotTag.EA_CenterX = testDot.frame.size.width/2;
-        testDotTag.EA_Bottom = testDot.frame.size.height/2;
-        [testDot addSubview:testDotTag];
-        
-        testLayer1 = [[PulsingHaloLayer alloc]init];
-        testLayer1.position = CGPointMake(testDot.frame.size.width/2, testDot.frame.size.height/2);
-        testLayer1.radius = 40;
-        testLayer1.animationDuration = 1.5;
-        testLayer1.pulseInterval = 1.5;
-        [testDot.layer addSublayer:testLayer1];
-        
-        testLayer2 = [[PulsingHaloLayer alloc]init];
-        testLayer2.position = CGPointMake(testDot.frame.size.width/2, testDot.frame.size.height/2);
-        testLayer2.radius = 70;
-        testLayer2.animationDuration = 3;
-        testLayer2.pulseInterval = 0;
-        [testDot.layer addSublayer:testLayer2];
+
         
         //可拉起菜单
         bottomViewHeight = self.view.EA_Width * 1.215;
@@ -83,13 +81,13 @@
         bottomView.delegate = self;
         [self.view addSubview:bottomView];
         
-        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(20, bottomView.EA_Width * 0.04 + 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(50,  10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
         [bottomView.mainScorll addSubview:test1];
         
-        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(20, bottomView.EA_Width * 0.04 + 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(20 + bottomView.mainScorll.EA_Width,  10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
         [bottomView.mainScorll addSubview:test2];
         
-        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(20, bottomView.EA_Width * 0.04 + 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(bottomView.mainScorll.EA_Width*2 - 10, 10, bottomView.EA_Width - 40, bottomView.EA_Height - bottomView.EA_Width * 0.04 - 50)];
         [bottomView.mainScorll addSubview:test3];
         
 
@@ -107,6 +105,25 @@
 }
 
 #pragma mark - PullViewDelegate
+
+- (void)pullViewScrollToIndex:(NSInteger)index{
+    switch (index) {
+        case 0:
+        {
+           break;
+        }
+        case 1:
+        {
+            break;
+        }
+        case 2:
+        {
+            break;
+        }    
+        default:
+            break;
+    }
+}
 
 - (void)pullViewPositionChange:(UIPanGestureRecognizer *)gesture
 {

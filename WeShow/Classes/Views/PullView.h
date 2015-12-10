@@ -10,8 +10,7 @@
 
 @protocol PullViewDelegate <NSObject>
 
-- (void)pullViewDidScroll:(UIScrollView *)scrollView;
-- (void)pullViewDidStarDragging:(UIScrollView *)scrollView;
+- (void)pullViewScrollToIndex:(NSInteger)index;
 
 - (void)pullViewPositionChange:(UIPanGestureRecognizer *)gesture;
 
@@ -25,4 +24,5 @@
 @property (nonatomic, strong) UIImageView *tapControlImage;
 @property (nonatomic, assign) id<PullViewDelegate> delegate;
 @property (nonatomic, strong) UIPageControl *pageControl;
+- (void)scrollToIndex:(NSInteger)index;
 @end

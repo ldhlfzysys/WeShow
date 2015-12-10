@@ -14,7 +14,8 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
-        _mainImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, self.EA_Height - 86)];
+        CGFloat mainImageHeight = (31.0/34.0) * self.EA_Width;
+        _mainImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, mainImageHeight)];
         _mainImage.image = [UIImage imageNamed:@"incident_b1"];
         [self addSubview:_mainImage];
         
