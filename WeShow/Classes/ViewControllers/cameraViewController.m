@@ -11,7 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "soundViewController.h"
 
-#define progressRadius 50
+#define progressRadius 30
 
 @interface cameraViewController ()<AVCaptureFileOutputRecordingDelegate>
 @property (strong,nonatomic) AVCaptureMovieFileOutput *output;
@@ -26,8 +26,7 @@
 @property (assign,nonatomic) BOOL videoEnoughTime;
 @property (strong,nonatomic) AVCaptureSession *session;
 
-@property (assign,nonatomic) NSTimeInterval startTimestamp;
-@property (assign,nonatomic) NSTimeInterval endTimestamp;
+@property (strong,nonatomic) CABasicAnimation *animationTest;
 
 @end
 
@@ -37,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self videoInit];
-    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(120,667 - 195,55,55)];
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(135,667 - 195,50,50)];
     [_capButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
     [_capButton setBackgroundColor:[UIColor clearColor]];
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoBtn:)];
@@ -45,13 +44,13 @@
     [_capButton addGestureRecognizer:longPressGr];
     [self.view addSubview:_capButton];
     
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(40, 40, 55, 55)];
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(40, 40, 50,50)];
     [backbutton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
     [backbutton setBackgroundColor:[UIColor clearColor]];
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backbutton];
     
-    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(225, 40, 55, 55)];
+    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(225, 40, 50,50)];
     [turnAroundButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
     [turnAroundButton setBackgroundColor:[UIColor clearColor]];
     [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
@@ -72,11 +71,13 @@
     CGPoint point = [_capButton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES];
     _belowLayer.path = path.CGPath;
+    _belowLayer.lineWidth = 2;
     _belowLayer.fillColor = [UIColor clearColor].CGColor;
     _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
     
     UIBezierPath *path1 = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:M_PI endAngle:2*M_PI clockwise:YES];
     _upLayer.path = path1.CGPath;
+    _upLayer.lineWidth = 2;
     _upLayer.fillColor = [UIColor clearColor].CGColor;
     _upLayer.strokeColor = [UIColor whiteColor].CGColor;
 }
@@ -207,6 +208,7 @@
     CGPoint point = [_capButton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:startAngle endAngle:endAngle clockwise:YES];
     layer.path = path.CGPath;
+    layer.lineWidth = 2;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
     
@@ -224,6 +226,7 @@
     [path moveToPoint:startPoint];
     [path addLineToPoint:endPoint];
     layer.path = path.CGPath;
+    layer.lineWidth = 2;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
     
@@ -234,6 +237,13 @@
     animation.fillMode = kCAFillModeBackwards;
     
     [layer addAnimation:animation forKey:@"LineAnimation"];
+//    _animationTest = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+//        _animationTest.duration = time;
+//        _animationTest.fromValue = [NSNumber numberWithFloat:0];
+//        _animationTest.toValue = [NSNumber numberWithFloat:1.0];
+//    _animationTest.fillMode = kCAFillModeBackwards;
+//    
+//    [layer addAnimation:_animationTest forKey:@"LineAnimation"];
 }
 
 - (void) videoIsLongEnough
@@ -247,7 +257,15 @@
     _belowLayer.timeOffset = pausedTime;
     _upLayer.timeOffset = pausedTime;
     _rightLayer.timeOffset = _rightLayer.beginTime + 4 - pausedTime;
-    _leftLayer.timeOffset =  _leftLayer.beginTime + 4 - pausedTime;
+    _leftLayer.timeOffset = _rightLayer.beginTime + 4 - pausedTime;
+//    NSNumber *num = [_rightLayer.presentationLayer valueForKey:@"strokeEnd"];
+//    
+//    [_rightLayer removeAnimationForKey:@"LineAnimation"];
+//    _animationTest.duration = 0.3f;
+//    _animationTest.fromValue = num;
+//    _animationTest.toValue = [NSNumber numberWithFloat:0.0];
+//    _animationTest.fillMode = kCAFillModeBoth;
+//    [_rightLayer addAnimation:_animationTest forKey:@"layerAnimation_reverse"];
 }
 
 - (void)pauseProgressAnimation
