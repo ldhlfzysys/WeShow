@@ -8,6 +8,7 @@
 
 #import "soundViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "postViewController.h"
 #define progressRadius 50
 
 @interface soundViewController ()
@@ -76,11 +77,11 @@
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backbutton];
     
-    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(225, 40, 55, 55)];
-    [turnAroundButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
-    [turnAroundButton setBackgroundColor:[UIColor clearColor]];
-    [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:turnAroundButton];
+    UIButton *postButton = [[UIButton alloc]initWithFrame:CGRectMake(225, 40, 55, 55)];
+    [postButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    [postButton setBackgroundColor:[UIColor clearColor]];
+    [postButton addTarget:self action:@selector(postFinalVideo) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:postButton];
     
     [self initAnimationLayer];
 }
@@ -117,6 +118,11 @@
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+- (void)postFinalVideo
+{
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -219,6 +225,11 @@
         //停止动画
         [self pauseCircleProgressAnimation];
         [_capButton setEnabled:NO];
+        
+        postViewController *VC = [[postViewController alloc]initWithMediaUrl:_mediaUrl];
+        [self presentViewController:VC animated:YES completion:^{
+            
+        }];
         
         NSLog(@"结束");
         
