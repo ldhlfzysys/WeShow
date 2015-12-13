@@ -17,12 +17,17 @@
 @property(strong,nonatomic) mediaView *nextMediaView;
 @property(strong,nonatomic) mediaView *nnextMediaView;
 
+@property (strong,nonatomic) NSArray *mediaURLs;
+@property(assign,nonatomic) NSInteger currentPageNum;
+
 @end
 
 @implementation sceneViewController
 
 - (void)viewDidLoad
 {
+    self.mediaURLs = [NSArray arrayWithObjects:@"1", @"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",nil];
+    self.currentPageNum = 1;
     [self scrollViewInit];
 }
 
@@ -54,19 +59,16 @@
     _photoScrollerView.decelerationRate = UIScrollViewDecelerationRateFast;
     [_photoScrollerView setDelegate:self];
     
-    /**
-     *  创建三个 largeview 页面，并且填充缩略图
-     */
     if (_currentMediaView == nil) {
-        _currentMediaView = [[mediaView alloc] initWithFrame:self.view.bounds URL:@"" isVideo:YES];
+        _currentMediaView = [[mediaView alloc] initWithFrame:self.view.bounds URL:[_mediaURLs objectAtIndex:0] isVideo:YES];
     }
     
     if (_nextMediaView == nil) {
-        _nextMediaView = [[mediaView alloc] initWithFrame:CGRectZero URL:@"" isVideo:YES];
+        _nextMediaView = [[mediaView alloc] initWithFrame:CGRectZero URL:[_mediaURLs objectAtIndex:1] isVideo:YES];
     }
     
     if (_nnextMediaView == nil) {
-        _nnextMediaView = [[mediaView alloc] initWithFrame:CGRectZero URL:@"" isVideo:YES];
+        _nnextMediaView = [[mediaView alloc] initWithFrame:CGRectZero URL:[_mediaURLs objectAtIndex:2] isVideo:YES];
     }
     
 //    CGPoint offset;
@@ -85,4 +87,55 @@
     
 }
 
+- (CGRect)frameForPageAtIndex:(NSUInteger)index
+{
+    CGRect bounds = [_photoScrollerView frame];
+    CGRect rect = [UIScreen mainScreen].bounds;
+    CGRect pageFrame = bounds;
+    pageFrame.size.width -= (2 * PADDING);
+    pageFrame.size.height = rect.size.width;
+    
+    pageFrame.origin.y = 0;
+    pageFrame.origin.x = (bounds.size.width * index) + PADDING;
+    return pageFrame;
+}
+
+- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if(_currentMediaView.isVideo)
+    {
+        [_currentMediaView.avPlayer pause];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    mediaView *tempPage = nil;
+    _currentPageNum++;
+    
+    tempPage = _currentMediaView;
+    _currentMediaView = _nextMediaView;
+    _nextMediaView = _nnextMediaView;
+    _nnextMediaView = tempPage;
+    
+    _currentMediaView.frame = [self frameForPageAtIndex:_currentPageNum ];
+    _nextMediaView.frame = [self frameForPageAtIndex:(_currentPageNum + 1)];
+    
+    _nnextMediaView = [[mediaView alloc]initWithFrame:[self frameForPageAtIndex:(_currentPageNum + 2)] URL:[_mediaURLs objectAtIndex:(_currentPageNum + 1)] isVideo:YES];
+    
+}
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGFloat pageWidth = _photoScrollerView.frame.size.width;
+    int page = floor((_photoScrollerView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+
+    if (page > _currentPageNum + 1 || page < _currentPageNum - 1) {
+        CGPoint point;
+        point.x = _currentPageNum * pageWidth;
+        point.y = _photoScrollerView.contentOffset.y;
+        _photoScrollerView.contentOffset = point;
+    }
+    
+}
 @end

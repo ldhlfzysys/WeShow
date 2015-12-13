@@ -14,6 +14,7 @@
 {
     self = [super initWithFrame:frame];
     self.mediaUrl = url;
+    self.isVideo = isvideo;
     if (isvideo) {
         [self initVideo];
     }else

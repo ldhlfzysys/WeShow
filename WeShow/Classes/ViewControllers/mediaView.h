@@ -19,4 +19,6 @@
 @property (strong, nonatomic) AVPlayer *avPlayer;
 @property (strong, nonatomic) AVPlayerLayer *avPlayerLayer;
 
+@property (strong,nonatomic)   NSString *nextUrl;
+
 @end
