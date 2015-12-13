@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface sceneViewController : UIViewController
+@interface sceneViewController : UIViewController<UIScrollViewDelegate>
 
 @end
