@@ -32,7 +32,7 @@
         
         _tapImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 5, tapControlWidth - 10, tapControlHeight - 10)];
         _tapImage.EA_CenterX = _bgImage.frame.size.width/2;
-        _tapImage.image = [UIImage imageNamed:@"map_pull_up"];
+        _tapImage.image = [UIImage imageNamed:@"map_pull_down"];
         [self addSubview:_tapImage];
         
         _tapControlImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, tapControlWidth, tapControlHeight)];
@@ -40,8 +40,8 @@
         _tapControlImage.EA_CenterX = _bgImage.frame.size.width/2;
         [self addSubview:_tapControlImage];
         
-        UIPanGestureRecognizer *panGes = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(positionChange:)];
-        [_tapControlImage addGestureRecognizer:panGes];
+        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(positionChange:)];
+        [_tapControlImage addGestureRecognizer:tapGes];
         
         _mainScorll = [[UIScrollView alloc]initWithFrame:CGRectMake(20, tapControlHeight, self.EA_Width - 40, self.EA_Height - tapControlHeight - 40)];//减去40用于放uipagecontrol
         _mainScorll.contentSize = CGSizeMake((self.EA_Width - 40) * 3, _mainScorll.EA_Height);
@@ -58,7 +58,7 @@
         
         _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, 100, 8)];
         _pageControl.numberOfPages = 3;
-        _pageControl.currentPage = 1;
+        _pageControl.currentPage = 0;
         _pageControl.EA_CenterX = self.EA_Width / 2;
         _pageControl.EA_Bottom = self.EA_Height - 16;
         [self addSubview:_pageControl];
@@ -71,7 +71,20 @@
     return self;
 }
 
-- (void)positionChange:(UIPanGestureRecognizer *)gesture
+- (void)scrollToIndex:(NSInteger)index
+{
+    _pageControl.currentPage = index;
+    [_mainScorll setContentOffset:CGPointMake(index * _mainScorll.EA_Width, 0) animated:YES];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger index = scrollView.contentOffset.x/_mainScorll.EA_Width;
+    _pageControl.currentPage = index;
+    [self.delegate pullViewScrollToIndex:index];
+}
+
+- (void)positionChange:(UITapGestureRecognizer *)gesture
 {
     if ([self.delegate respondsToSelector:@selector(pullViewPositionChange:)]) {
         [self.delegate pullViewPositionChange:gesture];

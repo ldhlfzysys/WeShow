@@ -12,7 +12,7 @@
 
 - (void)pullViewScrollToIndex:(NSInteger)index;
 
-- (void)pullViewPositionChange:(UIPanGestureRecognizer *)gesture;
+- (void)pullViewPositionChange:(UITapGestureRecognizer *)gesture;
 
 @end
 
@@ -24,5 +24,6 @@
 @property (nonatomic, strong) UIImageView *tapControlImage;
 @property (nonatomic, assign) id<PullViewDelegate> delegate;
 @property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, assign) BOOL showing;
 - (void)scrollToIndex:(NSInteger)index;
 @end
