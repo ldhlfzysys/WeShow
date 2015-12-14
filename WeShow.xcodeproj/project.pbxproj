@@ -64,6 +64,13 @@
 		B8E691E21C1977BF00392B7B /* incident_b2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691E01C1977BF00392B7B /* incident_b2@2x.png */; };
 		B8E691E31C1977BF00392B7B /* incident_b1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691E11C1977BF00392B7B /* incident_b1@2x.png */; };
 		B8E691E61C19789600392B7B /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E691E51C19789600392B7B /* CreateViewController.m */; };
+		B8E691F21C1E63CF00392B7B /* create_createlive.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691F11C1E63CF00392B7B /* create_createlive.png */; };
+		B8E691F81C1E63E000392B7B /* photo_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691F31C1E63E000392B7B /* photo_refresh.png */; };
+		B8E691F91C1E63E000392B7B /* photo_send_big.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691F41C1E63E000392B7B /* photo_send_big.png */; };
+		B8E691FA1C1E63E000392B7B /* photo_send.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691F51C1E63E000392B7B /* photo_send.png */; };
+		B8E691FB1C1E63E000392B7B /* photo_shoot.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691F61C1E63E000392B7B /* photo_shoot.png */; };
+		B8E691FC1C1E63E000392B7B /* photo_sound.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691F71C1E63E000392B7B /* photo_sound.png */; };
+		B8E692001C1E686A00392B7B /* video_back.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691FF1C1E686900392B7B /* video_back.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,6 +161,13 @@
 		B8E691E11C1977BF00392B7B /* incident_b1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "incident_b1@2x.png"; sourceTree = "<group>"; };
 		B8E691E41C19789600392B7B /* CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
 		B8E691E51C19789600392B7B /* CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
+		B8E691F11C1E63CF00392B7B /* create_createlive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = create_createlive.png; sourceTree = "<group>"; };
+		B8E691F31C1E63E000392B7B /* photo_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_refresh.png; sourceTree = "<group>"; };
+		B8E691F41C1E63E000392B7B /* photo_send_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_send_big.png; sourceTree = "<group>"; };
+		B8E691F51C1E63E000392B7B /* photo_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_send.png; sourceTree = "<group>"; };
+		B8E691F61C1E63E000392B7B /* photo_shoot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_shoot.png; sourceTree = "<group>"; };
+		B8E691F71C1E63E000392B7B /* photo_sound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_sound.png; sourceTree = "<group>"; };
+		B8E691FF1C1E686900392B7B /* video_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_back.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +351,13 @@
 		B86D9D3C1C170E9D00D844B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B8E691FF1C1E686900392B7B /* video_back.png */,
+				B8E691F31C1E63E000392B7B /* photo_refresh.png */,
+				B8E691F41C1E63E000392B7B /* photo_send_big.png */,
+				B8E691F51C1E63E000392B7B /* photo_send.png */,
+				B8E691F61C1E63E000392B7B /* photo_shoot.png */,
+				B8E691F71C1E63E000392B7B /* photo_sound.png */,
+				B8E691F11C1E63CF00392B7B /* create_createlive.png */,
 				B8E691E01C1977BF00392B7B /* incident_b2@2x.png */,
 				B8E691E11C1977BF00392B7B /* incident_b1@2x.png */,
 				B8E691C81C180D4100392B7B /* map_create.png */,
@@ -409,7 +430,7 @@
 				TargetAttributes = {
 					B81A653E1BEDD0E2008116E9 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = Q4Y3Y3NH8S;
+						DevelopmentTeam = 38Y9CH359W;
 					};
 				};
 			};
@@ -441,8 +462,14 @@
 				B8E691C91C180D4100392B7B /* map_create.png in Resources */,
 				B8E691BC1C1806D200392B7B /* map_live_big.png in Resources */,
 				B8E691E21C1977BF00392B7B /* incident_b2@2x.png in Resources */,
+				B8E691F81C1E63E000392B7B /* photo_refresh.png in Resources */,
+				B8E691F21C1E63CF00392B7B /* create_createlive.png in Resources */,
+				B8E691FC1C1E63E000392B7B /* photo_sound.png in Resources */,
+				B8E692001C1E686A00392B7B /* video_back.png in Resources */,
 				B8E691CF1C18303400392B7B /* map_pull_live_yellow.png in Resources */,
 				B86D9D501C170EAB00D844B7 /* map_profile.png in Resources */,
+				B8E691F91C1E63E000392B7B /* photo_send_big.png in Resources */,
+				B8E691FB1C1E63E000392B7B /* photo_shoot.png in Resources */,
 				B86D9D4F1C170EAB00D844B7 /* map_positioning.png in Resources */,
 				B86D9D4A1C170EAB00D844B7 /* 效果图.png in Resources */,
 				B8E691C01C1806D200392B7B /* map_pull_point_select.png in Resources */,
@@ -465,6 +492,7 @@
 				B86D9D4B1C170EAB00D844B7 /* map_create.png in Resources */,
 				B81A655D1BEDD163008116E9 /* ProjectDeclare in Resources */,
 				B8E691BA1C1806D200392B7B /* 2 Home p2.png in Resources */,
+				B8E691FA1C1E63E000392B7B /* photo_send.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,7 +678,7 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.insomnia;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.xx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -672,7 +700,7 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.insomnia;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.xx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
