@@ -7,9 +7,8 @@
 //
 
 #import "soundViewController.h"
-#import <AVFoundation/AVFoundation.h>
 #import "postViewController.h"
-#define progressRadius 50
+#define progressRadius 30
 
 @interface soundViewController ()
 @property (strong, nonatomic) NSURL* mediaUrl;
@@ -22,6 +21,10 @@
 @property (strong, nonatomic) AVPlayer *avPlayer;
 @property (strong, nonatomic) AVPlayerLayer *avPlayerLayer;
 @property (strong,nonatomic) UIButton *capButton;
+
+@property (strong,nonatomic) AVAudioRecorder *recorder;
+@property (strong,nonatomic)NSURL *recordedTmpFile;
+@property (strong,nonatomic)NSError *recordError;
 
 @property (strong,nonatomic) NSTimer *showSecondAniTime;
 @property (assign,nonatomic) BOOL videoEnoughTime;
@@ -40,12 +43,10 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    
+- (void) initPlayer
+{
     // the video player
+    AVCaptureFileOutput *output = nil;
     self.avPlayer = [AVPlayer playerWithURL:self.mediaUrl];
     self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
@@ -61,6 +62,49 @@
     
     self.avPlayerLayer.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
     [self.view.layer addSublayer:self.avPlayerLayer];
+}
+
+- (void)initRecorder
+{
+    AVAudioSession * audioSession = [AVAudioSession sharedInstance];
+    //Setup the audioSession for playback and record.
+    //We could just use record and then switch it to playback leter, but
+    //since we are going to do both lets set it up once.
+    
+    NSError * error = nil;
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error: &error];
+    //Activate the session
+    [audioSession setActive:YES error: &error];
+    self.recordError = error;
+}
+
+- (void)startRecord
+{
+    NSMutableDictionary* recordSetting = [[NSMutableDictionary alloc] init];
+    
+    [recordSetting setValue :[NSNumber numberWithInt:kAudioFormatAppleIMA4] forKey:AVFormatIDKey];
+    //频率
+    [recordSetting setValue:[NSNumber numberWithFloat:44110] forKey:AVSampleRateKey];
+    //音量
+    [recordSetting setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
+
+    _recordedTmpFile = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%.0f.%@", [NSDate timeIntervalSinceReferenceDate] * 1000.0, @"caf"]]];
+    NSLog(@"Using File called: %@",_recordedTmpFile);
+    //Setup the recorder to use this file and record to it.
+    NSError *error = nil;
+    _recorder = [[ AVAudioRecorder alloc] initWithURL:_recordedTmpFile settings:recordSetting error:&error];
+
+    [_recorder setDelegate:self];
+    [_recorder prepareToRecord];
+    [_recorder record];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self initPlayer];
     
     // cancel button
     _capButton = [[UIButton alloc]initWithFrame:CGRectMake(120,667 - 195,55,55)];
@@ -213,6 +257,8 @@
     if (gesture.state == UIGestureRecognizerStateBegan) {
         NSLog(@"开始");
         [self startCircleProgressAnimation];
+        [[self.avPlayer currentItem] seekToTime:kCMTimeZero];
+        [self startRecord];
         _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
@@ -220,12 +266,16 @@
             NSLog(@"不足4秒");
             [_showSecondAniTime invalidate];
             [self kickbackCircleProgressAnimation];
+            
+            NSFileManager * fm = [NSFileManager defaultManager];
+            NSError *error = nil;
+            [fm removeItemAtPath:[_recordedTmpFile path] error:&error];
             return;
         }
         //停止动画
         [self pauseCircleProgressAnimation];
         [_capButton setEnabled:NO];
-        
+        [_recorder stop];
         postViewController *VC = [[postViewController alloc]initWithMediaUrl:_mediaUrl];
         [self presentViewController:VC animated:YES completion:^{
             
