@@ -86,13 +86,13 @@
         _bottomView.delegate = self;
         [self.view addSubview:_bottomView];
         
-        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(50,  10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         [_bottomView.mainScorll addSubview:test1];
         
-        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(20 + _bottomView.mainScorll.EA_Width,  10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         [_bottomView.mainScorll addSubview:test2];
         
-        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 - 10, 10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 10, 10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         [_bottomView.mainScorll addSubview:test3];
         
 
