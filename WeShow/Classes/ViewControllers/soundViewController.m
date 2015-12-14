@@ -46,12 +46,13 @@
 - (void) initPlayer
 {
     // the video player
-    AVCaptureFileOutput *output = nil;
     self.avPlayer = [AVPlayer playerWithURL:self.mediaUrl];
     self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
     self.avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
     //self.avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
+    [[[self.avPlayer currentItem].asset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
