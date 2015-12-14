@@ -46,6 +46,7 @@
         mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
         mainScrollView.contentSize = CGSizeMake(2000, 2000);
         mainScrollView.bounces = NO;
+        mainScrollView.delegate = self;
         mainScrollView.showsHorizontalScrollIndicator = NO;
         mainScrollView.showsVerticalScrollIndicator = NO;
         UIImageView *scrollViewBackground = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 640, 640)];
@@ -54,50 +55,55 @@
         [self.view addSubview:mainScrollView];
         
         dot1 = [[DotView alloc]initWithFrame:CGRectMake(180, 180, 100, 100)];
-        dot1.tag = 0;
+//        dot1.tag = 0;
         [mainScrollView addSubview:dot1];
         __block MainViewController *blockSelf = self;
         [dot1 setClickBlock:^{
-            CreateViewController *create = [[CreateViewController alloc]init];
-            [blockSelf.navigationController pushViewController:create animated:YES];
-            [blockSelf.bottomView scrollToIndex:0];
-        }];
-        
-        dot2 = [[DotView alloc]initWithFrame:CGRectMake(200, 350, 80, 80)];
-        dot2.tag = 0;
-        [mainScrollView addSubview:dot2];
-        [dot2 setClickBlock:^{
             [blockSelf.bottomView scrollToIndex:1];
         }];
         
+        dot2 = [[DotView alloc]initWithFrame:CGRectMake(200, 350, 80, 80)];
+//        dot2.tag = 0;
+        [mainScrollView addSubview:dot2];
+        [dot2 setClickBlock:^{
+            [blockSelf.bottomView scrollToIndex:2];
+        }];
+        
         dot3 = [[DotView alloc]initWithFrame:CGRectMake(250, 80, 60, 60)];
-        dot3.tag = 0;
+//        dot3.tag = 0;
         [mainScrollView addSubview:dot3];
         
         [dot3 setClickBlock:^{
-            [blockSelf.bottomView scrollToIndex:2];
+            [blockSelf.bottomView scrollToIndex:0];
         }];
 
 
         
         //可拉起菜单
         bottomViewHeight = self.view.EA_Width * 1.215;
-        _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 17 - 64, self.view.EA_Width, bottomViewHeight)];
+        _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, 0, self.view.EA_Width, bottomViewHeight)];
         _bottomView.delegate = self;
+        _bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight - 64;
+        _bottomView.showing = YES;
         [self.view addSubview:_bottomView];
         
-        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(50,  10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         [_bottomView.mainScorll addSubview:test1];
         
-        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(20 + _bottomView.mainScorll.EA_Width,  10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         [_bottomView.mainScorll addSubview:test2];
         
-        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 - 10, 10, _bottomView.EA_Width - 40, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 10, 10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         [_bottomView.mainScorll addSubview:test3];
         
 
     }
     return self;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"%f---%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
 }
 
 - (void)testClick
@@ -115,14 +121,17 @@
     switch (index) {
         case 0:
         {
+            [mainScrollView setContentOffset:CGPointMake(95, 25) animated:YES];
            break;
         }
         case 1:
         {
+            [mainScrollView setContentOffset:CGPointMake(38, 151) animated:YES];
             break;
         }
         case 2:
         {
+            [mainScrollView setContentOffset:CGPointMake(50, 304) animated:YES];
             break;
         }    
         default:
@@ -132,43 +141,21 @@
 
 - (void)pullViewPositionChange:(UIPanGestureRecognizer *)gesture
 {
-    switch (gesture.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            originPoint = [gesture locationInView:self.view];
-            break;
-        }
-        case UIGestureRecognizerStateEnded:
-        {
-            CGPoint point = [gesture locationInView:self.view];
-            if ((point.y - originPoint.y) > 20)
-            {
-                [UIView animateWithDuration:0.5 animations:^{
-                _bottomView.EA_Top = self.view.frame.size.height - 17;
-                _bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_up"];
-                }];
-            }
-            else
-            {
-                [UIView animateWithDuration:0.5 animations:^{
-                _bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight;
-                _bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_down"];
-                }];
-            }
-        
-            break;
-        }
-        case UIGestureRecognizerStateChanged:
-        {
-            CGPoint point = [gesture locationInView:self.view];
-            if (point.y> self.view.frame.size.height - bottomViewHeight && point.y < self.view.frame.size.height - 17) {
-                _bottomView.EA_Top = point.y;
-            }
-            break;
-        }
-            
-        default:
-            break;
+    if (_bottomView.showing)
+    {
+        [UIView animateWithDuration:0.5 animations:^{
+            _bottomView.EA_Top = self.view.frame.size.height - 17;
+            _bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_up"];
+        }];
+        _bottomView.showing = NO;
+    }
+    else
+    {
+        [UIView animateWithDuration:0.5 animations:^{
+            _bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight;
+            _bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_down"];
+        }];
+        _bottomView.showing = YES;
     }
 }
 

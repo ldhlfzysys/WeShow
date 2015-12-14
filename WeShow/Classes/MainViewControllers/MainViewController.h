@@ -10,6 +10,6 @@
 #import "EABaseViewController.h"
 #import "PullView.h"
 
-@interface MainViewController : EABaseViewController<PullViewDelegate>
+@interface MainViewController : EABaseViewController<PullViewDelegate,UIScrollViewDelegate>
 
 @end
