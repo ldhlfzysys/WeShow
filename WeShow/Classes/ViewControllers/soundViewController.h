@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface soundViewController : UIViewController
+@interface soundViewController : UIViewController<AVAudioRecorderDelegate>
 
 - (instancetype) initWithMediaUrl:(NSURL*)url;
 
