@@ -302,19 +302,19 @@
         AVURLAsset* originAsset = [AVURLAsset URLAssetWithURL:self.mediaUrl options:nil];
         AVURLAsset* personAudioAsset = [AVURLAsset URLAssetWithURL:_recordedTmpFile options:nil];
         
-        float originSec = originAsset.duration.value/originAsset.duration.timescale;
-        float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
-        
-        if (originSec - personSec < 0.1) {
+//        float originSec = originAsset.duration.value/originAsset.duration.timescale;
+//        float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
+//        
+//        if (originSec - personSec < 0.1) {
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
                                 ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-        }else
-        {
-            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
-                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-            [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeSubtract(originAsset.duration, personAudioAsset.duration))
-                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
-        }
+//        }else
+//        {
+//            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
+//                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+//            [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeSubtract(originAsset.duration, personAudioAsset.duration))
+//                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
+//        }
         
         AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
                                                                             preferredTrackID:kCMPersistentTrackID_Invalid];
@@ -329,6 +329,11 @@
         
         AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition
                                                                           presetName:AVAssetExportPresetHighestQuality];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:myPathDocs])
+        {
+            [[NSFileManager defaultManager] removeItemAtPath:myPathDocs error:nil];
+        }
         exporter.outputURL=url;
         exporter.outputFileType = AVFileTypeQuickTimeMovie;
         exporter.shouldOptimizeForNetworkUse = YES;
@@ -340,7 +345,7 @@
                 }];
             }else if (exporter.status == AVAssetExportSessionStatusFailed)
             {
-                NSLog(@"拼接失败");
+                NSLog(@"拼接失败,error is %@",exporter.error);
             }
         }];
         
