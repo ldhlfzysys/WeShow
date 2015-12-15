@@ -8,6 +8,7 @@
 
 #import "soundViewController.h"
 #import "postViewController.h"
+#import <AssetsLibrary/ALAssetsLibrary.h>
 #define progressRadius 30
 
 @interface soundViewController ()
@@ -51,8 +52,6 @@
     
     self.avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
     //self.avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    
-    [[[self.avPlayer currentItem].asset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
@@ -259,10 +258,12 @@
         NSLog(@"开始");
         [self startCircleProgressAnimation];
         [[self.avPlayer currentItem] seekToTime:kCMTimeZero];
+        [self.avPlayer setMuted:YES];
         [self startRecord];
         _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
+        [self.avPlayer setMuted:NO];
         if (!_videoEnoughTime) {
             NSLog(@"不足4秒");
             [_showSecondAniTime invalidate];
@@ -277,10 +278,7 @@
         [self pauseCircleProgressAnimation];
         [_capButton setEnabled:NO];
         [_recorder stop];
-        postViewController *VC = [[postViewController alloc]initWithMediaUrl:_mediaUrl];
-        [self presentViewController:VC animated:YES completion:^{
-            
-        }];
+
         
         NSLog(@"结束");
         
@@ -292,5 +290,67 @@
         NSLog(@"意外");
     }
 }
+
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
+{
+    if (flag) {
+        AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
+        
+        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
+                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        AVURLAsset* originAsset = [AVURLAsset URLAssetWithURL:self.mediaUrl options:nil];
+        AVURLAsset* personAudioAsset = [AVURLAsset URLAssetWithURL:_recordedTmpFile options:nil];
+        
+        float originSec = originAsset.duration.value/originAsset.duration.timescale;
+        float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
+        
+        if (originSec - personSec < 0.1) {
+            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
+                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+        }else
+        {
+            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
+                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+            [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeSubtract(originAsset.duration, personAudioAsset.duration))
+                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
+        }
+        
+        AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
+                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
+        [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
+                            ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
+                                 [NSString stringWithFormat:@"mergeVideo.mov"]];
+        NSURL *url = [NSURL fileURLWithPath:myPathDocs];
+        
+        AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition
+                                                                          presetName:AVAssetExportPresetHighestQuality];
+        exporter.outputURL=url;
+        exporter.outputFileType = AVFileTypeQuickTimeMovie;
+        exporter.shouldOptimizeForNetworkUse = YES;
+        [exporter exportAsynchronouslyWithCompletionHandler:^{
+            if (exporter.status == AVAssetExportSessionStatusCompleted) {
+                postViewController *VC = [[postViewController alloc]initWithMediaUrl:exporter.outputURL];
+                [self presentViewController:VC animated:YES completion:^{
+                    
+                }];
+            }else if (exporter.status == AVAssetExportSessionStatusFailed)
+            {
+                NSLog(@"拼接失败");
+            }
+        }];
+        
+
+    }else
+    {
+        NSLog(@"录音失败");
+    }
+
+}
+
 
 @end
