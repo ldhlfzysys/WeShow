@@ -107,22 +107,22 @@
     [self initPlayer];
     
     // cancel button
-    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(120,667 - 195,55,55)];
-    [_capButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 25,self.view.EA_Bottom - 100,50,50)];
+    [_capButton setImage:[UIImage imageNamed:@"photo_sound.png"] forState:UIControlStateNormal];
     [_capButton setBackgroundColor:[UIColor clearColor]];
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoBtn:)];
     longPressGr.minimumPressDuration = 0;
     [_capButton addGestureRecognizer:longPressGr];
     [self.view addSubview:_capButton];
     
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(40, 40, 55, 55)];
-    [backbutton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15, 25,25)];
+    [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
     [backbutton setBackgroundColor:[UIColor clearColor]];
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backbutton];
     
-    UIButton *postButton = [[UIButton alloc]initWithFrame:CGRectMake(225, 40, 55, 55)];
-    [postButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    UIButton *postButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 15 - 25, 15, 25,25)];
+    [postButton setImage:[UIImage imageNamed:@"photo_send.png"] forState:UIControlStateNormal];
     [postButton setBackgroundColor:[UIColor clearColor]];
     [postButton addTarget:self action:@selector(postFinalVideo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:postButton];
@@ -140,6 +140,19 @@
     [self.view.layer addSublayer:_upLayer];
     [self.view.layer addSublayer:_leftLayer];
     [self.view.layer addSublayer:_rightLayer];
+    
+    CGPoint point = [_capButton center];
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES];
+    _belowLayer.path = path.CGPath;
+    _belowLayer.lineWidth = 2;
+    _belowLayer.fillColor = [UIColor clearColor].CGColor;
+    _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
+    
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:M_PI endAngle:2*M_PI clockwise:YES];
+    _upLayer.path = path1.CGPath;
+    _upLayer.lineWidth = 2;
+    _upLayer.fillColor = [UIColor clearColor].CGColor;
+    _upLayer.strokeColor = [UIColor whiteColor].CGColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -187,17 +200,17 @@
 - (void) startCircleProgressAnimation
 {
     CGPoint point = [_capButton center];
-    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:4.0f];
-    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:4.0f];
-    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:4.0f];
-    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:4.0f];
+    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:6.0f];
+    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:6.0f];
+    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:6.0f];
 }
 - (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
 {
     CGPoint point = [_capButton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:startAngle endAngle:endAngle clockwise:YES];
-    path.lineWidth = 4;
     layer.path = path.CGPath;
+    layer.lineWidth = 2;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
     
@@ -214,8 +227,8 @@
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:startPoint];
     [path addLineToPoint:endPoint];
-    path.lineWidth = 4;
     layer.path = path.CGPath;
+    layer.lineWidth = 2;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
     
@@ -223,8 +236,16 @@
     animation.duration = time;
     animation.fromValue = [NSNumber numberWithFloat:0];
     animation.toValue = [NSNumber numberWithFloat:1.0];
+    animation.fillMode = kCAFillModeBackwards;
     
     [layer addAnimation:animation forKey:@"LineAnimation"];
+    //    _animationTest = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    //        _animationTest.duration = time;
+    //        _animationTest.fromValue = [NSNumber numberWithFloat:0];
+    //        _animationTest.toValue = [NSNumber numberWithFloat:1.0];
+    //    _animationTest.fillMode = kCAFillModeBackwards;
+    //
+    //    [layer addAnimation:_animationTest forKey:@"LineAnimation"];
 }
 
 - (void) videoIsLongEnough
@@ -232,14 +253,24 @@
     _videoEnoughTime = YES;
 }
 
-- (void)kickbackCircleProgressAnimation
+- (void)kickbackProgressAnimation
 {
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.timeOffset = pausedTime;
     _upLayer.timeOffset = pausedTime;
+    _rightLayer.timeOffset = _rightLayer.beginTime + 6 - pausedTime;
+    _leftLayer.timeOffset = _rightLayer.beginTime + 6 - pausedTime;
+    //    NSNumber *num = [_rightLayer.presentationLayer valueForKey:@"strokeEnd"];
+    //
+    //    [_rightLayer removeAnimationForKey:@"LineAnimation"];
+    //    _animationTest.duration = 0.3f;
+    //    _animationTest.fromValue = num;
+    //    _animationTest.toValue = [NSNumber numberWithFloat:0.0];
+    //    _animationTest.fillMode = kCAFillModeBoth;
+    //    [_rightLayer addAnimation:_animationTest forKey:@"layerAnimation_reverse"];
 }
 
-- (void)pauseCircleProgressAnimation
+- (void)pauseProgressAnimation
 {
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.speed = 0.0f;
@@ -267,7 +298,7 @@
         if (!_videoEnoughTime) {
             NSLog(@"不足4秒");
             [_showSecondAniTime invalidate];
-            [self kickbackCircleProgressAnimation];
+            [self kickbackProgressAnimation];
             
             NSFileManager * fm = [NSFileManager defaultManager];
             NSError *error = nil;
@@ -275,7 +306,7 @@
             return;
         }
         //停止动画
-        [self pauseCircleProgressAnimation];
+        [self pauseProgressAnimation];
         [_capButton setEnabled:NO];
         [_recorder stop];
 

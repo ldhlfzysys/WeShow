@@ -36,22 +36,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self videoInit];
-    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(135,667 - 195,50,50)];
-    [_capButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 25,self.view.EA_Bottom - 100,50,50)];
+    
+    [_capButton setImage:[UIImage imageNamed:@"photo_shoot.png"] forState:UIControlStateNormal];
     [_capButton setBackgroundColor:[UIColor clearColor]];
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clickVideoBtn:)];
     longPressGr.minimumPressDuration = 0;
     [_capButton addGestureRecognizer:longPressGr];
     [self.view addSubview:_capButton];
     
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(40, 40, 50,50)];
-    [backbutton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15, 25,25)];
+    [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
     [backbutton setBackgroundColor:[UIColor clearColor]];
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backbutton];
     
-    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(225, 40, 50,50)];
-    [turnAroundButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 15 - 25, 15, 25,25)];
+    [turnAroundButton setImage:[UIImage imageNamed:@"photo_refresh.png"] forState:UIControlStateNormal];
     [turnAroundButton setBackgroundColor:[UIColor clearColor]];
     [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:turnAroundButton];
@@ -198,10 +199,10 @@
 - (void) startCircleProgressAnimation
 {
     CGPoint point = [_capButton center];
-    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:8.0f];
-    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:8.0f];
-    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:8.0f];
-    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:8.0f];
+    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:6.0f];
+    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:6.0f];
+    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:6.0f];
 }
 - (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
 {
@@ -256,8 +257,8 @@
     CFTimeInterval pausedTime = [_belowLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     _belowLayer.timeOffset = pausedTime;
     _upLayer.timeOffset = pausedTime;
-    _rightLayer.timeOffset = _rightLayer.beginTime + 4 - pausedTime;
-    _leftLayer.timeOffset = _rightLayer.beginTime + 4 - pausedTime;
+    _rightLayer.timeOffset = _rightLayer.beginTime + 6 - pausedTime;
+    _leftLayer.timeOffset = _rightLayer.beginTime + 6 - pausedTime;
 //    NSNumber *num = [_rightLayer.presentationLayer valueForKey:@"strokeEnd"];
 //    
 //    [_rightLayer removeAnimationForKey:@"LineAnimation"];
@@ -293,7 +294,7 @@
         //开始录制,并设置控制器为录制的代理
         [self.output startRecordingToOutputFileURL:url recordingDelegate:self];
         [self startCircleProgressAnimation];
-        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
+        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         [self.output stopRecording];

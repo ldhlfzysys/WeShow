@@ -52,14 +52,14 @@
     [self.view.layer addSublayer:self.avPlayerLayer];
     
     // cancel button
-    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(120,667 - 195,55,55)];
-    [_capButton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 25,self.view.EA_Bottom - 100,50,50)];
+    [_capButton setImage:[UIImage imageNamed:@"photo_send_big.png"] forState:UIControlStateNormal];
     [_capButton setBackgroundColor:[UIColor clearColor]];
     [_capButton addTarget:self action:@selector(postFinalVideo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_capButton];
     
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(40, 40, 55, 55)];
-    [backbutton setImage:[UIImage imageNamed:@"map_create.png"] forState:UIControlStateNormal];
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15, 25,25)];
+    [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
     [backbutton setBackgroundColor:[UIColor clearColor]];
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backbutton];
