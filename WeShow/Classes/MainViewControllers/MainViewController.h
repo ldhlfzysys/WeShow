@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "EABaseViewController.h"
 #import "PullView.h"
+#import "IncidentView.h"
 
-@interface MainViewController : EABaseViewController<PullViewDelegate,UIScrollViewDelegate>
+@interface MainViewController : EABaseViewController<PullViewDelegate,UIScrollViewDelegate,IncidentViewDelegate>
 
 @end

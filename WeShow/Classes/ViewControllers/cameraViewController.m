@@ -201,8 +201,8 @@
     CGPoint point = [_capButton center];
     [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:6.0f];
     [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:6.0f];
-    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius + 1, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
-    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius - 1, point.y) endPoint:CGPointMake(310, point.y) duration:6.0f];
+    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius + 1.5, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius - 1.5, point.y) endPoint:CGPointMake(310, point.y) duration:6.0f];
 }
 - (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
 {

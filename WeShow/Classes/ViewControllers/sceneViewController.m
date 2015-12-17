@@ -30,7 +30,7 @@
     self.currentNum = 0;
     
     //self.avPlayer = [AVPlayer playerWithURL:self.mediaURL];
-    self.avPlayer = [AVPlayer playerWithURL:[NSURL URLWithString:[self.mediaURLs objectAtIndex:_currentNum]]];
+    self.avPlayer = [AVPlayer playerWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum]]];
     self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
     self.avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
@@ -56,14 +56,18 @@
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification
 {
-    self.currentNum += 1;
-    self.avPlayer = [AVPlayer playerWithURL:[NSURL URLWithString:[self.mediaURLs objectAtIndex:_currentNum]]];
-    [self.avPlayer play];
+//    self.currentNum += 1;
+//    self.avPlayer = [AVPlayer playerWithURL:[NSURL URLWithString:[self.mediaURLs objectAtIndex:_currentNum]]];
+//    [self.avPlayer play];
 }
 
 - (void)fetchMediaUrl
 {
     NSString *path1 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo.mov"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path1]) {
+        NSLog(@"存在,%@",path1);
+    }
+    
     NSString *path2 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo45.mov"];
     NSString *path3 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo46.mov"];
     NSString *path4 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo50.mov"];
