@@ -52,7 +52,7 @@
     [self.view.layer addSublayer:self.avPlayerLayer];
     
     // cancel button
-    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 25,self.view.EA_Bottom - 100,50,50)];
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 40,self.view.EA_Bottom - 110,80,80)];
     [_capButton setImage:[UIImage imageNamed:@"photo_send_big.png"] forState:UIControlStateNormal];
     [_capButton setBackgroundColor:[UIColor clearColor]];
     [_capButton addTarget:self action:@selector(postFinalVideo) forControlEvents:UIControlEventTouchUpInside];

@@ -11,7 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "soundViewController.h"
 
-#define progressRadius 30
+#define progressRadius 43
 
 @interface cameraViewController ()<AVCaptureFileOutputRecordingDelegate>
 @property (strong,nonatomic) AVCaptureMovieFileOutput *output;
@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self videoInit];
-    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 25,self.view.EA_Bottom - 100,50,50)];
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 40,self.view.EA_Bottom - 110,80,80)];
     
     [_capButton setImage:[UIImage imageNamed:@"photo_shoot.png"] forState:UIControlStateNormal];
     [_capButton setBackgroundColor:[UIColor clearColor]];
@@ -72,13 +72,13 @@
     CGPoint point = [_capButton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:0 endAngle:M_PI clockwise:YES];
     _belowLayer.path = path.CGPath;
-    _belowLayer.lineWidth = 2;
+    _belowLayer.lineWidth = 3;
     _belowLayer.fillColor = [UIColor clearColor].CGColor;
     _belowLayer.strokeColor = [UIColor whiteColor].CGColor;
     
     UIBezierPath *path1 = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:M_PI endAngle:2*M_PI clockwise:YES];
     _upLayer.path = path1.CGPath;
-    _upLayer.lineWidth = 2;
+    _upLayer.lineWidth = 3;
     _upLayer.fillColor = [UIColor clearColor].CGColor;
     _upLayer.strokeColor = [UIColor whiteColor].CGColor;
 }
@@ -201,15 +201,15 @@
     CGPoint point = [_capButton center];
     [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:6.0f];
     [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:6.0f];
-    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
-    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius, point.y) endPoint:CGPointMake(310, point.y) duration:6.0f];
+    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius + 1, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius - 1, point.y) endPoint:CGPointMake(310, point.y) duration:6.0f];
 }
 - (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
 {
     CGPoint point = [_capButton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:progressRadius startAngle:startAngle endAngle:endAngle clockwise:YES];
     layer.path = path.CGPath;
-    layer.lineWidth = 2;
+    layer.lineWidth = 3;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
     
@@ -227,7 +227,7 @@
     [path moveToPoint:startPoint];
     [path addLineToPoint:endPoint];
     layer.path = path.CGPath;
-    layer.lineWidth = 2;
+    layer.lineWidth = 3;
     layer.fillColor = [UIColor clearColor].CGColor;
     layer.strokeColor = [UIColor whiteColor].CGColor;
     

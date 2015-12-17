@@ -7,15 +7,16 @@
 //
 
 #import "sceneViewController.h"
-#import "mediaView.h"
-
-#define PADDING 20
+#import <AVFoundation/AVFoundation.h>
 
 @interface sceneViewController()
 @property (strong,nonatomic) NSArray *mediaURLs;
 
 @property (strong, nonatomic) AVPlayer *avPlayer;
 @property (strong, nonatomic) AVPlayerLayer *avPlayerLayer;
+
+@property (assign ,nonatomic) NSInteger currentNum;
+
 
 @end
 
@@ -26,7 +27,10 @@
     // the video player
     [self fetchMediaUrl];
     
-    self.avPlayer = [AVPlayer playerWithURL:[self.mediaURLs objectAtIndex:0]];
+    self.currentNum = 0;
+    
+    //self.avPlayer = [AVPlayer playerWithURL:self.mediaURL];
+    self.avPlayer = [AVPlayer playerWithURL:[NSURL URLWithString:[self.mediaURLs objectAtIndex:_currentNum]]];
     self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
     self.avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
@@ -35,7 +39,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[self.avPlayer currentItem]];
+                                               object:nil];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
@@ -43,22 +47,36 @@
     [self.view.layer addSublayer:self.avPlayerLayer];
 }
 
-- (void)playerItemDidReachEnd:(NSNotification *)notification {
-    AVPlayerItem *p = [notification object];
-    [p seekToTime:kCMTimeZero];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.avPlayer play];
+}
+
+- (void)playerItemDidReachEnd:(NSNotification *)notification
+{
+    self.currentNum += 1;
+    self.avPlayer = [AVPlayer playerWithURL:[NSURL URLWithString:[self.mediaURLs objectAtIndex:_currentNum]]];
+    [self.avPlayer play];
 }
 
 - (void)fetchMediaUrl
 {
-    NSString *path1 = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVideo18.mov"];
-    NSString *path2 = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVideo45.mov"];
-    NSString *path3 = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVideo46.mov"];
-    NSString *path4 = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVideo50.mov"];
-    NSString *path5 = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVideo52.mov"];
-    NSString *path6 = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVideo72.mov"];
-    NSString *path7 = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVideo79.mov"];
+    NSString *path1 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo.mov"];
+    NSString *path2 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo45.mov"];
+    NSString *path3 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo46.mov"];
+    NSString *path4 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo50.mov"];
+    NSString *path5 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo52.mov"];
+    NSString *path6 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo72.mov"];
+    NSString *path7 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"myVideo79.mov"];
     
     self.mediaURLs = [NSArray arrayWithObjects:path1, path2,path3,path4,path5,path6,path7,@"8",@"9",@"10",nil];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 @end
