@@ -16,11 +16,60 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(50,  50, self.view.EA_Width - 40, self.view.EA_Height - self.view.EA_Width * 0.04 - 50)];
-    [self.view addSubview:test1];
+    self.view.backgroundColor = [UIColor grayColor];
+    
+    CGFloat bottomViewHeight = self.view.EA_Width * 1.215;
+    _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, -17, self.view.EA_Width, bottomViewHeight)];
+    _bottomView.delegate = self;
+    _bottomView.showing = YES;
+    [self.view addSubview:_bottomView];
+    
+    IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    test1.delegate = self;
+    [_bottomView.mainScorll addSubview:test1];
+    
+    IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    test2.delegate = self;
+    [_bottomView.mainScorll addSubview:test2];
+    
+    IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 10, 10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    test3.delegate = self;
+    [_bottomView.mainScorll addSubview:test3];
     
     self.navigationItem.titleView = [Tools getTitleLab:@"创建实况"];
+    UIButton *backBtn = [Tools getNavigationItemWithImage:@"video_back"];
+    [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+    
+    UIButton *postBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, _bottomView.EA_Bottom + 60, 80, 80)];
+    postBtn.EA_CenterX = self.view.EA_Width/2;
+    [postBtn addTarget:self action:@selector(postBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [postBtn setBackgroundImage:[UIImage imageNamed:@"photo_send_big"] forState:UIControlStateNormal];
+    [self.view addSubview:postBtn];
+    
+    
 }
+
+- (void)postBtnClick{
+    
+}
+
+- (void)backBtnClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)pullViewScrollToIndex:(NSInteger)index
+{
+    
+}
+
+- (void)didClickIncidentView:(IncidentView *)inview
+{
+    sceneViewController *VC = [[sceneViewController alloc]init];
+    [self presentViewController:VC animated:YES completion:^{
+    }];
+}   
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

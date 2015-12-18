@@ -8,6 +8,8 @@
 
 #import "EABaseViewController.h"
 #import "IncidentView.h"
-@interface CreateViewController : EABaseViewController
-
+#import "PullView.h"
+#import "sceneViewController.h"
+@interface CreateViewController : UIViewController<PullViewDelegate,IncidentViewDelegate>
+@property (nonatomic,strong)PullView *bottomView;
 @end

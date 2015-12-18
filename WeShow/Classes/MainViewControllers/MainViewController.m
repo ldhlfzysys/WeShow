@@ -22,7 +22,7 @@
     UIButton *rightButton;
     UIButton *leftButton;
 
-    UIScrollView *mainScrollView;
+
     CGPoint originPoint;
     CGFloat bottomViewHeight;
     
@@ -44,38 +44,40 @@
         [rightButton addTarget:self action:@selector(testClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
         //背景地图
-        mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
-        mainScrollView.contentSize = CGSizeMake(2000, 2000);
-        mainScrollView.bounces = NO;
-        mainScrollView.delegate = self;
-        mainScrollView.showsHorizontalScrollIndicator = NO;
-        mainScrollView.showsVerticalScrollIndicator = NO;
+        _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
+        _mainScrollView.contentSize = CGSizeMake(2000, 2000);
+        _mainScrollView.bounces = NO;
+        _mainScrollView.delegate = self;
+        _mainScrollView.showsHorizontalScrollIndicator = NO;
+        _mainScrollView.showsVerticalScrollIndicator = NO;
         UIImageView *scrollViewBackground = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 640, 640)];
         scrollViewBackground.image = [UIImage imageNamed:@"map_background"];
-        [mainScrollView addSubview:scrollViewBackground];
-        [self.view addSubview:mainScrollView];
+        [_mainScrollView addSubview:scrollViewBackground];
+        [self.view addSubview:_mainScrollView];
         
         dot1 = [[DotView alloc]initWithFrame:CGRectMake(180, 180, 100, 100)];
-//        dot1.tag = 0;
-        [mainScrollView addSubview:dot1];
+        [_mainScrollView addSubview:dot1];
         __block MainViewController *blockSelf = self;
         [dot1 setClickBlock:^{
             [blockSelf.bottomView scrollToIndex:1];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(38, 151) animated:YES];
+
+
         }];
         
         dot2 = [[DotView alloc]initWithFrame:CGRectMake(200, 350, 80, 80)];
-//        dot2.tag = 0;
-        [mainScrollView addSubview:dot2];
+        [_mainScrollView addSubview:dot2];
         [dot2 setClickBlock:^{
             [blockSelf.bottomView scrollToIndex:2];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(50, 304) animated:YES];
         }];
         
         dot3 = [[DotView alloc]initWithFrame:CGRectMake(250, 80, 60, 60)];
-//        dot3.tag = 0;
-        [mainScrollView addSubview:dot3];
+        [_mainScrollView addSubview:dot3];
         
         [dot3 setClickBlock:^{
             [blockSelf.bottomView scrollToIndex:0];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(95, 25) animated:YES];
         }];
 
 
@@ -90,14 +92,17 @@
         
         IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test1.delegate = self;
+        test1.tag = 0;
         [_bottomView.mainScorll addSubview:test1];
         
         IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test2.delegate = self;
+        test2.tag = 1;
         [_bottomView.mainScorll addSubview:test2];
         
         IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 10, 10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test3.delegate = self;
+        test3.tag = 2;
         [_bottomView.mainScorll addSubview:test3];
         
 
@@ -107,9 +112,16 @@
 
 - (void)didClickIncidentView:(IncidentView *)inview
 {
-    sceneViewController *VC = [[sceneViewController alloc]init];
-    [self presentViewController:VC animated:YES completion:^{
-    }];
+    if (inview.tag == 0) {
+        CreateViewController *createView = [[CreateViewController alloc]init];
+        [self.navigationController pushViewController:createView animated:YES];
+    }else
+    {
+        sceneViewController *VC = [[sceneViewController alloc]init];
+        [self presentViewController:VC animated:YES completion:^{
+        }];
+    }
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -132,17 +144,17 @@
     switch (index) {
         case 0:
         {
-            [mainScrollView setContentOffset:CGPointMake(95, 25) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(95, 25) animated:YES];
            break;
         }
         case 1:
         {
-            [mainScrollView setContentOffset:CGPointMake(38, 151) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(38, 151) animated:YES];
             break;
         }
         case 2:
         {
-            [mainScrollView setContentOffset:CGPointMake(50, 304) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(50, 304) animated:YES];
             break;
         }    
         default:

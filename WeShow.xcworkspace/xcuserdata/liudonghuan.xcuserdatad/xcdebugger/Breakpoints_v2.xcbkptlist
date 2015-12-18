@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
-            timestampString = "471798231.687357"
+            timestampString = "472103096.211319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "-pullViewPositionChange:"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "-pullViewScrollToIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
-            timestampString = "471798231.687357"
+            timestampString = "472103096.211319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-pullViewPositionChange:"
             landmarkType = "5">
          </BreakpointContent>

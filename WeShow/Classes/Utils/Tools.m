@@ -70,7 +70,7 @@
 + (UIButton *)getBackBarBtn{
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 24, 40)];
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 13, 14, 14)];
-    img.image = [UIImage imageNamed:@"back.png"];
+    img.image = [UIImage imageNamed:@"video_back"];
     [btn addSubview:img];
     return btn;
 }

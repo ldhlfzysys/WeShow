@@ -10,7 +10,6 @@
 		3E8E6AAC1C181AF500897F03 /* soundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E8E6AAB1C181AF500897F03 /* soundViewController.m */; };
 		3EA42B471C1D1E2D006D0CB7 /* sceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA42B461C1D1E2D006D0CB7 /* sceneViewController.m */; };
 		3EA42B4A1C1D2CCD006D0CB7 /* postViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA42B491C1D2CCD006D0CB7 /* postViewController.m */; };
-		3EA42B4D1C1D57A9006D0CB7 /* mediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA42B4C1C1D57A9006D0CB7 /* mediaView.m */; };
 		3EBBC1941C1539BB008C53CB /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1931C1539BB008C53CB /* MAMapKit.framework */; };
 		3EBBC1961C1539C6008C53CB /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */; };
 		4DE17127B550BF5C66B1D71E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A56768EEA638E15239E03D /* libPods.a */; };
@@ -80,8 +79,6 @@
 		3EA42B461C1D1E2D006D0CB7 /* sceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sceneViewController.m; sourceTree = "<group>"; };
 		3EA42B481C1D2CCD006D0CB7 /* postViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postViewController.h; sourceTree = "<group>"; };
 		3EA42B491C1D2CCD006D0CB7 /* postViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = postViewController.m; sourceTree = "<group>"; };
-		3EA42B4B1C1D57A9006D0CB7 /* mediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mediaView.h; sourceTree = "<group>"; };
-		3EA42B4C1C1D57A9006D0CB7 /* mediaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mediaView.m; sourceTree = "<group>"; };
 		3EBBC1931C1539BB008C53CB /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = Pods/AMap2DMap/MAMapKit.framework; sourceTree = "<group>"; };
 		3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = Pods/AMapSearch/AMapSearchKit.framework; sourceTree = "<group>"; };
 		3FDEBCDB569EA7EE40FE7AE2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -322,8 +319,6 @@
 				B81A657B1BEDD19A008116E9 /* EABaseViewController.m */,
 				3EA42B451C1D1E2D006D0CB7 /* sceneViewController.h */,
 				3EA42B461C1D1E2D006D0CB7 /* sceneViewController.m */,
-				3EA42B4B1C1D57A9006D0CB7 /* mediaView.h */,
-				3EA42B4C1C1D57A9006D0CB7 /* mediaView.m */,
 				B81A657C1BEDD19A008116E9 /* ExampleDemo */,
 			);
 			path = ViewControllers;
@@ -561,7 +556,6 @@
 				B8E691E61C19789600392B7B /* CreateViewController.m in Sources */,
 				B81A65821BEDD19A008116E9 /* DataCenterManager.m in Sources */,
 				B81A658B1BEDD19A008116E9 /* UIView+Sizes.m in Sources */,
-				3EA42B4D1C1D57A9006D0CB7 /* mediaView.m in Sources */,
 				B81A658C1BEDD19A008116E9 /* EABaseViewController.m in Sources */,
 				B81A65471BEDD0E2008116E9 /* AppDelegate.m in Sources */,
 				3EA42B4A1C1D2CCD006D0CB7 /* postViewController.m in Sources */,

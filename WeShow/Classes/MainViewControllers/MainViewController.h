@@ -11,6 +11,6 @@
 #import "PullView.h"
 #import "IncidentView.h"
 
-@interface MainViewController : EABaseViewController<PullViewDelegate,UIScrollViewDelegate,IncidentViewDelegate>
-
+@interface MainViewController : UIViewController<PullViewDelegate,UIScrollViewDelegate,IncidentViewDelegate>
+@property (nonatomic,strong)UIScrollView *mainScrollView;
 @end
