@@ -14,6 +14,7 @@
 #import "DotView.h"
 #import "CreateViewController.h"
 #import "sceneViewController.h"
+#import "HistoryViewController.h"
 
 @interface MainViewController ()<MAMapViewDelegate>
 {
@@ -39,12 +40,13 @@
     if (self = [super init]) {
         //[MAMapServices sharedServices].apiKey = mapAPIKEY;
         leftButton = [Tools getNavigationItemWithImage:@"map_history"];
+        [leftButton addTarget:self action:@selector(historyClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
         rightButton = [Tools getNavigationItemWithImage:@"map_profile"];
         [rightButton addTarget:self action:@selector(testClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
         //背景地图
-        _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
+        _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
         _mainScrollView.contentSize = CGSizeMake(2000, 2000);
         _mainScrollView.bounces = NO;
         _mainScrollView.delegate = self;
@@ -108,6 +110,11 @@
 
     }
     return self;
+}
+
+- (void)historyClick{
+    HistoryViewController *historyVC = [[HistoryViewController alloc]init];
+    [self.navigationController pushViewController:historyVC animated:YES];
 }
 
 - (void)didClickIncidentView:(IncidentView *)inview

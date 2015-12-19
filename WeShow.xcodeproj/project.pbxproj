@@ -46,6 +46,10 @@
 		B86D9D571C17123B00D844B7 /* EABaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86D9D561C17123B00D844B7 /* EABaseTableViewController.m */; };
 		B86D9D591C171CD900D844B7 /* map_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D581C171CD900D844B7 /* map_background@2x.png */; };
 		B86D9D5C1C171F6200D844B7 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B86D9D5B1C171F6200D844B7 /* PulsingHaloLayer.m */; };
+		B87ADA351C250CCB00C841A5 /* navigationbar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B87ADA341C250CCB00C841A5 /* navigationbar_bg.png */; };
+		B8E651BC1C2502C00064ED01 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E651BB1C2502C00064ED01 /* HistoryViewController.m */; };
+		B8E651BF1C2502CD0064ED01 /* HistoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E651BE1C2502CD0064ED01 /* HistoryDetailViewController.m */; };
+		B8E651C11C2505CD0064ED01 /* opacity.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E651C01C2505CD0064ED01 /* opacity.png */; };
 		B8E691BA1C1806D200392B7B /* 2 Home p2.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691B21C1806D200392B7B /* 2 Home p2.png */; };
 		B8E691BB1C1806D200392B7B /* Artboard 18 Copy 2.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691B31C1806D200392B7B /* Artboard 18 Copy 2.png */; };
 		B8E691BC1C1806D200392B7B /* map_live_big.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E691B41C1806D200392B7B /* map_live_big.png */; };
@@ -136,6 +140,12 @@
 		B86D9D581C171CD900D844B7 /* map_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_background@2x.png"; sourceTree = "<group>"; };
 		B86D9D5A1C171F6200D844B7 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
 		B86D9D5B1C171F6200D844B7 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
+		B87ADA341C250CCB00C841A5 /* navigationbar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_bg.png; sourceTree = "<group>"; };
+		B8E651BA1C2502C00064ED01 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		B8E651BB1C2502C00064ED01 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		B8E651BD1C2502CD0064ED01 /* HistoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailViewController.h; sourceTree = "<group>"; };
+		B8E651BE1C2502CD0064ED01 /* HistoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailViewController.m; sourceTree = "<group>"; };
+		B8E651C01C2505CD0064ED01 /* opacity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opacity.png; sourceTree = "<group>"; };
 		B8E691B21C1806D200392B7B /* 2 Home p2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2 Home p2.png"; sourceTree = "<group>"; };
 		B8E691B31C1806D200392B7B /* Artboard 18 Copy 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Artboard 18 Copy 2.png"; sourceTree = "<group>"; };
 		B8E691B41C1806D200392B7B /* map_live_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_live_big.png; sourceTree = "<group>"; };
@@ -320,6 +330,10 @@
 				3EA42B451C1D1E2D006D0CB7 /* sceneViewController.h */,
 				3EA42B461C1D1E2D006D0CB7 /* sceneViewController.m */,
 				B81A657C1BEDD19A008116E9 /* ExampleDemo */,
+				B8E651BA1C2502C00064ED01 /* HistoryViewController.h */,
+				B8E651BB1C2502C00064ED01 /* HistoryViewController.m */,
+				B8E651BD1C2502CD0064ED01 /* HistoryDetailViewController.h */,
+				B8E651BE1C2502CD0064ED01 /* HistoryDetailViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -346,6 +360,8 @@
 		B86D9D3C1C170E9D00D844B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B87ADA341C250CCB00C841A5 /* navigationbar_bg.png */,
+				B8E651C01C2505CD0064ED01 /* opacity.png */,
 				B8E691FF1C1E686900392B7B /* video_back.png */,
 				B8E691F31C1E63E000392B7B /* photo_refresh.png */,
 				B8E691F41C1E63E000392B7B /* photo_send_big.png */,
@@ -466,6 +482,7 @@
 				B8E691F91C1E63E000392B7B /* photo_send_big.png in Resources */,
 				B8E691FB1C1E63E000392B7B /* photo_shoot.png in Resources */,
 				B86D9D4F1C170EAB00D844B7 /* map_positioning.png in Resources */,
+				B87ADA351C250CCB00C841A5 /* navigationbar_bg.png in Resources */,
 				B86D9D4A1C170EAB00D844B7 /* 效果图.png in Resources */,
 				B8E691C01C1806D200392B7B /* map_pull_point_select.png in Resources */,
 				B8E691E31C1977BF00392B7B /* incident_b1@2x.png in Resources */,
@@ -475,6 +492,7 @@
 				B86D9D511C170EAB00D844B7 /* map_pull_down.png in Resources */,
 				B86D9D4D1C170EAB00D844B7 /* map_live.png in Resources */,
 				B86D9D4E1C170EAB00D844B7 /* map_location.png in Resources */,
+				B8E651C11C2505CD0064ED01 /* opacity.png in Resources */,
 				B8E691BB1C1806D200392B7B /* Artboard 18 Copy 2.png in Resources */,
 				B8E691BF1C1806D200392B7B /* map_pull_people.png in Resources */,
 				B8E691BD1C1806D200392B7B /* map_live_people.png in Resources */,
@@ -554,9 +572,11 @@
 				B86D9D571C17123B00D844B7 /* EABaseTableViewController.m in Sources */,
 				B81A65861BEDD19A008116E9 /* EACard.m in Sources */,
 				B8E691E61C19789600392B7B /* CreateViewController.m in Sources */,
+				B8E651BC1C2502C00064ED01 /* HistoryViewController.m in Sources */,
 				B81A65821BEDD19A008116E9 /* DataCenterManager.m in Sources */,
 				B81A658B1BEDD19A008116E9 /* UIView+Sizes.m in Sources */,
 				B81A658C1BEDD19A008116E9 /* EABaseViewController.m in Sources */,
+				B8E651BF1C2502CD0064ED01 /* HistoryDetailViewController.m in Sources */,
 				B81A65471BEDD0E2008116E9 /* AppDelegate.m in Sources */,
 				3EA42B4A1C1D2CCD006D0CB7 /* postViewController.m in Sources */,
 				B8E691D61C18354200392B7B /* PullView.m in Sources */,

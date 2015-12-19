@@ -17,9 +17,9 @@
     UITabBarItem *tabBarItem = [[UITabBarItem alloc]init];
     [tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,nil] forState:UIControlStateSelected];
     navC.tabBarItem = tabBarItem;
-    
+    [navC.navigationBar setShadowImage:[UIImage new]];
     navC.navigationBar.translucent = NO;//半透明有光泽
-    navC.navigationBar.barTintColor = UIColorFromRGB(0x495262);
+    [navC.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_bg"] forBarMetrics:UIBarMetricsDefault];
     //自定义标题
     UILabel *label = [[UILabel alloc] init];
     navC.navigationBar.topItem.titleView=label;

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IncidentView.h"
+#import "PullView.h"
 
-@interface HistoryViewController : UIViewController
+@interface HistoryViewController : UIViewController<IncidentViewDelegate,PullViewDelegate>
 
 @end
