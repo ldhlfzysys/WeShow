@@ -6,7 +6,6 @@
 //  Copyright © 2015年 Weibo. All rights reserved.
 //
 
-#import "EABaseCardView.h"
 
 @protocol PullViewDelegate <NSObject>
 
@@ -16,7 +15,7 @@
 
 @end
 
-@interface PullView : EABaseCardView<UIScrollViewDelegate>
+@interface PullView : UIView<UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView *mainScorll;
 @property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic, strong) UIImageView *bgImage;

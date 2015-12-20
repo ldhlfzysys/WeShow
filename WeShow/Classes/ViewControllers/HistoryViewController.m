@@ -20,7 +20,7 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     CGFloat bottomViewHeight = self.view.EA_Width * 1.215;
-    _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, -17 , self.view.EA_Width, bottomViewHeight)];
+    _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, 64  , self.view.EA_Width, bottomViewHeight)];
     _bottomView.delegate = self;
     _bottomView.showing = YES;
     [self.view addSubview:_bottomView];

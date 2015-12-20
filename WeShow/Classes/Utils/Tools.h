@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UINavigationBar+Awesome.h"
 typedef enum {
     NavTypeMainPage = 0,
     NavTypeCreatePage,

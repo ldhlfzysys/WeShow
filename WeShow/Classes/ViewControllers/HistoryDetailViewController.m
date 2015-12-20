@@ -39,14 +39,17 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.translucent = YES;//半透明有光泽
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"opacity"] forBarMetrics:UIBarMetricsDefault];
+    UIColor * color = [UIColor colorWithRed:73/255.0 green:82/255.0 blue:98/255.0 alpha:1];
+
+    [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.navigationController.navigationBar.translucent = NO;//半透明有光泽
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_bg"] forBarMetrics:UIBarMetricsDefault];
+    UIColor * color = [UIColor colorWithRed:73/255.0 green:82/255.0 blue:98/255.0 alpha:1];
+    
+    [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:1]];
 }
 
 - (void)didReceiveMemoryWarning {

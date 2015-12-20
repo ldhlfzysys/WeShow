@@ -6,12 +6,11 @@
 //  Copyright © 2015年 Weibo. All rights reserved.
 //
 
-#import "EABaseCardView.h"
 #import "PulsingHaloLayer.h"
 
 typedef void (^DotViewclickBlock)(void);
 
-@interface DotView : EABaseCardView
+@interface DotView : UIView
 
 @property (nonatomic,strong)DotViewclickBlock clickBlock;
 

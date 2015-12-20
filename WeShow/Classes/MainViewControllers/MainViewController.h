@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EABaseViewController.h"
 #import "PullView.h"
 #import "IncidentView.h"
 

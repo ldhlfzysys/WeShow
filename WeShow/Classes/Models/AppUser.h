@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EABaseModel.h"
 
-@interface AppUser : EABaseModel
+@interface AppUser : NSObject
 @property (nonatomic, retain) NSString *uuid;
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *password;
