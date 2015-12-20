@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface postViewController : UIViewController
 
 - (instancetype) initWithMediaUrl:(NSURL*)url;
-
+- (instancetype) initWithComposition:(AVMutableComposition *)composition andVideoComposition:(AVMutableVideoComposition*)videoComposition;
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "postViewController.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface postViewController()
 @property (strong, nonatomic) NSURL* mediaUrl;
@@ -15,6 +14,9 @@
 @property (strong, nonatomic) AVPlayer *avPlayer;
 @property (strong, nonatomic) AVPlayerLayer *avPlayerLayer;
 @property (strong,nonatomic) UIButton *capButton;
+
+@property (strong, nonatomic) AVMutableComposition *composition;
+@property (strong, nonatomic) AVMutableVideoComposition *videoComposition;
 
 @end
 @implementation postViewController
@@ -29,13 +31,32 @@
     return self;
 }
 
+- (instancetype) initWithComposition:(AVMutableComposition *)composition andVideoComposition:(AVMutableVideoComposition*)videoComposition
+{
+    if (self = [super init])
+    {
+        _composition = composition;
+        _videoComposition = videoComposition;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
     // the video player
-    self.avPlayer = [AVPlayer playerWithURL:self.mediaUrl];
+    if (!self.mediaUrl) {
+        AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:self.composition];
+        item.videoComposition = self.videoComposition;
+        self.avPlayer = [AVPlayer playerWithPlayerItem:item];
+    }else
+    {
+        self.avPlayer = [AVPlayer playerWithURL:self.mediaUrl];
+    }
+    
     self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
     self.avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];

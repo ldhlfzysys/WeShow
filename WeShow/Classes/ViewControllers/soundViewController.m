@@ -372,10 +372,9 @@
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
                 NSLog(@"拼接outputURL:%@",exporter.outputURL);
-                postViewController *VC = [[postViewController alloc]initWithMediaUrl:exporter.outputURL];
-                [self presentViewController:VC animated:YES completion:^{
-                    
-                }];
+                
+                [self rotateVideoformURL:exporter.outputURL];
+
             }else if (exporter.status == AVAssetExportSessionStatusFailed)
             {
                 NSLog(@"拼接失败,error is %@",exporter.error);
@@ -390,5 +389,73 @@
 
 }
 
-
+- (void)rotateVideoformURL:(NSURL *)url
+{
+    AVMutableVideoCompositionInstruction *instruction = nil;
+    AVMutableVideoCompositionLayerInstruction *layerInstruction = nil;
+    CGAffineTransform t1;
+    CGAffineTransform t2;
+    
+    AVAssetTrack *assetVideoTrack = nil;
+    AVAssetTrack *assetAudioTrack = nil;
+    
+    AVAsset *asset = [AVAsset assetWithURL:url];
+    // Check if the asset contains video and audio tracks
+    if ([[asset tracksWithMediaType:AVMediaTypeVideo] count] != 0) {
+        assetVideoTrack = [asset tracksWithMediaType:AVMediaTypeVideo][0];
+    }
+    if ([[asset tracksWithMediaType:AVMediaTypeAudio] count] != 0) {
+        assetAudioTrack = [asset tracksWithMediaType:AVMediaTypeAudio][0];
+    }
+    
+    CMTime insertionPoint = kCMTimeZero;
+    NSError *error = nil;
+    
+    // Step 1
+    // Create a composition with the given asset and insert audio and video tracks into it from the asset
+    AVMutableComposition *rotateComposition = [AVMutableComposition composition];
+    
+        
+    // Check whether a composition has already been created, i.e, some other tool has already been applied
+    // Create a new composition
+    
+    // Insert the video and audio tracks from AVAsset
+    if (assetVideoTrack != nil) {
+        AVMutableCompositionTrack *compositionVideoTrack = [rotateComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+        [compositionVideoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, [asset duration]) ofTrack:assetVideoTrack atTime:insertionPoint error:&error];
+    }
+    if (assetAudioTrack != nil) {
+        AVMutableCompositionTrack *compositionAudioTrack = [rotateComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        [compositionAudioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, [asset duration]) ofTrack:assetAudioTrack atTime:insertionPoint error:&error];
+    }
+    
+    NSLog(@"rotate --- assetVideoTrack.naturalSize.height:%f", assetVideoTrack.naturalSize.height);
+    NSLog(@"rotate --- assetVideoTrack.naturalSize.width:%f", assetVideoTrack.naturalSize.width);
+    
+    t1 = CGAffineTransformMakeTranslation(assetVideoTrack.naturalSize.height, 0.0);
+    // Rotate transformation
+    t2 = CGAffineTransformRotate(t1, 0.5 * M_PI);
+    
+    // Step 3
+    // Set the appropriate render sizes and rotational transforms
+    AVMutableVideoComposition * videoComposition = [AVMutableVideoComposition videoComposition];
+    videoComposition.renderSize = CGSizeMake(assetVideoTrack.naturalSize.height,assetVideoTrack.naturalSize.width);
+    videoComposition.frameDuration = CMTimeMake(1, 30);
+    
+    // The rotate transform is set on a layer instruction
+    instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+    instruction.timeRange = CMTimeRangeMake(kCMTimeZero, [rotateComposition duration]);
+    layerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:(rotateComposition.tracks)[0]];
+    [layerInstruction setTransform:t2 atTime:kCMTimeZero];
+    
+    // Step 4
+    // Add the transform instructions to the video composition
+    instruction.layerInstructions = @[layerInstruction];
+    videoComposition.instructions = @[instruction];
+    
+    postViewController *VC = [[postViewController alloc]initWithComposition:rotateComposition andVideoComposition:videoComposition];
+    [self presentViewController:VC animated:YES completion:^{
+        
+    }];
+}
 @end
