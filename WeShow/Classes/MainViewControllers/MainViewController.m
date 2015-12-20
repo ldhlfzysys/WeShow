@@ -15,6 +15,7 @@
 #import "CreateViewController.h"
 #import "sceneViewController.h"
 #import "HistoryViewController.h"
+#import "UserCenterViewController.h"
 
 @interface MainViewController ()<MAMapViewDelegate>
 {
@@ -43,7 +44,7 @@
         [leftButton addTarget:self action:@selector(historyClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
         rightButton = [Tools getNavigationItemWithImage:@"map_profile"];
-        [rightButton addTarget:self action:@selector(testClick) forControlEvents:UIControlEventTouchUpInside];
+        [rightButton addTarget:self action:@selector(userCenterClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
         //背景地图
         _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -136,12 +137,10 @@
     NSLog(@"%f---%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
 }
 
-- (void)testClick
+- (void)userCenterClick
 {
-    cameraViewController *camerVC = [[cameraViewController alloc]init];
-    [self.navigationController presentViewController:camerVC animated:YES completion:^{
-        
-    }];
+    UserCenterViewController *userVC = [[UserCenterViewController alloc]init];
+    [self.navigationController pushViewController:userVC animated:YES];
 
 }
 
