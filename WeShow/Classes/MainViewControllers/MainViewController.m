@@ -88,7 +88,7 @@
         bottomViewHeight = self.view.EA_Width * 1.215;
         _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, 0, self.view.EA_Width, bottomViewHeight)];
         _bottomView.delegate = self;
-        _bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight - 64;
+        _bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight;
         _bottomView.showing = YES;
         [self.view addSubview:_bottomView];
         

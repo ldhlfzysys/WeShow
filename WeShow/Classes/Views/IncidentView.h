@@ -6,7 +6,6 @@
 //  Copyright © 2015年 Weibo. All rights reserved.
 //
 
-#import "EABaseCardView.h"
 
 
 @class IncidentView;
@@ -16,7 +15,7 @@
 
 @end
 
-@interface IncidentView : EABaseCardView
+@interface IncidentView : UIView
 @property (nonatomic, weak)id<IncidentViewDelegate> delegate;
 @property (nonatomic, strong)UIImageView *redDotImage;
 @property (nonatomic, strong)UILabel *mediaTypeLabel;

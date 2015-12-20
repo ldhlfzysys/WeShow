@@ -20,19 +20,12 @@
 		B81A65821BEDD19A008116E9 /* DataCenterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65621BEDD19A008116E9 /* DataCenterManager.m */; };
 		B81A65831BEDD19A008116E9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65651BEDD19A008116E9 /* MainViewController.m */; };
 		B81A65841BEDD19A008116E9 /* AppUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65681BEDD19A008116E9 /* AppUser.m */; };
-		B81A65851BEDD19A008116E9 /* EABaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A656A1BEDD19A008116E9 /* EABaseModel.m */; };
-		B81A65861BEDD19A008116E9 /* EACard.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A656C1BEDD19A008116E9 /* EACard.m */; };
 		B81A65871BEDD19A008116E9 /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A656F1BEDD19A008116E9 /* NetWorkManager.m */; };
 		B81A65881BEDD19A008116E9 /* NSDictionary+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65731BEDD19A008116E9 /* NSDictionary+Utils.m */; };
 		B81A65891BEDD19A008116E9 /* PodsUsage in Resources */ = {isa = PBXBuildFile; fileRef = B81A65741BEDD19A008116E9 /* PodsUsage */; };
 		B81A658A1BEDD19A008116E9 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65761BEDD19A008116E9 /* Tools.m */; };
 		B81A658B1BEDD19A008116E9 /* UIView+Sizes.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65781BEDD19A008116E9 /* UIView+Sizes.m */; };
-		B81A658C1BEDD19A008116E9 /* EABaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A657B1BEDD19A008116E9 /* EABaseViewController.m */; };
 		B81A658D1BEDD19A008116E9 /* ExampleDemo in Resources */ = {isa = PBXBuildFile; fileRef = B81A657C1BEDD19A008116E9 /* ExampleDemo */; };
-		B81A658E1BEDD19A008116E9 /* EABaseCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A657F1BEDD19A008116E9 /* EABaseCardView.m */; };
-		B81A658F1BEDD19A008116E9 /* EABaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65811BEDD19A008116E9 /* EABaseTableViewCell.m */; };
-		B86D9D491C170EAB00D844B7 /* 标注.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D3D1C170EAB00D844B7 /* 标注.png */; };
-		B86D9D4A1C170EAB00D844B7 /* 效果图.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D3E1C170EAB00D844B7 /* 效果图.png */; };
 		B86D9D4B1C170EAB00D844B7 /* map_create.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D3F1C170EAB00D844B7 /* map_create.png */; };
 		B86D9D4C1C170EAB00D844B7 /* map_history.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D401C170EAB00D844B7 /* map_history.png */; };
 		B86D9D4D1C170EAB00D844B7 /* map_live.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D411C170EAB00D844B7 /* map_live.png */; };
@@ -43,10 +36,10 @@
 		B86D9D521C170EAB00D844B7 /* map_pull_up.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D461C170EAB00D844B7 /* map_pull_up.png */; };
 		B86D9D531C170EAB00D844B7 /* map_pull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D471C170EAB00D844B7 /* map_pull@2x.png */; };
 		B86D9D541C170EAB00D844B7 /* map_range.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D481C170EAB00D844B7 /* map_range.png */; };
-		B86D9D571C17123B00D844B7 /* EABaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86D9D561C17123B00D844B7 /* EABaseTableViewController.m */; };
 		B86D9D591C171CD900D844B7 /* map_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B86D9D581C171CD900D844B7 /* map_background@2x.png */; };
 		B86D9D5C1C171F6200D844B7 /* PulsingHaloLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B86D9D5B1C171F6200D844B7 /* PulsingHaloLayer.m */; };
 		B87ADA351C250CCB00C841A5 /* navigationbar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B87ADA341C250CCB00C841A5 /* navigationbar_bg.png */; };
+		B87ADA711C268D3A00C841A5 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = B87ADA701C268D3A00C841A5 /* UINavigationBar+Awesome.m */; };
 		B8E651BC1C2502C00064ED01 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E651BB1C2502C00064ED01 /* HistoryViewController.m */; };
 		B8E651BF1C2502CD0064ED01 /* HistoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E651BE1C2502CD0064ED01 /* HistoryDetailViewController.m */; };
 		B8E651C11C2505CD0064ED01 /* opacity.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E651C01C2505CD0064ED01 /* opacity.png */; };
@@ -102,10 +95,6 @@
 		B81A65651BEDD19A008116E9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		B81A65671BEDD19A008116E9 /* AppUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUser.h; sourceTree = "<group>"; };
 		B81A65681BEDD19A008116E9 /* AppUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUser.m; sourceTree = "<group>"; };
-		B81A65691BEDD19A008116E9 /* EABaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EABaseModel.h; sourceTree = "<group>"; };
-		B81A656A1BEDD19A008116E9 /* EABaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EABaseModel.m; sourceTree = "<group>"; };
-		B81A656B1BEDD19A008116E9 /* EACard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EACard.h; sourceTree = "<group>"; };
-		B81A656C1BEDD19A008116E9 /* EACard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EACard.m; sourceTree = "<group>"; };
 		B81A656E1BEDD19A008116E9 /* NetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkManager.h; sourceTree = "<group>"; };
 		B81A656F1BEDD19A008116E9 /* NetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkManager.m; sourceTree = "<group>"; };
 		B81A65701BEDD19A008116E9 /* URLAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLAPI.h; sourceTree = "<group>"; };
@@ -116,15 +105,7 @@
 		B81A65761BEDD19A008116E9 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		B81A65771BEDD19A008116E9 /* UIView+Sizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Sizes.h"; sourceTree = "<group>"; };
 		B81A65781BEDD19A008116E9 /* UIView+Sizes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Sizes.m"; sourceTree = "<group>"; };
-		B81A657A1BEDD19A008116E9 /* EABaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EABaseViewController.h; sourceTree = "<group>"; };
-		B81A657B1BEDD19A008116E9 /* EABaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EABaseViewController.m; sourceTree = "<group>"; };
 		B81A657C1BEDD19A008116E9 /* ExampleDemo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ExampleDemo; sourceTree = "<group>"; };
-		B81A657E1BEDD19A008116E9 /* EABaseCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EABaseCardView.h; sourceTree = "<group>"; };
-		B81A657F1BEDD19A008116E9 /* EABaseCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EABaseCardView.m; sourceTree = "<group>"; };
-		B81A65801BEDD19A008116E9 /* EABaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EABaseTableViewCell.h; sourceTree = "<group>"; };
-		B81A65811BEDD19A008116E9 /* EABaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EABaseTableViewCell.m; sourceTree = "<group>"; };
-		B86D9D3D1C170EAB00D844B7 /* 标注.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标注.png"; sourceTree = "<group>"; };
-		B86D9D3E1C170EAB00D844B7 /* 效果图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "效果图.png"; sourceTree = "<group>"; };
 		B86D9D3F1C170EAB00D844B7 /* map_create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_create.png; sourceTree = "<group>"; };
 		B86D9D401C170EAB00D844B7 /* map_history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_history.png; sourceTree = "<group>"; };
 		B86D9D411C170EAB00D844B7 /* map_live.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_live.png; sourceTree = "<group>"; };
@@ -135,12 +116,12 @@
 		B86D9D461C170EAB00D844B7 /* map_pull_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pull_up.png; sourceTree = "<group>"; };
 		B86D9D471C170EAB00D844B7 /* map_pull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pull@2x.png"; sourceTree = "<group>"; };
 		B86D9D481C170EAB00D844B7 /* map_range.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_range.png; sourceTree = "<group>"; };
-		B86D9D551C17123B00D844B7 /* EABaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EABaseTableViewController.h; sourceTree = "<group>"; };
-		B86D9D561C17123B00D844B7 /* EABaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EABaseTableViewController.m; sourceTree = "<group>"; };
 		B86D9D581C171CD900D844B7 /* map_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_background@2x.png"; sourceTree = "<group>"; };
 		B86D9D5A1C171F6200D844B7 /* PulsingHaloLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulsingHaloLayer.h; sourceTree = "<group>"; };
 		B86D9D5B1C171F6200D844B7 /* PulsingHaloLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulsingHaloLayer.m; sourceTree = "<group>"; };
 		B87ADA341C250CCB00C841A5 /* navigationbar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_bg.png; sourceTree = "<group>"; };
+		B87ADA6F1C268D3A00C841A5 /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
+		B87ADA701C268D3A00C841A5 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		B8E651BA1C2502C00064ED01 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		B8E651BB1C2502C00064ED01 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		B8E651BD1C2502CD0064ED01 /* HistoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailViewController.h; sourceTree = "<group>"; };
@@ -280,10 +261,6 @@
 			children = (
 				B81A65671BEDD19A008116E9 /* AppUser.h */,
 				B81A65681BEDD19A008116E9 /* AppUser.m */,
-				B81A65691BEDD19A008116E9 /* EABaseModel.h */,
-				B81A656A1BEDD19A008116E9 /* EABaseModel.m */,
-				B81A656B1BEDD19A008116E9 /* EACard.h */,
-				B81A656C1BEDD19A008116E9 /* EACard.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -301,6 +278,8 @@
 		B81A65711BEDD19A008116E9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B87ADA6F1C268D3A00C841A5 /* UINavigationBar+Awesome.h */,
+				B87ADA701C268D3A00C841A5 /* UINavigationBar+Awesome.m */,
 				B81A65721BEDD19A008116E9 /* NSDictionary+Utils.h */,
 				B81A65731BEDD19A008116E9 /* NSDictionary+Utils.m */,
 				B81A65741BEDD19A008116E9 /* PodsUsage */,
@@ -323,10 +302,6 @@
 				3E8E6AAB1C181AF500897F03 /* soundViewController.m */,
 				3EA42B481C1D2CCD006D0CB7 /* postViewController.h */,
 				3EA42B491C1D2CCD006D0CB7 /* postViewController.m */,
-				B86D9D551C17123B00D844B7 /* EABaseTableViewController.h */,
-				B86D9D561C17123B00D844B7 /* EABaseTableViewController.m */,
-				B81A657A1BEDD19A008116E9 /* EABaseViewController.h */,
-				B81A657B1BEDD19A008116E9 /* EABaseViewController.m */,
 				3EA42B451C1D1E2D006D0CB7 /* sceneViewController.h */,
 				3EA42B461C1D1E2D006D0CB7 /* sceneViewController.m */,
 				B81A657C1BEDD19A008116E9 /* ExampleDemo */,
@@ -343,10 +318,6 @@
 			children = (
 				B86D9D5A1C171F6200D844B7 /* PulsingHaloLayer.h */,
 				B86D9D5B1C171F6200D844B7 /* PulsingHaloLayer.m */,
-				B81A657E1BEDD19A008116E9 /* EABaseCardView.h */,
-				B81A657F1BEDD19A008116E9 /* EABaseCardView.m */,
-				B81A65801BEDD19A008116E9 /* EABaseTableViewCell.h */,
-				B81A65811BEDD19A008116E9 /* EABaseTableViewCell.m */,
 				B8E691C21C1806FB00392B7B /* IncidentView.h */,
 				B8E691C31C1806FB00392B7B /* IncidentView.m */,
 				B8E691D41C18354200392B7B /* PullView.h */,
@@ -380,8 +351,6 @@
 				B8E691B71C1806D200392B7B /* map_pull_people.png */,
 				B8E691B81C1806D200392B7B /* map_pull_point_select.png */,
 				B8E691B91C1806D200392B7B /* map_pull_point.png */,
-				B86D9D3D1C170EAB00D844B7 /* 标注.png */,
-				B86D9D3E1C170EAB00D844B7 /* 效果图.png */,
 				B86D9D3F1C170EAB00D844B7 /* map_create.png */,
 				B86D9D401C170EAB00D844B7 /* map_history.png */,
 				B86D9D411C170EAB00D844B7 /* map_live.png */,
@@ -483,11 +452,9 @@
 				B8E691FB1C1E63E000392B7B /* photo_shoot.png in Resources */,
 				B86D9D4F1C170EAB00D844B7 /* map_positioning.png in Resources */,
 				B87ADA351C250CCB00C841A5 /* navigationbar_bg.png in Resources */,
-				B86D9D4A1C170EAB00D844B7 /* 效果图.png in Resources */,
 				B8E691C01C1806D200392B7B /* map_pull_point_select.png in Resources */,
 				B8E691E31C1977BF00392B7B /* incident_b1@2x.png in Resources */,
 				B86D9D4C1C170EAB00D844B7 /* map_history.png in Resources */,
-				B86D9D491C170EAB00D844B7 /* 标注.png in Resources */,
 				B81A658D1BEDD19A008116E9 /* ExampleDemo in Resources */,
 				B86D9D511C170EAB00D844B7 /* map_pull_down.png in Resources */,
 				B86D9D4D1C170EAB00D844B7 /* map_live.png in Resources */,
@@ -569,23 +536,18 @@
 				3EA42B471C1D1E2D006D0CB7 /* sceneViewController.m in Sources */,
 				B81A65871BEDD19A008116E9 /* NetWorkManager.m in Sources */,
 				B81A658A1BEDD19A008116E9 /* Tools.m in Sources */,
-				B86D9D571C17123B00D844B7 /* EABaseTableViewController.m in Sources */,
-				B81A65861BEDD19A008116E9 /* EACard.m in Sources */,
 				B8E691E61C19789600392B7B /* CreateViewController.m in Sources */,
 				B8E651BC1C2502C00064ED01 /* HistoryViewController.m in Sources */,
 				B81A65821BEDD19A008116E9 /* DataCenterManager.m in Sources */,
 				B81A658B1BEDD19A008116E9 /* UIView+Sizes.m in Sources */,
-				B81A658C1BEDD19A008116E9 /* EABaseViewController.m in Sources */,
 				B8E651BF1C2502CD0064ED01 /* HistoryDetailViewController.m in Sources */,
+				B87ADA711C268D3A00C841A5 /* UINavigationBar+Awesome.m in Sources */,
 				B81A65471BEDD0E2008116E9 /* AppDelegate.m in Sources */,
 				3EA42B4A1C1D2CCD006D0CB7 /* postViewController.m in Sources */,
 				B8E691D61C18354200392B7B /* PullView.m in Sources */,
 				B8E691DF1C19723300392B7B /* DotView.m in Sources */,
 				B81A65841BEDD19A008116E9 /* AppUser.m in Sources */,
-				B81A658E1BEDD19A008116E9 /* EABaseCardView.m in Sources */,
 				B81A65441BEDD0E2008116E9 /* main.m in Sources */,
-				B81A658F1BEDD19A008116E9 /* EABaseTableViewCell.m in Sources */,
-				B81A65851BEDD19A008116E9 /* EABaseModel.m in Sources */,
 				B81A65881BEDD19A008116E9 /* NSDictionary+Utils.m in Sources */,
 				3E8E6AAC1C181AF500897F03 /* soundViewController.m in Sources */,
 				B81A65831BEDD19A008116E9 /* MainViewController.m in Sources */,

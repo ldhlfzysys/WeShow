@@ -6,7 +6,6 @@
 //  Copyright © 2015年 Weibo. All rights reserved.
 //
 
-#import "EABaseViewController.h"
 #import "IncidentView.h"
 #import "PullView.h"
 #import "sceneViewController.h"
