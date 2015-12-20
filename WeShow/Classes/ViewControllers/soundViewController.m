@@ -291,7 +291,7 @@
         [[self.avPlayer currentItem] seekToTime:kCMTimeZero];
         [self.avPlayer setMuted:YES];
         [self startRecord];
-        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
+        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         [self.avPlayer setMuted:NO];
@@ -331,22 +331,23 @@
                                                                             preferredTrackID:kCMPersistentTrackID_Invalid];
         
         AVURLAsset* originAsset = [AVURLAsset URLAssetWithURL:self.mediaUrl options:nil];
+        
         AVURLAsset* personAudioAsset = [AVURLAsset URLAssetWithURL:_recordedTmpFile options:nil];
         
-//        float originSec = originAsset.duration.value/originAsset.duration.timescale;
-//        float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
-//        
-//        if (originSec - personSec < 0.1) {
+        float originSec = originAsset.duration.value/originAsset.duration.timescale;
+        float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
+        
+        if (originSec - personSec < 0.1) {
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
                                 ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-//        }else
-//        {
-//            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
-//                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-//            [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeSubtract(originAsset.duration, personAudioAsset.duration))
-//                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
-//        }
-        
+        }else
+        {
+            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
+                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+            [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeSubtract(originAsset.duration, personAudioAsset.duration))
+                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
+        }
+    
         AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
                                                                             preferredTrackID:kCMPersistentTrackID_Invalid];
         [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
@@ -370,6 +371,7 @@
         exporter.shouldOptimizeForNetworkUse = YES;
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
+                NSLog(@"拼接outputURL:%@",exporter.outputURL);
                 postViewController *VC = [[postViewController alloc]initWithMediaUrl:exporter.outputURL];
                 [self presentViewController:VC animated:YES completion:^{
                     
