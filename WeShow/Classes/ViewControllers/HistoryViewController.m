@@ -8,9 +8,10 @@
 
 #import "HistoryViewController.h"
 #import "HistoryDetailViewController.h"
+#import "MultiIncidentTableViewCell.h"
 
 @interface HistoryViewController ()
-@property (nonatomic,strong)PullView *bottomView;
+@property (nonatomic,strong)NewPullView *bottomView;
 @end
 
 @implementation HistoryViewController
@@ -19,35 +20,74 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
+    _mainTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.EA_Width, self.view.EA_Height)];
+    _mainTable.backgroundColor = UIColorFromRGB(0x373b47);
+    
+    _mainTable.delegate = self;
+    _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _mainTable.dataSource = self;
+    [self.view addSubview:_mainTable];
+    /**
+     临时数据，用3种高度表示3种展示。
+     **/
+    _datas = [@[@"101",@"101",@"101",@"101",@"101",@"101",@"101",@"101",@"101"] mutableCopy];
+    
     CGFloat bottomViewHeight = self.view.EA_Width * 1.215;
-    _bottomView = [[PullView alloc]initWithFrame:CGRectMake(0, 64  , self.view.EA_Width, bottomViewHeight)];
+    _bottomView = [[NewPullView alloc]initWithFrame:CGRectMake(0, 64, self.view.EA_Width, bottomViewHeight)];
     _bottomView.delegate = self;
-    _bottomView.showing = YES;
-    [self.view addSubview:_bottomView];
+    _mainTable.tableHeaderView = _bottomView;
     
-    IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.myScroll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
     test1.delegate = self;
-    [_bottomView.mainScorll addSubview:test1];
+    [_bottomView.myScroll addSubview:test1];
     
-    IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.myScroll.EA_Width,  10, _bottomView.myScroll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
     test2.delegate = self;
-    [_bottomView.mainScorll addSubview:test2];
+    [_bottomView.myScroll addSubview:test2];
     
-    IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 10, 10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width*2 + 10, 10, _bottomView.myScroll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
     test3.delegate = self;
-    [_bottomView.mainScorll addSubview:test3];
+    [_bottomView.myScroll addSubview:test3];
     
     self.navigationItem.titleView = [Tools getTitleLab:@"历史实况"];
     UIButton *backBtn = [Tools getNavigationItemWithImage:@"video_back"];
     [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-    
-    UIButton *postBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, _bottomView.EA_Bottom + 60, 80, 80)];
-    postBtn.EA_CenterX = self.view.EA_Width/2;
-    [postBtn addTarget:self action:@selector(postBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [postBtn setBackgroundImage:[UIImage imageNamed:@"photo_send_big"] forState:UIControlStateNormal];
-    [self.view addSubview:postBtn];
 
+
+}
+#pragma mark - UITableView
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [_datas[indexPath.row] floatValue];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return _datas.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *reuserStr = @"MaintableViewCell";
+    MultiIncidentTableViewCell *cell = [[MultiIncidentTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuserStr];
+    if (cell == nil) {
+        cell = [[MultiIncidentTableViewCell alloc]initWithFrame:CGRectMake(0, 0, self.view.EA_Width, self.view.EA_Height)];
+    }else{
+        cell.EA_Width = SCREEN_WIDTH;
+    }
+    if ([_datas[indexPath.row] floatValue] == 101) {
+        [cell loadStyle2];
+    }
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
 }
 
 

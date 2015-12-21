@@ -14,7 +14,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         _headView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 61, 61)];
-        _headView.backgroundColor = [UIColor greenColor];
+        _headView.backgroundColor = [UIColor grayColor];
         [self addSubview:_headView];
         
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_headView.EA_Right + 10, 10, self.EA_Width - 90, 16)];
@@ -23,7 +23,7 @@
         _titleLabel.text = @"时间标题";
         [self addSubview:_titleLabel];
         
-        _addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(_headView.EA_Right + 10, 6, self.EA_Width - 90, 10)];
+        _addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(_headView.EA_Right + 10, _titleLabel.EA_Bottom + 6, self.EA_Width - 90, 10)];
         _addressLabel.font = [UIFont systemFontOfSize:10];
         _addressLabel.textColor = UIColorFromRGB(0xc4c7cc);
         _addressLabel.text = @"地址";
@@ -34,10 +34,10 @@
         [self addSubview:_timeIcon];
         
         _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(_timeIcon.EA_Right + 4, _addressLabel.EA_Bottom+13, 60, 12)];
-        _addressLabel.font = [UIFont systemFontOfSize:12];
-        _addressLabel.textColor = UIColorFromRGB(0xdcac5b);
-        _addressLabel.text = @"8h 24m";
-        [self addSubview:_addressLabel];
+        _timeLabel.font = [UIFont systemFontOfSize:12];
+        _timeLabel.textColor = UIColorFromRGB(0xdcac5b);
+        _timeLabel.text = @"8h 24m";
+        [self addSubview:_timeLabel];
         
         
         _peopleNumIcon = [[UIImageView alloc]initWithFrame:CGRectMake(_timeLabel.EA_Right + 12, _addressLabel.EA_Bottom+13, 12, 12)];

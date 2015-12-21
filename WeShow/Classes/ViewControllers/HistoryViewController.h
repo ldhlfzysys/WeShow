@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "IncidentView.h"
-#import "PullView.h"
+#import "NewPullView.h"
 
-@interface HistoryViewController : UIViewController<IncidentViewDelegate,PullViewDelegate>
+@interface HistoryViewController : UIViewController<IncidentViewDelegate,NewPullViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong)UITableView *mainTable;
+@property (nonatomic,strong)NSMutableArray *datas;
 
 @end

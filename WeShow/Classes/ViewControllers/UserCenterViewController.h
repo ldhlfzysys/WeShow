@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfileViewController.h"
-#import "IncidentView.h"
-#import "PullView.h"
-@interface UserCenterViewController : UIViewController<IncidentViewDelegate,PullViewDelegate>
-
+#import "IncidentViewNew.h"
+#import "NewPullView.h"
+@interface UserCenterViewController : UIViewController<IncidentViewNewDelegate,NewPullViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong)UITableView *mainTable;
+@property (nonatomic,strong)NSMutableArray *datas;
 @end

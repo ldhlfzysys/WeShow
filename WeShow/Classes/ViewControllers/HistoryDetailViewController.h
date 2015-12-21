@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryDetailViewController : UIViewController
-
+@interface HistoryDetailViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong)UITableView *mainTable;
+@property (nonatomic,strong)NSMutableArray *datas;
 @end
