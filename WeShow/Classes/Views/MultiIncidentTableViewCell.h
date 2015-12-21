@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MultiIncidentTableViewCell : UITableViewCell
-
+- (void)loadStyle1;
+- (void)loadStyle2;
+- (void)loadStyle3;
 @end

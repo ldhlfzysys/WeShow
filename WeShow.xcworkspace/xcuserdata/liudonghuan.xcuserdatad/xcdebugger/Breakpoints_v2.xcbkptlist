@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
-            timestampString = "472290579.159754"
+            filePath = "Pods/MJRefresh/MJRefresh/UIScrollView+MJExtension.m"
+            timestampString = "472378330.436514"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "-pullViewScrollToIndex:"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "-setMj_offsetY:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
-            timestampString = "472290579.159754"
+            filePath = "WeShow/Classes/Views/HistoryDetailTableViewCell.m"
+            timestampString = "472385217.038859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-pullViewPositionChange:"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "-loadStyle1"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

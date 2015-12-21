@@ -59,6 +59,14 @@
 		B87ADA971C269B9600C841A5 /* MultiIncidentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87ADA961C269B9600C841A5 /* MultiIncidentScrollView.m */; };
 		B87ADA9A1C26A9A700C841A5 /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B87ADA991C26A9A700C841A5 /* ProfileHeaderView.m */; };
 		B87ADA9D1C26B07E00C841A5 /* MultiIncidentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B87ADA9C1C26B07E00C841A5 /* MultiIncidentTableViewCell.m */; };
+		B8929CB11C27D17D0073E4BD /* OnelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CB01C27D17D0073E4BD /* OnelineView.m */; };
+		B8929CB41C27D3A70073E4BD /* CommontView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CB31C27D3A70073E4BD /* CommontView.m */; };
+		B8929CB71C27D9E60073E4BD /* NewPullView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CB61C27D9E60073E4BD /* NewPullView.m */; };
+		B8929CBA1C27DB5E0073E4BD /* IncidentViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CB91C27DB5E0073E4BD /* IncidentViewNew.m */; };
+		B8929CBD1C27EE7C0073E4BD /* UserIncidentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CBC1C27EE7C0073E4BD /* UserIncidentTableViewCell.m */; };
+		B8929CC01C27EF0C0073E4BD /* UserIncidentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CBF1C27EF0C0073E4BD /* UserIncidentView.m */; };
+		B8929CC31C27FE5F0073E4BD /* HistoryHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CC21C27FE5F0073E4BD /* HistoryHeadView.m */; };
+		B8929CC61C2800DA0073E4BD /* HistoryDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8929CC51C2800DA0073E4BD /* HistoryDetailTableViewCell.m */; };
 		B8E651BC1C2502C00064ED01 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E651BB1C2502C00064ED01 /* HistoryViewController.m */; };
 		B8E651BF1C2502CD0064ED01 /* HistoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E651BE1C2502CD0064ED01 /* HistoryDetailViewController.m */; };
 		B8E651C11C2505CD0064ED01 /* opacity.png in Resources */ = {isa = PBXBuildFile; fileRef = B8E651C01C2505CD0064ED01 /* opacity.png */; };
@@ -166,6 +174,22 @@
 		B87ADA991C26A9A700C841A5 /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileHeaderView.m; sourceTree = "<group>"; };
 		B87ADA9B1C26B07E00C841A5 /* MultiIncidentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiIncidentTableViewCell.h; sourceTree = "<group>"; };
 		B87ADA9C1C26B07E00C841A5 /* MultiIncidentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiIncidentTableViewCell.m; sourceTree = "<group>"; };
+		B8929CAF1C27D17D0073E4BD /* OnelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnelineView.h; sourceTree = "<group>"; };
+		B8929CB01C27D17D0073E4BD /* OnelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnelineView.m; sourceTree = "<group>"; };
+		B8929CB21C27D3A70073E4BD /* CommontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommontView.h; sourceTree = "<group>"; };
+		B8929CB31C27D3A70073E4BD /* CommontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommontView.m; sourceTree = "<group>"; };
+		B8929CB51C27D9E60073E4BD /* NewPullView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPullView.h; sourceTree = "<group>"; };
+		B8929CB61C27D9E60073E4BD /* NewPullView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPullView.m; sourceTree = "<group>"; };
+		B8929CB81C27DB5E0073E4BD /* IncidentViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidentViewNew.h; sourceTree = "<group>"; };
+		B8929CB91C27DB5E0073E4BD /* IncidentViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidentViewNew.m; sourceTree = "<group>"; };
+		B8929CBB1C27EE7C0073E4BD /* UserIncidentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIncidentTableViewCell.h; sourceTree = "<group>"; };
+		B8929CBC1C27EE7C0073E4BD /* UserIncidentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserIncidentTableViewCell.m; sourceTree = "<group>"; };
+		B8929CBE1C27EF0C0073E4BD /* UserIncidentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIncidentView.h; sourceTree = "<group>"; };
+		B8929CBF1C27EF0C0073E4BD /* UserIncidentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserIncidentView.m; sourceTree = "<group>"; };
+		B8929CC11C27FE5F0073E4BD /* HistoryHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryHeadView.h; sourceTree = "<group>"; };
+		B8929CC21C27FE5F0073E4BD /* HistoryHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryHeadView.m; sourceTree = "<group>"; };
+		B8929CC41C2800DA0073E4BD /* HistoryDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailTableViewCell.h; sourceTree = "<group>"; };
+		B8929CC51C2800DA0073E4BD /* HistoryDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailTableViewCell.m; sourceTree = "<group>"; };
 		B8E651BA1C2502C00064ED01 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		B8E651BB1C2502C00064ED01 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		B8E651BD1C2502CD0064ED01 /* HistoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailViewController.h; sourceTree = "<group>"; };
@@ -368,18 +392,34 @@
 				B86D9D5B1C171F6200D844B7 /* PulsingHaloLayer.m */,
 				B8E691C21C1806FB00392B7B /* IncidentView.h */,
 				B8E691C31C1806FB00392B7B /* IncidentView.m */,
+				B8929CB81C27DB5E0073E4BD /* IncidentViewNew.h */,
+				B8929CB91C27DB5E0073E4BD /* IncidentViewNew.m */,
 				B8E691D41C18354200392B7B /* PullView.h */,
 				B8E691D51C18354200392B7B /* PullView.m */,
+				B8929CB51C27D9E60073E4BD /* NewPullView.h */,
+				B8929CB61C27D9E60073E4BD /* NewPullView.m */,
 				B8E691DD1C19723300392B7B /* DotView.h */,
 				B8E691DE1C19723300392B7B /* DotView.m */,
+				B87ADA981C26A9A700C841A5 /* ProfileHeaderView.h */,
+				B87ADA991C26A9A700C841A5 /* ProfileHeaderView.m */,
 				B87ADA921C26985200C841A5 /* ImageMultiLineIncident.h */,
 				B87ADA931C26985200C841A5 /* ImageMultiLineIncident.m */,
 				B87ADA951C269B9600C841A5 /* MultiIncidentScrollView.h */,
 				B87ADA961C269B9600C841A5 /* MultiIncidentScrollView.m */,
-				B87ADA981C26A9A700C841A5 /* ProfileHeaderView.h */,
-				B87ADA991C26A9A700C841A5 /* ProfileHeaderView.m */,
+				B8929CAF1C27D17D0073E4BD /* OnelineView.h */,
+				B8929CB01C27D17D0073E4BD /* OnelineView.m */,
+				B8929CB21C27D3A70073E4BD /* CommontView.h */,
+				B8929CB31C27D3A70073E4BD /* CommontView.m */,
 				B87ADA9B1C26B07E00C841A5 /* MultiIncidentTableViewCell.h */,
 				B87ADA9C1C26B07E00C841A5 /* MultiIncidentTableViewCell.m */,
+				B8929CBB1C27EE7C0073E4BD /* UserIncidentTableViewCell.h */,
+				B8929CBC1C27EE7C0073E4BD /* UserIncidentTableViewCell.m */,
+				B8929CBE1C27EF0C0073E4BD /* UserIncidentView.h */,
+				B8929CBF1C27EF0C0073E4BD /* UserIncidentView.m */,
+				B8929CC11C27FE5F0073E4BD /* HistoryHeadView.h */,
+				B8929CC21C27FE5F0073E4BD /* HistoryHeadView.m */,
+				B8929CC41C2800DA0073E4BD /* HistoryDetailTableViewCell.h */,
+				B8929CC51C2800DA0073E4BD /* HistoryDetailTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -617,11 +657,16 @@
 				B8E691C71C180D3400392B7B /* cameraViewController.m in Sources */,
 				B87ADA741C2690E800C841A5 /* UserCenterViewController.m in Sources */,
 				3EA42B471C1D1E2D006D0CB7 /* sceneViewController.m in Sources */,
+				B8929CB71C27D9E60073E4BD /* NewPullView.m in Sources */,
+				B8929CBA1C27DB5E0073E4BD /* IncidentViewNew.m in Sources */,
+				B8929CBD1C27EE7C0073E4BD /* UserIncidentTableViewCell.m in Sources */,
 				B81A65871BEDD19A008116E9 /* NetWorkManager.m in Sources */,
 				B81A658A1BEDD19A008116E9 /* Tools.m in Sources */,
+				B8929CC01C27EF0C0073E4BD /* UserIncidentView.m in Sources */,
 				B8E691E61C19789600392B7B /* CreateViewController.m in Sources */,
 				B87ADA771C2690F200C841A5 /* ProfileViewController.m in Sources */,
 				B87ADA9D1C26B07E00C841A5 /* MultiIncidentTableViewCell.m in Sources */,
+				B8929CB11C27D17D0073E4BD /* OnelineView.m in Sources */,
 				B8E651BC1C2502C00064ED01 /* HistoryViewController.m in Sources */,
 				B87ADA9A1C26A9A700C841A5 /* ProfileHeaderView.m in Sources */,
 				B81A65821BEDD19A008116E9 /* DataCenterManager.m in Sources */,
@@ -629,13 +674,16 @@
 				B8E651BF1C2502CD0064ED01 /* HistoryDetailViewController.m in Sources */,
 				B87ADA711C268D3A00C841A5 /* UINavigationBar+Awesome.m in Sources */,
 				B81A65471BEDD0E2008116E9 /* AppDelegate.m in Sources */,
+				B8929CC61C2800DA0073E4BD /* HistoryDetailTableViewCell.m in Sources */,
 				B87ADA971C269B9600C841A5 /* MultiIncidentScrollView.m in Sources */,
 				3EA42B4A1C1D2CCD006D0CB7 /* postViewController.m in Sources */,
 				B8E691D61C18354200392B7B /* PullView.m in Sources */,
 				B8E691DF1C19723300392B7B /* DotView.m in Sources */,
 				B81A65841BEDD19A008116E9 /* AppUser.m in Sources */,
+				B8929CB41C27D3A70073E4BD /* CommontView.m in Sources */,
 				B87ADA941C26985200C841A5 /* ImageMultiLineIncident.m in Sources */,
 				B81A65441BEDD0E2008116E9 /* main.m in Sources */,
+				B8929CC31C27FE5F0073E4BD /* HistoryHeadView.m in Sources */,
 				B81A65881BEDD19A008116E9 /* NSDictionary+Utils.m in Sources */,
 				3E8E6AAC1C181AF500897F03 /* soundViewController.m in Sources */,
 				B81A65831BEDD19A008116E9 /* MainViewController.m in Sources */,

@@ -14,15 +14,15 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         _mainScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(10, 10, self.EA_Width - 20, self.EA_Height - 20)];
-        _mainScroll.contentSize = CGSizeMake(558, _mainScroll.EA_Height);
+        _mainScroll.contentSize = CGSizeMake(618, _mainScroll.EA_Height);
         [self addSubview:_mainScroll];
         
         CGFloat baseX = 0;
         for (int i = 0; i < 6; i++) {
-            UIImageView *image1 = [[UIImageView alloc]initWithFrame:CGRectMake(baseX, 0, 93, _mainScroll.EA_Height)];
+            UIImageView *image1 = [[UIImageView alloc]initWithFrame:CGRectMake(baseX, 0, 100, _mainScroll.EA_Height)];
             image1.backgroundColor = [UIColor grayColor];
             [_mainScroll addSubview:image1];
-            baseX += 93;
+            baseX += 103;
         }
         
        

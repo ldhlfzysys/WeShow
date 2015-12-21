@@ -132,11 +132,6 @@
 
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSLog(@"%f---%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
-}
-
 - (void)userCenterClick
 {
     UserCenterViewController *userVC = [[UserCenterViewController alloc]init];
