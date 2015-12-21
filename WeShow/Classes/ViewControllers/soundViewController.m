@@ -337,6 +337,9 @@
         float originSec = originAsset.duration.value/originAsset.duration.timescale;
         float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
         
+        NSLog(@"%d,%d",originAsset.duration.timescale,personAudioAsset.duration.timescale);
+        NSLog(@"origin = %f,person = %f",originSec,personSec);
+        
         if (originSec - personSec < 0.1) {
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
                                 ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
@@ -344,14 +347,34 @@
         {
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
                                 ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+            
             [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeSubtract(originAsset.duration, personAudioAsset.duration))
                                 ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
+            
+            CMTime a = CMTimeSubtract(originAsset.duration, personAudioAsset.duration);
+            float b = a.value/a.timescale;
+            NSLog(@"rangetime = %f",b);
         }
+        
+//        AVMutableAudioMixInputParameters *audioMixPara = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];
+//        AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
+//        audioMix.inputParameters = audioMixPara;
     
         AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
                                                                             preferredTrackID:kCMPersistentTrackID_Invalid];
         [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
                             ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+        
+        CGAffineTransform t1;
+        CGAffineTransform t2;
+        
+        NSLog(@"rotate --- assetVideoTrack.naturalSize.height:%f", videoTrack.naturalSize.height);
+        NSLog(@"rotate --- assetVideoTrack.naturalSize.width:%f", videoTrack.naturalSize.width);
+        
+        t1 = CGAffineTransformMakeTranslation(videoTrack.naturalSize.height, 0.0);
+        // Rotate transformation
+        t2 = CGAffineTransformRotate(t1, 0.5 * M_PI);
+        [videoTrack setPreferredTransform:t2];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -369,11 +392,14 @@
         exporter.outputURL=url;
         exporter.outputFileType = AVFileTypeQuickTimeMovie;
         exporter.shouldOptimizeForNetworkUse = YES;
+        
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
                 NSLog(@"拼接outputURL:%@",exporter.outputURL);
                 
-                [self rotateVideoformURL:exporter.outputURL];
+                postViewController *VC = [[postViewController alloc]initWithMediaUrl:exporter.outputURL];
+                [self presentViewController:VC animated:NO completion:^{}];
+                //[self rotateVideoformURL:exporter.outputURL];
 
             }else if (exporter.status == AVAssetExportSessionStatusFailed)
             {
@@ -388,6 +414,7 @@
     }
 
 }
+
 
 - (void)rotateVideoformURL:(NSURL *)url
 {
@@ -452,6 +479,7 @@
     // Add the transform instructions to the video composition
     instruction.layerInstructions = @[layerInstruction];
     videoComposition.instructions = @[instruction];
+    
     
     postViewController *VC = [[postViewController alloc]initWithComposition:rotateComposition andVideoComposition:videoComposition];
     [self presentViewController:VC animated:YES completion:^{
