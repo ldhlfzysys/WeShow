@@ -13,18 +13,19 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
-        UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 10)];
-        nameLabel.font = [UIFont systemFontOfSize:10];
-        nameLabel.textColor = UIColorFromRGB(0xdddee2);
-        nameLabel.text = @"我发布的";
-        [nameLabel sizeToFit];
-        [self addSubview:nameLabel];
+        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 10)];
+        _nameLabel.font = [UIFont systemFontOfSize:10];
+        _nameLabel.textColor = UIColorFromRGB(0xdddee2);
+        _nameLabel.text = @"我发布的";
+        [_nameLabel sizeToFit];
+        [self addSubview:_nameLabel];
         
-        UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(nameLabel.EA_Right + 10, 0, self.EA_Width - nameLabel.EA_Right - 20, 1)];
+        UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(_nameLabel.EA_Right + 10, 0, self.EA_Width - _nameLabel.EA_Right - 20, 1)];
         line.backgroundColor = UIColorFromRGB(0xdddee2);
         line.EA_CenterY = self.EA_Height/2;
         [self addSubview:line];
     }
     return self;
 }
+
 @end

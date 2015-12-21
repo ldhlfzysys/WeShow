@@ -10,4 +10,5 @@
 
 @interface OnelineView : UIView
 @property (nonatomic,strong)NSString *nameStr;
+@property (nonatomic,strong)UILabel *nameLabel;
 @end

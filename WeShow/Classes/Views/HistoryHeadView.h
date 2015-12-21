@@ -17,7 +17,7 @@
 @end
 
 @interface HistoryHeadView : UIView
-@property (nonatomic,strong)UIImageView *headImage;
+@property (nonatomic,strong)UIImageView *topImage;
 @property (nonatomic,strong)UIImageView *vedioImage;
 @property (nonatomic,strong)UILabel *titleLabel;
 @property (nonatomic,strong)UILabel *addressLabel;
@@ -28,7 +28,8 @@
 @property (nonatomic,strong)OnelineView *createManView;
 @property (nonatomic,strong)OnelineView *joinManView;
 @property (nonatomic,strong)OnelineView *niceView;
-@property (nonatomic,strong)MultiIncidentScrollView *multiIncidentView;
+@property (nonatomic,strong)UIScrollView *multiHeadScroll;
 @property (nonatomic,strong)HeadNameView *createHeadView;
+@property (nonatomic,strong)MultiIncidentScrollView *niceScroll;
 
 @end

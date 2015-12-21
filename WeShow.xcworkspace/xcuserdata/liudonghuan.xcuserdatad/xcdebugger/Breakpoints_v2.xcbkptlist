@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/MJRefresh/MJRefresh/UIScrollView+MJExtension.m"
-            timestampString = "472378330.436514"
+            filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
+            timestampString = "472290579.159754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-setMj_offsetY:"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-pullViewScrollToIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WeShow/Classes/Views/HistoryDetailTableViewCell.m"
-            timestampString = "472385217.038859"
+            filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
+            timestampString = "472290579.159754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "-loadStyle1"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-pullViewPositionChange:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeShow/Classes/Views/HistoryHeadView.m"
+            timestampString = "472402167.380553"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-initWithFrame:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

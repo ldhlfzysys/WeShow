@@ -40,10 +40,17 @@
      **/
     _datas = [@[@"115",@"115",@"115",@"115",@"115",@"115",@"115",@"115"] mutableCopy];
     
-    _headView = [[HistoryHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.EA_Width, 400)];
-    _headView.backgroundColor = [UIColor grayColor];
+    _headView = [[HistoryHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.EA_Width, 864)];
     _mainTable.tableHeaderView = _headView;
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat y = scrollView.contentOffset.y + 64;// 0~184
+    CGFloat barAlpha = y/864;
+    UIColor * color = [UIColor colorWithRed:73/255.0 green:82/255.0 blue:98/255.0 alpha:1];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:barAlpha]];
 }
 
 #pragma mark - UITableView

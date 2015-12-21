@@ -65,12 +65,16 @@
     _likeIcon.userInteractionEnabled = YES;
     [_likeIcon addGestureRecognizer:likeTap];
     
-    _commentLabel = [[UILabel alloc]initWithFrame:CGRectMake( 10, 50, self.EA_Width - 20, 50)];
+    _commentLabel = [[UILabel alloc]initWithFrame:CGRectMake( 10, 45, self.EA_Width - 20, 50)];
     _commentLabel.font = [UIFont systemFontOfSize:15];
     _commentLabel.textColor = UIColorFromRGB(0x46484b);
     _commentLabel.numberOfLines = 2;
     _commentLabel.text = @"asdlkfj aasdf asd fasd asd fskdjf lkasjdfl kajsdlfk jalskdjf lkasdjflk ajsdlkfj asdlkfja";
+    [_commentLabel sizeToFit];
     [bgView addSubview:_commentLabel];
+    
+    CGFloat baseTop = (bgView.EA_Height - 30 - _commentLabel.EA_Height)/2;
+    _commentLabel.EA_Top = baseTop + 30;
 }
 
 - (void)likeClick{
