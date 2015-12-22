@@ -330,13 +330,29 @@
     if (flag) {
         AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
         
-        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
+        AVAsset* originAsset = [AVAsset assetWithURL:self.mediaUrl];
+        
+        NSLog(@"%@",originAsset.tracks);
+        
+        AVAsset* personAudioAsset = [AVAsset assetWithURL:_recordedTmpFile];
+        
+        AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
                                                                             preferredTrackID:kCMPersistentTrackID_Invalid];
         
-        AVURLAsset* originAsset = [AVURLAsset URLAssetWithURL:self.mediaUrl options:nil];
+        [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
+                            ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
         
-        AVURLAsset* personAudioAsset = [AVURLAsset URLAssetWithURL:_recordedTmpFile options:nil];
+        CGAffineTransform t1;
+        CGAffineTransform t2;
         
+        t1 = CGAffineTransformMakeTranslation(videoTrack.naturalSize.height, 0.0);
+        // Rotate transformation
+        t2 = CGAffineTransformRotate(t1, 0.5 * M_PI);
+        [videoTrack setPreferredTransform:t2];
+        
+        
+        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
+                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
         float originSec = originAsset.duration.value/originAsset.duration.timescale;
         float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
         
@@ -348,42 +364,27 @@
                                 ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
         }else
         {
+//            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
+//                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:originAsset.duration error:nil];
+            
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
                                 ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-            
-            [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeSubtract(originAsset.duration, personAudioAsset.duration))
-                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
-            
-            CMTime a = CMTimeSubtract(originAsset.duration, personAudioAsset.duration);
-            float b = a.value/a.timescale;
-            NSLog(@"rangetime = %f",b);
+
+//            CMTime a = CMTimeSubtract(originAsset.duration, personAudioAsset.duration);
+//            float b = a.value/a.timescale;
+//            NSLog(@"rangetime = %f",b);
         }
-        
-//        AVMutableAudioMixInputParameters *audioMixPara = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];
-//        AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
-//        audioMix.inputParameters = audioMixPara;
     
-        AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
-                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
-        [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
-                            ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+
         
-        CGAffineTransform t1;
-        CGAffineTransform t2;
-        
-        NSLog(@"rotate --- assetVideoTrack.naturalSize.height:%f", videoTrack.naturalSize.height);
-        NSLog(@"rotate --- assetVideoTrack.naturalSize.width:%f", videoTrack.naturalSize.width);
-        
-        t1 = CGAffineTransformMakeTranslation(videoTrack.naturalSize.height, 0.0);
-        // Rotate transformation
-        t2 = CGAffineTransformRotate(t1, 0.5 * M_PI);
-        [videoTrack setPreferredTransform:t2];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
                                  [NSString stringWithFormat:@"mergeVideo.mov"]];
         NSURL *url = [NSURL fileURLWithPath:myPathDocs];
+        
+//        [mixComposition removeTrack:[mixComposition mutableTrackCompatibleWithTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0]]];
         
         AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition
                                                                           presetName:AVAssetExportPresetHighestQuality];
@@ -392,7 +393,7 @@
         {
             [[NSFileManager defaultManager] removeItemAtPath:myPathDocs error:nil];
         }
-        exporter.outputURL=url;
+        exporter.outputURL = url;
         exporter.outputFileType = AVFileTypeQuickTimeMovie;
         exporter.shouldOptimizeForNetworkUse = YES;
         
