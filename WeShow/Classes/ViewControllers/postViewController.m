@@ -79,7 +79,7 @@
     [_capButton addTarget:self action:@selector(postFinalVideo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_capButton];
     
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15, 25,25)];
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
     [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
     [backbutton setBackgroundColor:[UIColor clearColor]];
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
@@ -91,6 +91,11 @@
     [super viewWillAppear:animated];
     
     [self.avPlayer play];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {

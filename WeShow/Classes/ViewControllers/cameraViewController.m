@@ -45,13 +45,13 @@
     [_capButton addGestureRecognizer:longPressGr];
     [self.view addSubview:_capButton];
     
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15, 25,25)];
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
     [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
     [backbutton setBackgroundColor:[UIColor clearColor]];
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backbutton];
     
-    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 15 - 25, 15, 25,25)];
+    UIButton *turnAroundButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 15 - 25, 15 + STATUSBAR.size.height, 25,25)];
     [turnAroundButton setImage:[UIImage imageNamed:@"photo_refresh.png"] forState:UIControlStateNormal];
     [turnAroundButton setBackgroundColor:[UIColor clearColor]];
     [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
@@ -131,9 +131,9 @@
     //[self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (BOOL)prefersStatusBarHidden
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return YES;
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -202,7 +202,7 @@
     [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:6.0f];
     [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:6.0f];
     [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius + 1.5, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
-    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius - 1.5, point.y) endPoint:CGPointMake(310, point.y) duration:6.0f];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius - 1.5, point.y) endPoint:CGPointMake(365, point.y) duration:6.0f];
 }
 - (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
 {
