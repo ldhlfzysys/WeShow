@@ -52,13 +52,14 @@
         _mainScorll.autoresizesSubviews = NO;
         _mainScorll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mainScorll.multipleTouchEnabled = NO;
+        [_mainScorll setContentOffset:CGPointMake(self.EA_Width - 30, 0)];
         
         
         [self addSubview:_mainScorll];
         
         _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, 100, 8)];
         _pageControl.numberOfPages = 3;
-        _pageControl.currentPage = 0;
+        _pageControl.currentPage = 1;
         _pageControl.EA_CenterX = self.EA_Width / 2;
         _pageControl.EA_Bottom = self.EA_Height - 16;
         [self addSubview:_pageControl];

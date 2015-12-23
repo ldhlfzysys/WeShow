@@ -38,7 +38,7 @@
     /**
      临时数据，用3种高度表示3种展示。
      **/
-    _datas = [@[@"281",@"101",@"176",@"176"] mutableCopy];
+    _datas = [@[@"271",@"91",@"166",@"166"] mutableCopy];
     _cellDatas = [@[@{@"imageMultiLineIncidentData":@{
                               @"imageName":@"pic1",
                               @"title":@"微博创新大赛",
@@ -101,7 +101,7 @@
     NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
                                @"pic1",@"topImageName",
                                @"head1",@"headImageName",
-                               @"欢迎来到我的个人主页，",@"desc",
+                               @"欢迎来到我的个人主页，喜欢我的直播就关注我吧！让你足不出户，看尽天下事！",@"desc",
                                @"4532",@"viewerNum",
                                @"",@"viewerdesc",
                                @"297",@"follwerNum",
@@ -118,6 +118,8 @@
     CGFloat barAlpha = y/184;
     UIColor * color = [UIColor colorWithRed:73/255.0 green:82/255.0 blue:98/255.0 alpha:1];
     [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:barAlpha]];
+    [_headView didScroll:y];
+    
 }
 
 #pragma mark - UITableView
@@ -143,11 +145,11 @@
     }else{
         cell.EA_Width = SCREEN_WIDTH;
     }
-    if ([_datas[indexPath.row] floatValue] == 281) {
+    if ([_datas[indexPath.row] floatValue] == 271) {
         [cell loadStyle1:[_cellDatas objectAtIndex:indexPath.row]];
-    }else if ([_datas[indexPath.row] floatValue] == 101){
+    }else if ([_datas[indexPath.row] floatValue] == 91){
         [cell loadStyle2:[_cellDatas objectAtIndex:indexPath.row]];
-    }else if ([_datas[indexPath.row] floatValue] == 176){
+    }else if ([_datas[indexPath.row] floatValue] == 166){
         [cell loadStyle3:[_cellDatas objectAtIndex:indexPath.row]];
     }
     

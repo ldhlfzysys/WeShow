@@ -46,7 +46,7 @@
     /**
      临时数据，用3种高度表示3种展示。
      **/
-    _datas = [@[@"68",@"334.5",@"154.5",@"229.5",@"229.5"] mutableCopy];
+    _datas = [@[@"58",@"324.5",@"144.5",@"219.5",@"219.5"] mutableCopy];
     
     
 
@@ -153,12 +153,12 @@
                     ] mutableCopy];
 
     
-    IncidentViewNew *test1 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(0,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
+    IncidentViewNew *test1 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(0,  10, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 20)];
     test1.delegate = self;
     [test1 updateDatas:dataDict1];
     [_bottomView.myScroll addSubview:test1];
     
-    IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
+    IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  5, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 10)];
     test2.delegate = self;
     [test2 updateDatas:dataDict2];
     [_bottomView.myScroll addSubview:test2];
@@ -193,13 +193,13 @@
     }else{
         cell.EA_Width = SCREEN_WIDTH;
     }
-    if ([_datas[indexPath.row] floatValue] == 281+ 53.5) {
+    if ([_datas[indexPath.row] floatValue] == 281+ 43.5) {
         [cell loadStyle1:[_cellDatas objectAtIndex:indexPath.row]];
-    }else if ([_datas[indexPath.row] floatValue] == 101+ 53.5){
+    }else if ([_datas[indexPath.row] floatValue] == 101+ 43.5){
         [cell loadStyle2:[_cellDatas objectAtIndex:indexPath.row]];
-    }else if ([_datas[indexPath.row] floatValue] == 229.5){
+    }else if ([_datas[indexPath.row] floatValue] == 219.5){
         [cell loadStyle3:[_cellDatas objectAtIndex:indexPath.row]];
-    }else if ([_datas[indexPath.row] floatValue] == 68){
+    }else if ([_datas[indexPath.row] floatValue] == 58){
         [cell loadStyle4:[_cellDatas objectAtIndex:indexPath.row]];
     }
     [cell.bgView setHeadImageClick:^{

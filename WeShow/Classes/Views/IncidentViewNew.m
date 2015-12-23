@@ -14,15 +14,19 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
+        self.layer.cornerRadius = 5;
+        self.layer.shadowColor = UIColorFromRGB(0x000000).CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, 4);
+        self.layer.shadowOpacity = 0.95;
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selfdidClick:)];
         [self addGestureRecognizer:tapGes];
-
-        _mainImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, self.EA_Width)];
+        
+        _mainImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, self.EA_Height)];
         _mainImage.image = [UIImage imageNamed:@"incident_b1"];
         [self addSubview:_mainImage];
         
-        _shadowImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.EA_Width - 83, self.EA_Width, 83)];
+        _shadowImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.EA_Height - 83, self.EA_Width, 83)];
         _shadowImage.backgroundColor = UIColorFromRGB(0x000000);
         _shadowImage.alpha = 0.8;
         [self addSubview:_shadowImage];
@@ -72,7 +76,7 @@
         _memberIcon.image = [UIImage imageNamed:@"map_pull_people"];
         [_shadowImage addSubview:_memberIcon];
         
-        _memberLabel = [[UILabel alloc]initWithFrame:CGRectMake(_memberIcon.EA_Right + 4, _distanceIcon.EA_Top, 40, 12)];
+        _memberLabel = [[UILabel alloc]initWithFrame:CGRectMake(_memberIcon.EA_Right + 4, _distanceIcon.EA_Top, 50, 12)];
         _memberLabel.text = @"100人";
         _memberLabel.textColor = UIColorFromRGB(0xDCAC5B);
         _memberLabel.font = [UIFont systemFontOfSize:12];
@@ -92,6 +96,9 @@
     _titleLabel.text = title;
     _addressLabel.text = address;
     _distanceLabel.text = distance;
+    [_distanceLabel sizeToFit];
+    _memberIcon.EA_Left = _distanceLabel.EA_Right + 12;
+    _memberLabel.EA_Left = _memberIcon.EA_Right + 4;
     _memberLabel.text = memberNum;
 }
 

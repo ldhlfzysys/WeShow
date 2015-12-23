@@ -20,7 +20,7 @@
         [_nameLabel sizeToFit];
         [self addSubview:_nameLabel];
         
-        UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(_nameLabel.EA_Right + 10, 0, self.EA_Width - _nameLabel.EA_Right - 20, 1)];
+        UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(_nameLabel.EA_Right + 10, 0, self.EA_Width - _nameLabel.EA_Right - 10, 1)];
         line.backgroundColor = UIColorFromRGB(0xdddee2);
         line.EA_CenterY = self.EA_Height/2;
         [self addSubview:line];
