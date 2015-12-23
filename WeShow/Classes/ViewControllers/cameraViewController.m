@@ -10,11 +10,13 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
 #import "soundViewController.h"
+#import "postViewController.h"
 
 #define progressRadius 43
 
 @interface cameraViewController ()<AVCaptureFileOutputRecordingDelegate>
 @property (strong,nonatomic) AVCaptureMovieFileOutput *output;
+@property (nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
 
 @property (strong,nonatomic) CAShapeLayer *belowLayer;
 @property (strong,nonatomic) CAShapeLayer *upLayer;
@@ -56,6 +58,10 @@
     [turnAroundButton setBackgroundColor:[UIColor clearColor]];
     [turnAroundButton addTarget:self action:@selector(turnAround) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:turnAroundButton];
+    
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(takePhoto)];
+    [doubleTapGestureRecognizer setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:doubleTapGestureRecognizer];
 }
 
 - (void) initAnimationLayer
@@ -95,6 +101,11 @@
     //4.初始化麦克风输入设备
     AVCaptureDeviceInput *inputAudio = [AVCaptureDeviceInput deviceInputWithDevice:deviceAudio error:NULL];
     
+    self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
+    
+    [self.stillImageOutput setOutputSettings:outputSettings];
+    
     AVCaptureMovieFileOutput *output = [[AVCaptureMovieFileOutput alloc] init];
     self.output = output; //保存output，方便下面操作
     
@@ -111,6 +122,9 @@
     if ([_session canAddOutput:output]) {
         [_session addOutput:output];
     }
+    if ([_session canAddOutput:self.stillImageOutput]) {
+        [_session addOutput:self.stillImageOutput];
+    }
     
     //8.创建一个预览涂层
     AVCaptureVideoPreviewLayer *preLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
@@ -118,17 +132,47 @@
     preLayer.frame = self.view.bounds;
     //添加到view上
     [self.view.layer addSublayer:preLayer];
+}
+
+-(void)takePhoto
+{
+    AVCaptureConnection * videoConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    if (!videoConnection) {
+        NSLog(@"take photo failed!");
+        return;
+    }
     
-    [_session startRunning];
+    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        if (imageDataSampleBuffer == NULL) {
+            return;
+        }
+        NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+        UIImage * image = [UIImage imageWithData:imageData];
+        NSLog(@"image size = %@",NSStringFromCGSize(image.size));
+        
+        postViewController *VC = [[postViewController alloc]initWithImage:image];
+        [self presentViewController:VC animated:YES completion:^{}];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (self.session) {
+        [self.session startRunning];
+    }
     [_capButton setEnabled:YES];
     [self initAnimationLayer];
     _videoEnoughTime = NO;
     //[self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear: animated];
+    if (self.session) {
+        [self.session stopRunning];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
