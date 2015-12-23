@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIButton *likebutton;
 @property (strong, nonatomic) UIButton *forbidBarragebutton;
 @property (strong, nonatomic) UIButton *createVideobutton;
+@property (strong,nonatomic) UIImageView *toastView;
 
 @property (assign ,nonatomic) NSInteger currentNum;
 
@@ -42,7 +43,7 @@
     //[myControlView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:myControlView];
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdVideo:)];
-    longPressGr.minimumPressDuration = 0;
+    longPressGr.minimumPressDuration = 0.2;
     [self.view addGestureRecognizer:longPressGr];
     
     UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
@@ -161,6 +162,13 @@
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
         _isHold = YES;
+        
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        _toastView = [[UIImageView alloc]initWithFrame:CGRectMake(25,80,325,80)];
+        _toastView.image = [UIImage imageNamed:@"video_push_yellow.png"];
+        [window addSubview:_toastView];
+        [self showAnimation];
+        [self performSelector:@selector(hideAnimation) withObject:nil afterDelay:0.3];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         _isHold = NO;
@@ -214,7 +222,35 @@
 
 - (void)createVideo
 {
-    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    _toastView = [[UIImageView alloc]initWithFrame:CGRectMake(25,80,325,80)];
+    _toastView.image = [UIImage imageNamed:@"video_push_red.png"];
+    [window addSubview:_toastView];
+    [self showAnimation];
+    [self performSelector:@selector(hideAnimation) withObject:nil afterDelay:0.3];
+}
+
+-(void)showAnimation{
+    [UIView beginAnimations:@"show" context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:0.3];
+    _toastView.alpha = 1.0f;
+    [UIView commitAnimations];
+}
+
+-(void)hideAnimation{
+    [UIView beginAnimations:@"hide" context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(dismissToast)];
+    [UIView setAnimationDuration:0.3];
+    _toastView.alpha = 0.0f;
+    [UIView commitAnimations];
+}
+
+-(void)dismissToast
+{
+    [_toastView removeFromSuperview];
 }
 
 - (void)like

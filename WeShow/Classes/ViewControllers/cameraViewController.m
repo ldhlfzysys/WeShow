@@ -24,6 +24,9 @@
 @property (strong,nonatomic) CAShapeLayer *rightLayer;
 
 @property (strong,nonatomic) UIButton *capButton;
+@property (strong,nonatomic) UIImageView *toastView;
+
+
 @property (strong,nonatomic) NSTimer *showSecondAniTime;
 @property (assign,nonatomic) BOOL videoEnoughTime;
 @property (strong,nonatomic) AVCaptureSession *session;
@@ -345,6 +348,7 @@
         if (!_videoEnoughTime) {
             NSLog(@"不足4秒");
             [_showSecondAniTime invalidate];
+            [self showNotEnoughToast];
             [self kickbackProgressAnimation];
             return;
         }
@@ -361,6 +365,39 @@
     {
         NSLog(@"意外");
     }
+}
+
+- (void) showNotEnoughToast
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    _toastView = [[UIImageView alloc]initWithFrame:CGRectMake(25,80,325,80)];
+    _toastView.image = [UIImage imageNamed:@"video_push_red_photo.png"];
+    [window addSubview:_toastView];
+    [self showAnimation];
+    [self performSelector:@selector(hideAnimation) withObject:nil afterDelay:0.3];
+}
+
+-(void)showAnimation{
+    [UIView beginAnimations:@"show" context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:0.3];
+    _toastView.alpha = 1.0f;
+    [UIView commitAnimations];
+}
+
+-(void)hideAnimation{
+    [UIView beginAnimations:@"hide" context:NULL];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(dismissToast)];
+    [UIView setAnimationDuration:0.3];
+    _toastView.alpha = 0.0f;
+    [UIView commitAnimations];
+}
+
+-(void)dismissToast
+{
+    [_toastView removeFromSuperview];
 }
 
 #pragma  mark - AVCaptureFileOutputRecordingDelegate
