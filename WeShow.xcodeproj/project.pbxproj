@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E24A9951C2AE496000D9F78 /* video_push_red_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E24A9941C2AE496000D9F78 /* video_push_red_photo.png */; };
+		3E24A9981C2AF809000D9F78 /* barrageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E24A9971C2AF809000D9F78 /* barrageItemView.m */; };
 		3E6A74031C2933DD00F2F707 /* video_barrage_off_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6A73F81C2933DD00F2F707 /* video_barrage_off_highlight.png */; };
 		3E6A74041C2933DD00F2F707 /* video_barrage_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6A73F91C2933DD00F2F707 /* video_barrage_off.png */; };
 		3E6A74051C2933DD00F2F707 /* video_barrage.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6A73FA1C2933DD00F2F707 /* video_barrage.png */; };
@@ -130,6 +131,8 @@
 
 /* Begin PBXFileReference section */
 		3E24A9941C2AE496000D9F78 /* video_push_red_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_push_red_photo.png; sourceTree = "<group>"; };
+		3E24A9961C2AF809000D9F78 /* barrageItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = barrageItemView.h; sourceTree = "<group>"; };
+		3E24A9971C2AF809000D9F78 /* barrageItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = barrageItemView.m; sourceTree = "<group>"; };
 		3E6A73F81C2933DD00F2F707 /* video_barrage_off_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_barrage_off_highlight.png; sourceTree = "<group>"; };
 		3E6A73F91C2933DD00F2F707 /* video_barrage_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_barrage_off.png; sourceTree = "<group>"; };
 		3E6A73FA1C2933DD00F2F707 /* video_barrage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_barrage.png; sourceTree = "<group>"; };
@@ -437,6 +440,8 @@
 				3EA42B491C1D2CCD006D0CB7 /* postViewController.m */,
 				3EA42B451C1D1E2D006D0CB7 /* sceneViewController.h */,
 				3EA42B461C1D1E2D006D0CB7 /* sceneViewController.m */,
+				3E24A9961C2AF809000D9F78 /* barrageItemView.h */,
+				3E24A9971C2AF809000D9F78 /* barrageItemView.m */,
 				B81A657C1BEDD19A008116E9 /* ExampleDemo */,
 				B8E651BA1C2502C00064ED01 /* HistoryViewController.h */,
 				B8E651BB1C2502C00064ED01 /* HistoryViewController.m */,
@@ -803,6 +808,7 @@
 				B87ADA771C2690F200C841A5 /* ProfileViewController.m in Sources */,
 				B87ADA9D1C26B07E00C841A5 /* MultiIncidentTableViewCell.m in Sources */,
 				B8929CB11C27D17D0073E4BD /* OnelineView.m in Sources */,
+				3E24A9981C2AF809000D9F78 /* barrageItemView.m in Sources */,
 				B8E651BC1C2502C00064ED01 /* HistoryViewController.m in Sources */,
 				B87ADA9A1C26A9A700C841A5 /* ProfileHeaderView.m in Sources */,
 				B81A65821BEDD19A008116E9 /* DataCenterManager.m in Sources */,
@@ -926,7 +932,7 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.ins;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.inso;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -948,7 +954,7 @@
 				GCC_PREFIX_HEADER = WeShow/PrefixHeader.pch;
 				INFOPLIST_FILE = WeShow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.ins;
+				PRODUCT_BUNDLE_IDENTIFIER = Weibo.WeShow.inso;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

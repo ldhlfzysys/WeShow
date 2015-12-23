@@ -8,6 +8,9 @@
 
 #import "sceneViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "barrageItemView.h"
+
+#define ITEMTAG 154
 
 @interface sceneViewController()
 @property (strong,nonatomic) NSArray *mediaURLs;
@@ -22,8 +25,16 @@
 @property (strong, nonatomic) UIButton *forbidBarragebutton;
 @property (strong, nonatomic) UIButton *createVideobutton;
 @property (strong,nonatomic) UIImageView *toastView;
+@property (assign, nonatomic) BOOL liked;
+@property (assign, nonatomic) BOOL forbidenBarrage;
+@property (strong, nonatomic) UIView *allBarrageView;
 
 @property (assign ,nonatomic) NSInteger currentNum;
+
+
+@property (strong,nonatomic) NSTimer *barragetimer;
+@property (assign, nonatomic) NSInteger curbarrageIndex;
+@property (strong, nonatomic) NSMutableArray *dataArray;
 
 
 @end
@@ -45,6 +56,9 @@
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdVideo:)];
     longPressGr.minimumPressDuration = 0.2;
     [self.view addGestureRecognizer:longPressGr];
+    
+    _allBarrageView = [[UIView alloc]initWithFrame:CGRectMake(0, STATUSBAR.size.height + 40, self.view.EA_Width, _createVideobutton.EA_Top - 98 - STATUSBAR.size.height)];
+    [myControlView addSubview:_allBarrageView];
     
     UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
     [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
@@ -103,6 +117,14 @@
     _progressLayer.lineWidth = 2;
     _progressLayer.fillColor = [UIColor clearColor].CGColor;
     _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
+    
+    [self initBarrageData];
+}
+
+- (void)initBarrageData
+{
+    _dataArray = [NSMutableArray arrayWithObjects:@"1", @"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",nil];
+    [self startBarrage];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -163,6 +185,7 @@
     {
         _isHold = YES;
         
+        _progressLayer.strokeColor = [UIColor yellowColor].CGColor;
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         _toastView = [[UIImageView alloc]initWithFrame:CGRectMake(25,80,325,80)];
         _toastView.image = [UIImage imageNamed:@"video_push_yellow.png"];
@@ -172,6 +195,7 @@
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         _isHold = NO;
+        _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
     }else
     {
         
@@ -198,7 +222,13 @@
     _progressLayer.path = path.CGPath;
     _progressLayer.lineWidth = 2;
     _progressLayer.fillColor = [UIColor clearColor].CGColor;
-    _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
+    if (_isHold) {
+        _progressLayer.strokeColor = [UIColor yellowColor].CGColor;
+    }else
+    {
+        _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
+    }
+    
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     CMTime itemTime = [[self.avPlayer currentItem] asset].duration;
@@ -255,17 +285,94 @@
 
 - (void)like
 {
-    [_likebutton setImage:[UIImage imageNamed:@"video_highlight.png"] forState:UIControlStateNormal];
+    if (_liked) {
+        [_likebutton setImage:[UIImage imageNamed:@"video_like.png"] forState:UIControlStateNormal];
+        _liked = NO;
+    }else
+    {
+        [_likebutton setImage:[UIImage imageNamed:@"video_like_highlight.png"] forState:UIControlStateNormal];
+        _liked = YES;
+    }
+    
 }
 
 -(void)sendBarrage
 {
-    
+    [_dataArray insertObject:@"加的" atIndex:_curbarrageIndex + 1];
+}
+
+- (void)startBarrage {
+    if (_dataArray && _dataArray.count > 0) {
+        if (!_barragetimer) {
+            _barragetimer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(postView) userInfo:nil repeats:YES];
+        }
+    }
+}
+
+- (void)stopBarrage {
+    if (_barragetimer) {
+        [_barragetimer invalidate];
+        _barragetimer = nil;
+    }
+}
+
+- (void)postView {
+    if (_dataArray && _dataArray.count > 0) {
+        int indexPath = random()%(int)((self.view.frame.size.height)/30);
+        int top = indexPath * 30;
+        
+        UIView *view = [self.view viewWithTag:indexPath + ITEMTAG];
+        if (view && [view isKindOfClass:[barrageItemView class]]) {
+            return;
+        }
+        
+        NSString *content = nil;
+        if (_dataArray.count > _curbarrageIndex) {
+            content = _dataArray[_curbarrageIndex];
+            _curbarrageIndex++;
+        } else {
+            _curbarrageIndex = 0;
+            content = _dataArray[_curbarrageIndex];
+            _curbarrageIndex++;
+        }
+        
+        for (barrageItemView *view in self.view.subviews) {
+            if ([view isKindOfClass:[barrageItemView class]] && view.itemIndex == _curbarrageIndex-1) {
+                return;
+            }
+        }
+        
+        barrageItemView *item = [[barrageItemView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width, top, 10, 30)];
+        
+        [item setContent:content];
+        
+        item.itemIndex = _curbarrageIndex-1;
+        item.tag = indexPath + ITEMTAG;
+        [self.view addSubview:item];
+        
+        CGFloat speed = 85.;
+        speed += random()%20;
+        CGFloat time = (item.EA_Width+[[UIScreen mainScreen] bounds].size.width) / speed;
+        
+        [UIView animateWithDuration:time delay:0.f options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut  animations:^{
+            item.EA_Left = -item.EA_Width;
+        } completion:^(BOOL finished) {
+            [item removeFromSuperview];
+        }];
+        
+    }
 }
 
 -(void)forbidBarrage
 {
-    
+    if (_forbidenBarrage) {
+        [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
+        _forbidenBarrage = NO;
+    }else
+    {
+        [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off_highlight.png"] forState:UIControlStateNormal];
+        _forbidenBarrage = YES;
+    }
 }
 
 @end
