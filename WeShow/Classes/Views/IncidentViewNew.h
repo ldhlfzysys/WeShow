@@ -29,4 +29,5 @@
 @property (nonatomic, strong)UILabel *distanceLabel;
 @property (nonatomic, strong)UIImageView *memberIcon;
 @property (nonatomic, strong)UILabel *memberLabel;
+-(void)updateDatas:(NSDictionary *)dict;
 @end

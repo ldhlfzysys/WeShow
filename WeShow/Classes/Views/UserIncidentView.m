@@ -81,6 +81,15 @@
     self.descLabel.text = @"下拉刷新18条新内容";
 }
 
+- (void)updateDatas:(NSDictionary *)dict{
+    NSString *headImageName = [dict objectForKey:@"headImageName"];
+    NSString *name = [dict objectForKey:@"name"];
+    NSString *desc = [dict objectForKey:@"desc"];
+    _headImage.image = [UIImage imageNamed:headImageName];
+    _nameLabel.text = name;
+    _descLabel.text = desc;
+}
+
 - (void)normalMode{
     
 }

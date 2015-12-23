@@ -20,4 +20,5 @@ typedef void(^headImageClickBlock)(void);
 @property (nonatomic, strong)UIButton *followButton;
 - (void)hughMode;
 - (void)normalMode;
+- (void)updateDatas:(NSDictionary *)dict;
 @end

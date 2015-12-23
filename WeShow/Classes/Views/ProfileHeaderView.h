@@ -20,4 +20,6 @@
 @property (nonatomic,strong)TwoLineButton *viewer;
 @property (nonatomic,strong)TwoLineButton *follower;
 @property (nonatomic,strong)TwoLineButton *history;
+
+- (void)updateDatas:(NSDictionary *)dict;
 @end

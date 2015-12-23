@@ -10,4 +10,5 @@
 
 @interface MultiIncidentScrollView : UIView
 @property (nonatomic,strong)UIScrollView *mainScroll;
+- (void)updateDatas:(NSDictionary *)dict;
 @end

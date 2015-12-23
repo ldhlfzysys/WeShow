@@ -11,8 +11,8 @@
 
 @interface UserIncidentTableViewCell : UITableViewCell
 @property (nonatomic,strong)UserIncidentView *bgView;
-- (void)loadStyle1;
-- (void)loadStyle2;
-- (void)loadStyle3;
-- (void)loadStyle4;
+- (void)loadStyle1:(NSDictionary *)dict;
+- (void)loadStyle2:(NSDictionary *)dict;
+- (void)loadStyle3:(NSDictionary *)dict;
+- (void)loadStyle4:(NSDictionary *)dict;
 @end

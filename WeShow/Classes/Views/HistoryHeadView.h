@@ -32,4 +32,6 @@
 @property (nonatomic,strong)HeadNameView *createHeadView;
 @property (nonatomic,strong)MultiIncidentScrollView *niceScroll;
 
+- (void)updateDatas:(NSDictionary *)dict;
+
 @end

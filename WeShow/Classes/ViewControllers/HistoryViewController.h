@@ -13,5 +13,6 @@
 @interface HistoryViewController : UIViewController<IncidentViewDelegate,NewPullViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView *mainTable;
 @property (nonatomic,strong)NSMutableArray *datas;
+@property (nonatomic,strong)NSMutableArray *cellDatas;
 
 @end

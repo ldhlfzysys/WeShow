@@ -19,4 +19,6 @@
 @property (nonatomic,strong)UILabel *lineLabel;
 @property (nonatomic,strong)UIImageView *lineImage;
 @property (nonatomic,strong)UIScrollView *mainScroll;
+
+- (void)updateDatas:(NSDictionary *)dict;
 @end

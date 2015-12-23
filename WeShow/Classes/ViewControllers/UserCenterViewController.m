@@ -46,7 +46,9 @@
     /**
      临时数据，用3种高度表示3种展示。
      **/
-    _datas = [@[@"68",@"334.5",@"154.5",@"229.5",@"229.5",@"229.5",@"229.5",@"229.5",@"229.5",@"229.5"] mutableCopy];
+    _datas = [@[@"68",@"334.5",@"154.5",@"229.5",@"229.5"] mutableCopy];
+    
+    
 
     
     _bottomView = [[NewPullView alloc]initWithFrame:CGRectMake(0,  0, self.view.EA_Width, self.view.EA_Width + 23 +15)];
@@ -54,16 +56,116 @@
 
     _mainTable.tableHeaderView = _bottomView;
     
+    /*
+     模拟数据
+     NSString *imageName = [dict objectForKey:@"imageName"];
+     NSString *title = [dict objectForKey:@"title"];
+     NSString *address = [dict objectForKey:@"address"];
+     NSString *distance = [dict objectForKey:@"distance"];
+     NSString *memberNum = [dict objectForKey:@"memberNum"];
+     */
+    NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
+                               @"pic1",@"imageName",
+                               @"微博发布会",@"title",
+                               @"新浪大厦",@"address",
+                               @"1h 10m",@"distance",
+                               @"21345人",@"memberNum",nil];
+    NSDictionary *dataDict2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                               @"pic2",@"imageName",
+                               @"苹果发布会",@"title",
+                               @"苹果大厦",@"address",
+                               @"3h 1.5km",@"distance",
+                               @"2123人",@"memberNum",nil];
+    NSDictionary *dataDict3 = [NSDictionary dictionaryWithObjectsAndKeys:
+                               @"pic3",@"imageName",
+                               @"清华运动会",@"title",
+                               @"清华大学",@"address",
+                               @"2h 3km",@"distance",
+                               @"323人",@"memberNum",nil];
+    
+    _cellDatas = [@[@{@"userInfoData":@{
+                              @"headImageName":@"head1",
+                              @"name":@"老王",
+                              @"desc":@"我是隔壁老王",
+                              }},
+                    @{@"userInfoData":@{
+                              @"headImageName":@"head3",
+                              @"name":@"Mick",
+                              @"desc":@"来关注我吧",
+                              },
+                      
+                      @"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic4",
+                              @"title":@"阿拉斯加滑雪",
+                              @"address":@"阿拉斯加",
+                              @"distance":@"10km",
+                              @"memberNum":@"23人"},
+                      
+                      @"onelineViewData":@{@"name":@""},
+                      
+                      @"multiIncidentData":@{@"images":@[@"pic5",@"pic6",@"pic7",@"pic8",@"pic9",@"pic10"]}//6个图片
+                      },
+                    
+                    @{@"userInfoData":@{
+                              @"headImageName":@"head4",
+                              @"name":@"Janel",
+                              @"desc":@"游泳爱好者",
+                              },
+                        @"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic2",
+                              @"title":@"夏威夷冲浪",
+                              @"address":@"夏威夷",
+                              @"distance":@"20km",
+                              @"memberNum":@"100人"}},
+                    
+                    @{@"userInfoData":@{
+                              @"headImageName":@"head5",
+                              @"name":@"Cucii",
+                              @"desc":@"战争记着",
+                              },
+                        @"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic3",
+                              @"title":@"阿富汗激战",
+                              @"address":@"阿富汗",
+                              @"distance":@"23km",
+                              @"memberNum":@"432人"},
+                      
+                      @"onelineViewData":@{@"name":@""},
+                      
+                      @"commontData":@{@"commontLabel":@"oh my god，刚才就有子弹从我旁边飞过，祈祷世界没有战争"}},
+                    
+                    @{@"userInfoData":@{
+                              @"headImageName":@"head6",
+                              @"name":@"翠花",
+                              @"desc":@"我是志愿者",
+                              },
+                        @"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic4",
+                              @"title":@"伦敦奥运会开幕式",
+                              @"address":@"伦敦",
+                              @"distance":@"30km",
+                              @"memberNum":@"3200人"},
+                      
+                      @"onelineViewData":@{@"name":@""},
+                      
+                      @"commontData":@{@"commontLabel":@"下一个举着圣火跑过来的是我们的刘翔！"}},
+                    
+                    ] mutableCopy];
+
+    
     IncidentViewNew *test1 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(0,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
     test1.delegate = self;
+    [test1 updateDatas:dataDict1];
     [_bottomView.myScroll addSubview:test1];
     
     IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
     test2.delegate = self;
+    [test2 updateDatas:dataDict2];
     [_bottomView.myScroll addSubview:test2];
     
     IncidentViewNew *test3 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width*2, 0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
     test3.delegate = self;
+    [test3 updateDatas:dataDict3];
     [_bottomView.myScroll addSubview:test3];
     
 }
@@ -92,13 +194,13 @@
         cell.EA_Width = SCREEN_WIDTH;
     }
     if ([_datas[indexPath.row] floatValue] == 281+ 53.5) {
-        [cell loadStyle1];
+        [cell loadStyle1:[_cellDatas objectAtIndex:indexPath.row]];
     }else if ([_datas[indexPath.row] floatValue] == 101+ 53.5){
-        [cell loadStyle2];
+        [cell loadStyle2:[_cellDatas objectAtIndex:indexPath.row]];
     }else if ([_datas[indexPath.row] floatValue] == 229.5){
-        [cell loadStyle3];
+        [cell loadStyle3:[_cellDatas objectAtIndex:indexPath.row]];
     }else if ([_datas[indexPath.row] floatValue] == 68){
-        [cell loadStyle4];
+        [cell loadStyle4:[_cellDatas objectAtIndex:indexPath.row]];
     }
     [cell.bgView setHeadImageClick:^{
         ProfileViewController *pVC = [[ProfileViewController alloc]init];

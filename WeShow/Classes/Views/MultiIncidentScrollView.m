@@ -31,4 +31,12 @@
     return self;
 }
 
+- (void)updateDatas:(NSDictionary *)dict{
+    NSArray *images = [dict objectForKey:@"images"];
+    [_mainScroll.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIImageView *image = (UIImageView *)obj;
+        image.image = [UIImage imageNamed:images[idx]];
+    }];
+}
+
 @end

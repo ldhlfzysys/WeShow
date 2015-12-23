@@ -75,4 +75,33 @@
     return self;
 }
 
+- (void)updateDatas:(NSDictionary *)dict{
+    NSString *topImageName = [dict objectForKey:@"topImageName"];
+    NSString *headImageName = [dict objectForKey:@"headImageName"];
+    NSString *desc = [dict objectForKey:@"desc"];
+    
+    NSString *viewerNum = [dict objectForKey:@"viewerNum"];
+    NSString *viewerdesc = [dict objectForKey:@"viewerdesc"];
+    
+    NSString *follwerNum = [dict objectForKey:@"follwerNum"];
+    NSString *follwerdesc = [dict objectForKey:@"follwerdesc"];
+    
+    NSString *historyNum = [dict objectForKey:@"historyNum"];
+    NSString *historydesc = [dict objectForKey:@"historydesc"];
+    
+    _topImage.image = [UIImage imageNamed:topImageName];
+    _headImage.image = [UIImage imageNamed:headImageName];
+    _descLabel.text = desc;
+    
+    _viewer.numLabel.text = viewerNum;
+
+    
+    _follower.numLabel.text = follwerNum;
+
+    
+    _history.numLabel.text = historyNum;
+
+
+}
+
 @end

@@ -56,4 +56,17 @@
     return self;
 }
 
+- (void)updateDatas:(NSDictionary *)dict{
+    NSString *imageName = [dict objectForKey:@"imageName"];
+    NSString *title = [dict objectForKey:@"title"];
+    NSString *address = [dict objectForKey:@"address"];
+    NSString *time = [dict objectForKey:@"distance"];
+    NSString *memberNum = [dict objectForKey:@"memberNum"];
+    _headView.image = [UIImage imageNamed:imageName];
+    _titleLabel.text = title;
+    _addressLabel.text = address;
+    _timeLabel.text = time;
+    _peopleNumLabel.text = memberNum;
+}
+
 @end

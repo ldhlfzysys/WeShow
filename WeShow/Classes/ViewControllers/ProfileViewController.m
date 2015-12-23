@@ -38,7 +38,77 @@
     /**
      临时数据，用3种高度表示3种展示。
      **/
-    _datas = [@[@"281",@"101",@"176",@"176",@"176",@"176",@"176",@"176",@"176"] mutableCopy];
+    _datas = [@[@"281",@"101",@"176",@"176"] mutableCopy];
+    _cellDatas = [@[@{@"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic1",
+                              @"title":@"微博创新大赛",
+                              @"address":@"微博创新大赛",
+                              @"distance":@"10m",
+                              @"memberNum":@"232人"},
+                      
+                      @"onelineViewData":@{@"name":@""},
+                      
+                      @"multiIncidentData":@{@"images":@[@"pic5",@"pic6",@"pic7",@"pic8",@"pic9",@"pic10"]}//6个图片
+                      },
+                    
+                    @{@"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic2",
+                              @"title":@"苹果发布会",
+                              @"address":@"苹果大厦",
+                              @"distance":@"10km",
+                              @"memberNum":@"123人"}},
+                    
+                    @{@"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic3",
+                              @"title":@"野外探险",
+                              @"address":@"野外",
+                              @"distance":@"21km",
+                              @"memberNum":@"3人"},
+                      
+                      @"onelineViewData":@{@"name":@""},
+                      
+                      @"commontData":@{@"commontLabel":@"野外生存21天，老王我一天抓了3头羊！"}},
+
+                    @{@"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic4",
+                              @"title":@"去看北极光",
+                              @"address":@"南极",
+                              @"distance":@"100km",
+                              @"memberNum":@"12人"},
+                      
+                      @"onelineViewData":@{@"name":@""},
+                      
+                      @"commontData":@{@"commontLabel":@"一整夜都没睡，太美太美太美了！！！"}},
+                    
+                    ] mutableCopy];
+    
+    
+    /*
+     模拟数据
+     NSString *topImageName = [dict objectForKey:@"topImageName"];
+     NSString *headImageName = [dict objectForKey:@"headImageName"];
+     NSString *desc = [dict objectForKey:@"desc"];
+
+     NSString *viewerNum = [dict objectForKey:@"viewerNum"];
+     NSString *viewerdesc = [dict objectForKey:@"viewerdesc"];
+     
+     NSString *follwerNum = [dict objectForKey:@"follwerNum"];
+     NSString *follwerdesc = [dict objectForKey:@"follwerdesc"];
+     
+     NSString *historyNum = [dict objectForKey:@"historyNum"];
+     NSString *historydesc = [dict objectForKey:@"historydesc"];
+     */
+    NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
+                               @"pic1",@"topImageName",
+                               @"head1",@"headImageName",
+                               @"欢迎来到我的个人主页，",@"desc",
+                               @"4532",@"viewerNum",
+                               @"",@"viewerdesc",
+                               @"297",@"follwerNum",
+                               @"",@"follwerdesc",
+                               @"113",@"historyNum",
+                               @"",@"historydesc",nil];
+    [_headView updateDatas:dataDict1];
     
 }
 
@@ -74,11 +144,11 @@
         cell.EA_Width = SCREEN_WIDTH;
     }
     if ([_datas[indexPath.row] floatValue] == 281) {
-        [cell loadStyle1];
+        [cell loadStyle1:[_cellDatas objectAtIndex:indexPath.row]];
     }else if ([_datas[indexPath.row] floatValue] == 101){
-        [cell loadStyle2];
+        [cell loadStyle2:[_cellDatas objectAtIndex:indexPath.row]];
     }else if ([_datas[indexPath.row] floatValue] == 176){
-        [cell loadStyle3];
+        [cell loadStyle3:[_cellDatas objectAtIndex:indexPath.row]];
     }
     
     

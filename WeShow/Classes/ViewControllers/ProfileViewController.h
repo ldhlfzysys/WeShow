@@ -13,5 +13,6 @@
 @interface ProfileViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView *mainTable;
 @property (nonatomic,strong)NSMutableArray *datas;
+@property (nonatomic,strong)NSMutableArray *cellDatas;
 @property (nonatomic,strong)ProfileHeaderView *headView;
 @end

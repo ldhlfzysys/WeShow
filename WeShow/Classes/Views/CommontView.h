@@ -10,4 +10,5 @@
 
 @interface CommontView : UIView
 @property (nonatomic,strong)UILabel *commontLabel;
+- (void)updateDatas:(NSDictionary *)dict;
 @end

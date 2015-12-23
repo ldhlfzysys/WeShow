@@ -28,4 +28,12 @@
     return self;
 }
 
+- (void)updateDatas:(NSDictionary *)dict{
+    NSString *nameLabel = [dict objectForKey:@"name"];
+    if (nameLabel.length > 0 ) {
+    _nameLabel.text = nameLabel;        
+    }
+
+}
+
 @end

@@ -68,6 +68,21 @@
     return self;
 }
 
+-(void)updateDatas:(NSDictionary *)dict{
+    NSString *imageName = [dict objectForKey:@"imageName"];
+    NSString *mediaLabelStr = [dict objectForKey:@"mediaType"];
+    NSString *title = [dict objectForKey:@"title"];
+    NSString *address = [dict objectForKey:@"address"];
+    NSString *distance = [dict objectForKey:@"distance"];
+    NSString *memberNum = [dict objectForKey:@"memberNum"];
+    _mainImage.image = [UIImage imageNamed:imageName];
+    _mediaTypeLabel.text = mediaLabelStr;
+    _titleLabel.text = title;
+    _addressLabel.text = address;
+    _distanceLabel.text = distance;
+    _memberLabel.text = memberNum;
+}
+
 - (void)selfdidClick:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(didClickIncidentView:)]) {

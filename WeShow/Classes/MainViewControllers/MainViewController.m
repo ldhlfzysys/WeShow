@@ -83,6 +83,36 @@
             [blockSelf.mainScrollView setContentOffset:CGPointMake(95, 25) animated:YES];
         }];
 
+        /*
+         模拟数据
+         NSString *imageName = [dict objectForKey:@"imageName"];
+         NSString *mediaLabelStr = [dict objectForKey:@"mediaType"];
+         NSString *title = [dict objectForKey:@"title"];
+         NSString *address = [dict objectForKey:@"address"];
+         NSString *distance = [dict objectForKey:@"distance"];
+         NSString *memberNum = [dict objectForKey:@"memberNum"];
+         */
+        NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  @"pic1",@"imageName",
+                                  @"Live",@"mediaType",
+                                  @"微博发布会",@"title",
+                                  @"新浪大厦",@"address",
+                                  @"10m",@"distance",
+                                  @"21345人",@"memberNum",nil];
+        NSDictionary *dataDict2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"pic2",@"imageName",
+                                   @"Live",@"mediaType",
+                                   @"苹果发布会",@"title",
+                                   @"苹果大厦",@"address",
+                                   @"1.5km",@"distance",
+                                   @"2123人",@"memberNum",nil];
+        NSDictionary *dataDict3 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"pic3",@"imageName",
+                                   @"Live",@"mediaType",
+                                   @"大航巡回演唱会",@"title",
+                                   @"鸟巢",@"address",
+                                   @"3km",@"distance",
+                                   @"323人",@"memberNum",nil];
 
         
         //可拉起菜单
@@ -96,16 +126,19 @@
         IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test1.delegate = self;
         test1.tag = 0;
+        [test1 updateDatas:dataDict1];
         [_bottomView.mainScorll addSubview:test1];
         
         IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test2.delegate = self;
         test2.tag = 1;
+        [test2 updateDatas:dataDict2];
         [_bottomView.mainScorll addSubview:test2];
         
         IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 10, 10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test3.delegate = self;
         test3.tag = 2;
+        [test3 updateDatas:dataDict3];
         [_bottomView.mainScorll addSubview:test3];
         
 

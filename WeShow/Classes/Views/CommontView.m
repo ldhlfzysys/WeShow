@@ -22,4 +22,9 @@
     }
     return self;
 }
+
+- (void)updateDatas:(NSDictionary *)dict{
+    NSString *commmontLabel = [dict objectForKey:@"commontLabel"];
+    _commontLabel.text = commmontLabel;
+}
 @end
