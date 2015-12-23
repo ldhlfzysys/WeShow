@@ -123,19 +123,19 @@
         _bottomView.showing = YES;
         [self.view addSubview:_bottomView];
         
-        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(5,  10, _bottomView.mainScorll.EA_Width - 10, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test1.delegate = self;
         test1.tag = 0;
         [test1 updateDatas:dataDict1];
         [_bottomView.mainScorll addSubview:test1];
         
-        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(5 + _bottomView.mainScorll.EA_Width,  10, _bottomView.mainScorll.EA_Width - 10, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test2.delegate = self;
         test2.tag = 1;
         [test2 updateDatas:dataDict2];
         [_bottomView.mainScorll addSubview:test2];
         
-        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 10, 10, _bottomView.mainScorll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+        IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.mainScorll.EA_Width*2 + 5, 10, _bottomView.mainScorll.EA_Width - 10, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
         test3.delegate = self;
         test3.tag = 2;
         [test3 updateDatas:dataDict3];
@@ -144,6 +144,10 @@
 
     }
     return self;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    NSLog(@"%f--%f",)
 }
 
 - (void)historyClick{

@@ -43,8 +43,8 @@
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(positionChange:)];
         [_tapControlImage addGestureRecognizer:tapGes];
         
-        _mainScorll = [[UIScrollView alloc]initWithFrame:CGRectMake(20, tapControlHeight, self.EA_Width - 40, self.EA_Height - tapControlHeight - 40)];//减去40用于放uipagecontrol
-        _mainScorll.contentSize = CGSizeMake((self.EA_Width - 40) * 3, _mainScorll.EA_Height);
+        _mainScorll = [[UIScrollView alloc]initWithFrame:CGRectMake(15, tapControlHeight, self.EA_Width - 30, self.EA_Height - tapControlHeight - 40)];//减去40用于放uipagecontrol
+        _mainScorll.contentSize = CGSizeMake((self.EA_Width - 30) * 3, _mainScorll.EA_Height);
         _mainScorll.delegate = self;
         _mainScorll.pagingEnabled = YES;
         _mainScorll.clipsToBounds = NO;

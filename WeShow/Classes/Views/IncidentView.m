@@ -14,12 +14,23 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
+//        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = 5;
+        self.layer.shadowColor = UIColorFromRGB(0x000000).CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, 4);
+        self.layer.shadowOpacity = 0.95;
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selfdidClick:)];
         [self addGestureRecognizer:tapGes];
         CGFloat mainImageHeight = (31.0/34.0) * self.EA_Width;
         _mainImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, mainImageHeight)];
         _mainImage.image = [UIImage imageNamed:@"incident_b1"];
+        _mainImage.layer.cornerRadius = 5;
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_mainImage.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = _mainImage.bounds;
+        maskLayer.path = maskPath.CGPath;
+        _mainImage.layer.mask = maskLayer;
         [self addSubview:_mainImage];
         
         _redDotImage = [[UIImageView alloc]initWithFrame:CGRectMake(12, 16, 8, 8)];
@@ -34,13 +45,15 @@
         
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _mainImage.EA_Bottom + 14, 300, 18)];
         _titleLabel.text = @"标题";
-        _titleLabel.font = [UIFont systemFontOfSize:18];
+//        _titleLabel.font = [UIFont systemFontOfSize:18];
+        _titleLabel.font = [UIFont fontWithName:@"Medium-Bold" size:18];
         _titleLabel.textColor = UIColorFromRGB(0x636466);
         [self addSubview:_titleLabel];
         
         _addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, _titleLabel.EA_Bottom + 5, 300, 12)];
         _addressLabel.text = @"地址";
         _addressLabel.font = [UIFont systemFontOfSize:12];
+//        _addressLabel.font = [UIFont fontWithName:@"Light" size:12];
         _addressLabel.textColor = UIColorFromRGB(0xC4C7CC);
         [self addSubview:_addressLabel];
         
