@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E24A9951C2AE496000D9F78 /* video_push_red_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E24A9941C2AE496000D9F78 /* video_push_red_photo.png */; };
 		3E6A74031C2933DD00F2F707 /* video_barrage_off_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6A73F81C2933DD00F2F707 /* video_barrage_off_highlight.png */; };
 		3E6A74041C2933DD00F2F707 /* video_barrage_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6A73F91C2933DD00F2F707 /* video_barrage_off.png */; };
 		3E6A74051C2933DD00F2F707 /* video_barrage.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6A73FA1C2933DD00F2F707 /* video_barrage.png */; };
@@ -128,6 +129,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E24A9941C2AE496000D9F78 /* video_push_red_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_push_red_photo.png; sourceTree = "<group>"; };
 		3E6A73F81C2933DD00F2F707 /* video_barrage_off_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_barrage_off_highlight.png; sourceTree = "<group>"; };
 		3E6A73F91C2933DD00F2F707 /* video_barrage_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_barrage_off.png; sourceTree = "<group>"; };
 		3E6A73FA1C2933DD00F2F707 /* video_barrage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_barrage.png; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 		B86D9D3C1C170E9D00D844B7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3E24A9941C2AE496000D9F78 /* video_push_red_photo.png */,
 				B87ADA8A1C26965D00C841A5 /* feed_follow_highlight.png */,
 				3E6A73F81C2933DD00F2F707 /* video_barrage_off_highlight.png */,
 				3E6A73F91C2933DD00F2F707 /* video_barrage_off.png */,
@@ -657,6 +660,7 @@
 				B8E691F81C1E63E000392B7B /* photo_refresh.png in Resources */,
 				B8E691F21C1E63CF00392B7B /* create_createlive.png in Resources */,
 				B8E691FC1C1E63E000392B7B /* photo_sound.png in Resources */,
+				3E24A9951C2AE496000D9F78 /* video_push_red_photo.png in Resources */,
 				B87ADA7A1C2695FD00C841A5 /* history_found.png in Resources */,
 				B87ADA881C26964500C841A5 /* profile_more.png in Resources */,
 				B8FA92341C2A79DC002FBB87 /* head4.png in Resources */,

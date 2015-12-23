@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "169"
             endingLineNumber = "169"
-            landmarkName = "-didClickIncidentView:"
+            landmarkName = "-historyClick"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
             endingLineNumber = "177"
-            landmarkName = "-userCenterClick"
+            landmarkName = "-didClickIncidentView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

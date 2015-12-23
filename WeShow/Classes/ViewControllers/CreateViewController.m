@@ -7,6 +7,7 @@
 //
 
 #import "CreateViewController.h"
+#import "cameraViewController.h"
 
 @interface CreateViewController ()
 
@@ -85,7 +86,8 @@
 }
 
 - (void)postBtnClick{
-    
+    cameraViewController *VC = [[cameraViewController alloc]init];
+    [self presentViewController:VC animated:YES completion:^{}];
 }
 
 - (void)backBtnClick{

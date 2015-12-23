@@ -485,9 +485,9 @@
     videoComposition.instructions = @[instruction];
     
     
-    postViewController *VC = [[postViewController alloc]initWithComposition:rotateComposition andVideoComposition:videoComposition];
-    [self presentViewController:VC animated:YES completion:^{
-        
-    }];
+//    postViewController *VC = [[postViewController alloc]initWithComposition:rotateComposition andVideoComposition:videoComposition];
+//    [self presentViewController:VC animated:YES completion:^{
+//        
+//    }];
 }
 @end

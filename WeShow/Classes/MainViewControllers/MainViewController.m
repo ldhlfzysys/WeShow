@@ -33,6 +33,7 @@
     DotView *dot3;
 }
 @property (nonatomic,strong) PullView *bottomView;
+@property (strong, nonatomic) UIButton *createVideobutton;
 @end
 
 @implementation MainViewController
@@ -40,6 +41,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         //[MAMapServices sharedServices].apiKey = mapAPIKEY;
+        
         leftButton = [Tools getNavigationItemWithImage:@"map_history"];
         [leftButton addTarget:self action:@selector(historyClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
@@ -58,6 +60,16 @@
         [_mainScrollView addSubview:scrollViewBackground];
         [self.view addSubview:_mainScrollView];
         [_mainScrollView setContentOffset:CGPointMake(580, 840)];
+        
+
+        
+
+        _createVideobutton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 24 - 62, self.view.EA_Bottom, 62,62)];
+        [_createVideobutton setImage:[UIImage imageNamed:@"video_create.png"] forState:UIControlStateNormal];
+        [_createVideobutton setBackgroundColor:[UIColor clearColor]];
+        [_createVideobutton addTarget:self action:@selector(createVideo) forControlEvents:UIControlEventTouchUpInside];
+        [_mainScrollView addSubview:_createVideobutton];
+        
         
         dot1 = [[DotView alloc]initWithFrame:CGRectMake(613, 981.5, 100, 100)];
         [_mainScrollView addSubview:dot1];
@@ -175,6 +187,12 @@
     UserCenterViewController *userVC = [[UserCenterViewController alloc]init];
     [self.navigationController pushViewController:userVC animated:YES];
 
+}
+
+- (void)createVideo
+{
+    CreateViewController *createView = [[CreateViewController alloc]init];
+    [self.navigationController pushViewController:createView animated:YES];
 }
 
 #pragma mark - PullViewDelegate

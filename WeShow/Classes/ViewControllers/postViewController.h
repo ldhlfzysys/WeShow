@@ -12,5 +12,5 @@
 @interface postViewController : UIViewController
 
 - (instancetype) initWithMediaUrl:(NSURL*)url;
-- (instancetype) initWithComposition:(AVMutableComposition *)composition andVideoComposition:(AVMutableVideoComposition*)videoComposition;
+- (instancetype) initWithImage:(UIImage*)image;
 @end

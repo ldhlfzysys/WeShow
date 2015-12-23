@@ -10,6 +10,7 @@
 
 @interface postViewController()
 @property (strong, nonatomic) NSURL* mediaUrl;
+@property (strong, nonatomic) UIImage *postImage;
 
 @property (strong, nonatomic) AVPlayer *avPlayer;
 @property (strong, nonatomic) AVPlayerLayer *avPlayerLayer;
@@ -31,12 +32,11 @@
     return self;
 }
 
-- (instancetype) initWithComposition:(AVMutableComposition *)composition andVideoComposition:(AVMutableVideoComposition*)videoComposition
+- (instancetype) initWithImage:(UIImage*)image
 {
     if (self = [super init])
     {
-        _composition = composition;
-        _videoComposition = videoComposition;
+        _postImage = image;
     }
     
     return self;
@@ -49,28 +49,27 @@
     
     // the video player
     if (!self.mediaUrl) {
-        AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:self.composition];
-        item.videoComposition = self.videoComposition;
-        self.avPlayer = [AVPlayer playerWithPlayerItem:item];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.frame];
+        imageView.image = self.postImage;
+        [self.view addSubview:imageView];
     }else
     {
         self.avPlayer = [AVPlayer playerWithURL:self.mediaUrl];
+        self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        
+        self.avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
+        //self.avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:[self.avPlayer currentItem]];
+        
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        
+        self.avPlayerLayer.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
+        [self.view.layer addSublayer:self.avPlayerLayer];
     }
-    
-    self.avPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
-    self.avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
-    //self.avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerItemDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[self.avPlayer currentItem]];
-    
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    
-    self.avPlayerLayer.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
-    [self.view.layer addSublayer:self.avPlayerLayer];
     
     // cancel button
     _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 40,self.view.EA_Bottom - 110,80,80)];
