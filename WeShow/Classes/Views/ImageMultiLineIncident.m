@@ -67,6 +67,9 @@
     _addressLabel.text = address;
     _timeLabel.text = time;
     _peopleNumLabel.text = memberNum;
+    [_timeLabel sizeToFit];
+    _peopleNumIcon.EA_Left = _timeLabel.EA_Right + 12;
+    _peopleNumLabel.EA_Left = _peopleNumIcon.EA_Right + 4;
 }
 
 @end

@@ -55,40 +55,45 @@
         _mainScrollView.delegate = self;
         _mainScrollView.showsHorizontalScrollIndicator = NO;
         _mainScrollView.showsVerticalScrollIndicator = NO;
-        UIImageView *scrollViewBackground = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 640, 640)];
+        UIImageView *scrollViewBackground = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 2000, 2000)];
         scrollViewBackground.image = [UIImage imageNamed:@"map_background"];
         [_mainScrollView addSubview:scrollViewBackground];
         [self.view addSubview:_mainScrollView];
+        [_mainScrollView setContentOffset:CGPointMake(580, 840)];
         
+
+        
+
         _createVideobutton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 24 - 62, self.view.EA_Bottom, 62,62)];
         [_createVideobutton setImage:[UIImage imageNamed:@"video_create.png"] forState:UIControlStateNormal];
         [_createVideobutton setBackgroundColor:[UIColor clearColor]];
         [_createVideobutton addTarget:self action:@selector(createVideo) forControlEvents:UIControlEventTouchUpInside];
         [_mainScrollView addSubview:_createVideobutton];
         
-        dot1 = [[DotView alloc]initWithFrame:CGRectMake(180, 180, 100, 100)];
+        
+        dot1 = [[DotView alloc]initWithFrame:CGRectMake(613, 981.5, 100, 100)];
         [_mainScrollView addSubview:dot1];
         __block MainViewController *blockSelf = self;
         [dot1 setClickBlock:^{
             [blockSelf.bottomView scrollToIndex:1];
-            [blockSelf.mainScrollView setContentOffset:CGPointMake(38, 151) animated:YES];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(472, 884) animated:YES];
 
 
         }];
         
-        dot2 = [[DotView alloc]initWithFrame:CGRectMake(200, 350, 80, 80)];
+        dot2 = [[DotView alloc]initWithFrame:CGRectMake(835, 1055, 80, 80)];
         [_mainScrollView addSubview:dot2];
         [dot2 setClickBlock:^{
             [blockSelf.bottomView scrollToIndex:2];
-            [blockSelf.mainScrollView setContentOffset:CGPointMake(50, 304) animated:YES];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(685, 953) animated:YES];
         }];
         
-        dot3 = [[DotView alloc]initWithFrame:CGRectMake(250, 80, 60, 60)];
+        dot3 = [[DotView alloc]initWithFrame:CGRectMake(842.5, 968, 60, 60)];
         [_mainScrollView addSubview:dot3];
         
         [dot3 setClickBlock:^{
             [blockSelf.bottomView scrollToIndex:0];
-            [blockSelf.mainScrollView setContentOffset:CGPointMake(95, 25) animated:YES];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(681, 854.5) animated:YES];
         }];
 
         /*
@@ -155,7 +160,7 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    NSLog(@"%f--%f",)
+    NSLog(@"%f--%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
 }
 
 - (void)historyClick{
@@ -196,17 +201,17 @@
     switch (index) {
         case 0:
         {
-            [_mainScrollView setContentOffset:CGPointMake(95, 25) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(472, 884) animated:YES];
            break;
         }
         case 1:
         {
-            [_mainScrollView setContentOffset:CGPointMake(38, 151) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(685, 953) animated:YES];
             break;
         }
         case 2:
         {
-            [_mainScrollView setContentOffset:CGPointMake(50, 304) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(681, 854.5) animated:YES];
             break;
         }    
         default:

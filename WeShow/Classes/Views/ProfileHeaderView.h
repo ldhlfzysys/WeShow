@@ -22,4 +22,5 @@
 @property (nonatomic,strong)TwoLineButton *history;
 
 - (void)updateDatas:(NSDictionary *)dict;
+- (void)didScroll:(CGFloat)content;
 @end

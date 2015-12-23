@@ -30,7 +30,7 @@
     /**
      临时数据，用3种高度表示3种展示。
      **/
-    _datas = [@[@"101",@"101",@"101",@"101",@"101"] mutableCopy];
+    _datas = [@[@"91",@"91",@"91",@"91",@"91"] mutableCopy];
     _cellDatas = [@[@{@"imageMultiLineIncidentData":@{
                               @"imageName":@"pic4",
                               @"title":@"北极光",
@@ -144,7 +144,7 @@
     }else{
         cell.EA_Width = SCREEN_WIDTH;
     }
-    if ([_datas[indexPath.row] floatValue] == 101) {
+    if ([_datas[indexPath.row] floatValue] == 91) {
         [cell loadStyle2:[_cellDatas objectAtIndex:indexPath.row]];
     }
 

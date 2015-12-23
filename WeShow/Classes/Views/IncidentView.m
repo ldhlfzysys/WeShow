@@ -94,6 +94,9 @@
     _addressLabel.text = address;
     _distanceLabel.text = distance;
     _memberLabel.text = memberNum;
+    [_distanceLabel sizeToFit];
+    _memberIcon.EA_Left = _distanceLabel.EA_Right + 12;
+    _memberLabel.EA_Left = _memberIcon.EA_Right + 4;
 }
 
 - (void)selfdidClick:(id)sender

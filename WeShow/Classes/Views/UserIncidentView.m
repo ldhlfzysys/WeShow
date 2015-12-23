@@ -18,6 +18,9 @@
         _headBgImage.image = [UIImage imageNamed:@"feed_mine"];
         [self addSubview:_headBgImage];
         _headBgImage.hidden = YES;
+        UITapGestureRecognizer *tapGes1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headClick)];
+        _headBgImage.userInteractionEnabled = YES;
+        [_headBgImage addGestureRecognizer:tapGes1];
         
         _headImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 30, 30)];
         _headImage.backgroundColor = [UIColor whiteColor];
@@ -79,6 +82,7 @@
     self.nameLabel.EA_Top = 3;
     self.descLabel.EA_Top = self.nameLabel.EA_Bottom + 7 ;
     self.descLabel.text = @"下拉刷新18条新内容";
+    _headImage.hidden = YES;
 }
 
 - (void)updateDatas:(NSDictionary *)dict{
@@ -91,7 +95,6 @@
 }
 
 - (void)normalMode{
-    
 }
 
 @end
