@@ -48,6 +48,8 @@
         _mainScorll.delegate = self;
         _mainScorll.pagingEnabled = YES;
         _mainScorll.clipsToBounds = NO;
+        _mainScorll.showsHorizontalScrollIndicator = NO;
+        _mainScorll.showsVerticalScrollIndicator = NO;
 
         _mainScorll.autoresizesSubviews = NO;
         _mainScorll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

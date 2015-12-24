@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IncidentView.h"
+#import "IncidentViewNew.h"
 #import "NewPullView.h"
 
-@interface HistoryViewController : UIViewController<IncidentViewDelegate,NewPullViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface HistoryViewController : UIViewController<IncidentViewNewDelegate,NewPullViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong)UITableView *mainTable;
 @property (nonatomic,strong)NSMutableArray *datas;
+@property (nonatomic,strong)NSMutableArray *datasDidShow;
 @property (nonatomic,strong)NSMutableArray *cellDatas;
 
 @end

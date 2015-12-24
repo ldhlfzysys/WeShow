@@ -13,5 +13,7 @@ typedef void (^DotViewclickBlock)(void);
 @interface DotView : UIView
 
 @property (nonatomic,strong)DotViewclickBlock clickBlock;
+@property (nonatomic,assign)CGFloat area;
+- (void)loadAnimation:(CGFloat)area;
 
 @end

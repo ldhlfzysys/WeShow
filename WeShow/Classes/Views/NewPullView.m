@@ -55,6 +55,8 @@
     _pageControl.currentPage = index;
 }
 
+
+
 - (void)positionChange:(UITapGestureRecognizer *)gesture
 {
     

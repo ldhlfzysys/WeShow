@@ -127,6 +127,7 @@
 		B8FA92381C2A79DC002FBB87 /* head8.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FA92311C2A79DC002FBB87 /* head8.png */; };
 		B8FA92391C2A79DC002FBB87 /* head9.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FA92321C2A79DC002FBB87 /* head9.png */; };
 		B8FA923A1C2A79DC002FBB87 /* head10.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FA92331C2A79DC002FBB87 /* head10.png */; };
+		B8FA923F1C2BDA3D002FBB87 /* CommentPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA923E1C2BDA3D002FBB87 /* CommentPostView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -291,6 +292,8 @@
 		B8FA92311C2A79DC002FBB87 /* head8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head8.png; sourceTree = "<group>"; };
 		B8FA92321C2A79DC002FBB87 /* head9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head9.png; sourceTree = "<group>"; };
 		B8FA92331C2A79DC002FBB87 /* head10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head10.png; sourceTree = "<group>"; };
+		B8FA923D1C2BDA3D002FBB87 /* CommentPostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentPostView.h; sourceTree = "<group>"; };
+		B8FA923E1C2BDA3D002FBB87 /* CommentPostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentPostView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -490,6 +493,8 @@
 				B8929CC21C27FE5F0073E4BD /* HistoryHeadView.m */,
 				B8929CC41C2800DA0073E4BD /* HistoryDetailTableViewCell.h */,
 				B8929CC51C2800DA0073E4BD /* HistoryDetailTableViewCell.m */,
+				B8FA923D1C2BDA3D002FBB87 /* CommentPostView.h */,
+				B8FA923E1C2BDA3D002FBB87 /* CommentPostView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -803,6 +808,7 @@
 				B8929CBD1C27EE7C0073E4BD /* UserIncidentTableViewCell.m in Sources */,
 				B81A65871BEDD19A008116E9 /* NetWorkManager.m in Sources */,
 				B81A658A1BEDD19A008116E9 /* Tools.m in Sources */,
+				B8FA923F1C2BDA3D002FBB87 /* CommentPostView.m in Sources */,
 				B8929CC01C27EF0C0073E4BD /* UserIncidentView.m in Sources */,
 				B8E691E61C19789600392B7B /* CreateViewController.m in Sources */,
 				B87ADA771C2690F200C841A5 /* ProfileViewController.m in Sources */,

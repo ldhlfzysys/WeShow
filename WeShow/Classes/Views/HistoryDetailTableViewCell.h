@@ -17,5 +17,6 @@
 
 @property (nonatomic,strong)UILabel *commentLabel;
 
-- (void)loadStyle1;
+
+- (void)loadStyle1:(NSDictionary *)dict;
 @end

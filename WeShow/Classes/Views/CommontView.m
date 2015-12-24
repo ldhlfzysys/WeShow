@@ -13,6 +13,11 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
+        
+        UIImageView *mark = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 35, 35)];
+        mark.image = [UIImage imageNamed:@"history_mark"];
+        [self addSubview:mark];
+        
         _commontLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, self.EA_Width - 30, 35)];
         _commontLabel.font = [UIFont systemFontOfSize:14];
         _commontLabel.textColor = UIColorFromRGB(0x636466);

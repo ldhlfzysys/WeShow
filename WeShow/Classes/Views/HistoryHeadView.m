@@ -45,16 +45,16 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
-        _topImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, 442)];
-        _topImage.backgroundColor = [UIColor grayColor];
+//        self.backgroundColor = [UIColor whiteColor];
+        _topImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 442, self.EA_Width, self.EA_Height - 442)];
+        _topImage.backgroundColor = [UIColor whiteColor];
         [self addSubview:_topImage];
         
-        _vedioImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, _topImage.EA_Bottom - 75, 100, 150)];
+        _vedioImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 367, 100, 150)];
         _vedioImage.backgroundColor = [UIColor brownColor];
         [self addSubview:_vedioImage];
         
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_vedioImage.EA_Right + 10, _topImage.EA_Bottom + 14, self.EA_Width - _vedioImage.EA_Right - 20, 18)];
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_vedioImage.EA_Right + 10, 442 + 14, self.EA_Width - _vedioImage.EA_Right - 20, 18)];
         _titleLabel.font = [UIFont systemFontOfSize:18];
         _titleLabel.textColor = UIColorFromRGB(0x636466);
         _titleLabel.text = @"标题";
@@ -87,46 +87,53 @@
         _peopleNumLabel.text = @"3821";
         [self addSubview:_peopleNumLabel];
         
-        _createManView = [[OnelineView alloc]initWithFrame:CGRectMake(20, _vedioImage.EA_Bottom + 23, 110, 12)];
+        _createManView = [[OnelineView alloc]initWithFrame:CGRectMake(0, 0, 110, 12)];
         _createManView.nameLabel.text = @"创建者";
-        [self addSubview:_createManView];
-        
-        _createHeadView = [[HeadNameView alloc]initWithFrame:CGRectMake(15, _createManView.EA_Bottom, 100, 100)];
-        [self addSubview:_createHeadView];
-        
-        _joinManView = [[OnelineView alloc]initWithFrame:CGRectMake(_createManView.EA_Right+16, _vedioImage.EA_Bottom + 23, self.EA_Width - _createManView.EA_Right-16, 12)];
-        _joinManView.nameLabel.text = @"发布者";
-        [self addSubview:_joinManView];
-        
-        
-        _multiHeadScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(147.5, _joinManView.EA_Bottom, self.EA_Width - 147.5, 100)];
-        _multiHeadScroll.contentSize = CGSizeMake(400, 130);
 
+        UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(110, 6 , 1, 110)];
+        line.backgroundColor = UIColorFromRGB(0xdddee2);
+        [self addSubview:line];
+        
+        _joinManView = [[OnelineView alloc]initWithFrame:CGRectMake(110, 0, self.EA_Width * 1.5 - 110, 12)];
+        _joinManView.nameLabel.text = @"发布者";
+
+        
+        
+        _multiHeadScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(20, _vedioImage.EA_Bottom + 23, self.EA_Width - 40, 130)];
+        _multiHeadScroll.contentSize = CGSizeMake(self.EA_Width * 1.5, 122);
+        _multiHeadScroll.showsHorizontalScrollIndicator = NO;
+        _multiHeadScroll.showsVerticalScrollIndicator = NO;
         [self addSubview:_multiHeadScroll];
+        [_multiHeadScroll addSubview:_createManView];
+        [_multiHeadScroll addSubview:_joinManView];
+        [_multiHeadScroll addSubview:line];
         
         CGFloat baseX = 0;
-        for (int i = 0; i<3; i ++) {
-            HeadNameView *eV = [[HeadNameView alloc]initWithFrame:CGRectMake(baseX, 0, 100,100)];
+
+        for (int i = 0; i<7; i ++) {
+            HeadNameView *eV;
+            if (i != 0) {
+                eV = [[HeadNameView alloc]initWithFrame:CGRectMake(baseX+30, 11, 100,100)];
+            }else{
+                eV = [[HeadNameView alloc]initWithFrame:CGRectMake(baseX, 11, 100,100)];
+            }
+
             [_multiHeadScroll addSubview:eV];
             baseX += 100;
         }
         
-        _niceView = [[OnelineView alloc]initWithFrame:CGRectMake(20, _createManView.EA_Bottom + 124, self.EA_Width - 20, 12)];
+        _niceView = [[OnelineView alloc]initWithFrame:CGRectMake(20, _multiHeadScroll.EA_Bottom + 10, self.EA_Width - 20, 12)];
         _niceView.nameLabel.text = @"精彩内容";
         [self addSubview:_niceView];
         
-        _niceScroll = [[MultiIncidentScrollView alloc]initWithFrame:CGRectMake(20, _niceView.EA_Bottom + 11, self.EA_Width - 20, 150)];
+        _niceScroll = [[MultiIncidentScrollView alloc]initWithFrame:CGRectMake(20, _niceView.EA_Bottom, self.EA_Width - 20, 170)];
         [self addSubview:_niceScroll];
-        
-        UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(130, _createManView.EA_Bottom - 6 , 1, 110)];
-        line.backgroundColor = UIColorFromRGB(0xdddee2);
-        [self addSubview:line];
-        
-        
-        
-        
         
     }
     return self;
+}
+
+- (void)updateDatas:(NSDictionary *)dic{
+    
 }
 @end

@@ -21,6 +21,7 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     _mainTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.EA_Width, self.view.EA_Height)];
+
     _mainTable.backgroundColor = UIColorFromRGB(0x373b47);
     
     _mainTable.delegate = self;
@@ -31,6 +32,7 @@
      临时数据，用3种高度表示3种展示。
      **/
     _datas = [@[@"91",@"91",@"91",@"91",@"91"] mutableCopy];
+    _datasDidShow = [@[@"0",@"0",@"0",@"0",@"0"] mutableCopy];
     _cellDatas = [@[@{@"imageMultiLineIncidentData":@{
                               @"imageName":@"pic4",
                               @"title":@"北极光",
@@ -99,17 +101,18 @@
                                @"2h 3km",@"distance",
                                @"323人",@"memberNum",nil];
     
-    IncidentView *test1 = [[IncidentView alloc]initWithFrame:CGRectMake(10,  10, _bottomView.myScroll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    
+    IncidentViewNew *test1 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(0,  10, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 20)];
     test1.delegate = self;
     [test1 updateDatas:dataDict1];
     [_bottomView.myScroll addSubview:test1];
     
-    IncidentView *test2 = [[IncidentView alloc]initWithFrame:CGRectMake(10 + _bottomView.myScroll.EA_Width,  10, _bottomView.myScroll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
     test2.delegate = self;
     [test2 updateDatas:dataDict2];
     [_bottomView.myScroll addSubview:test2];
     
-    IncidentView *test3 = [[IncidentView alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width*2 + 10, 10, _bottomView.myScroll.EA_Width - 20, _bottomView.EA_Height - _bottomView.EA_Width * 0.04 - 50)];
+    IncidentViewNew *test3 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width*2, 10, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 20)];
     test3.delegate = self;
     [test3 updateDatas:dataDict3];
     [_bottomView.myScroll addSubview:test3];
@@ -118,8 +121,6 @@
     UIButton *backBtn = [Tools getNavigationItemWithImage:@"video_back"];
     [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-
-
 }
 #pragma mark - UITableView
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,6 +135,19 @@
     
     return _datas.count;
 }
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (![[_datasDidShow objectAtIndex:indexPath.row] isEqualToString:@"1"]) {
+        [_datasDidShow setObject:@"1" atIndexedSubscript:indexPath.row];
+        cell.EA_Right = 0;
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.8];
+        cell.EA_Left = 0;
+        [UIView commitAnimations];
+    }
+    
+}
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -157,7 +171,7 @@
 
 
 
-- (void)didClickIncidentView:(IncidentView *)inview{
+- (void)didClickIncidentViewNew:(IncidentViewNew *)inview{
     HistoryDetailViewController *detailVC = [[HistoryDetailViewController alloc]init];
     [self.navigationController pushViewController:detailVC animated:YES];
 }

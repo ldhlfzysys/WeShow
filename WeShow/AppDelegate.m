@@ -22,7 +22,6 @@
     MainViewController *mainVC = [[MainViewController alloc]init];
     UINavigationController *mainNav = [Tools getNavByType:NavTypeMainPage controller:mainVC];
     [self.window setRootViewController:mainNav];
-    
     [NetWorkManager sharedManager];
     [DataCenterManager sharedManager];
     return YES;
