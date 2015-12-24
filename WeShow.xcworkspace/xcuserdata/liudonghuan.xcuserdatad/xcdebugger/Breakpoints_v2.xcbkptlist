@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
-            timestampString = "472570325.513972"
+            timestampString = "472633135.544841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "-historyClick"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "-pullViewScrollToIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,28 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeShow/Classes/MainViewControllers/MainViewController.m"
-            timestampString = "472570325.513972"
+            timestampString = "472633135.544841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "-didClickIncidentView:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeShow/Classes/Views/HistoryHeadView.m"
-            timestampString = "472402167.380553"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "-initWithFrame:"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "-pullViewScrollToIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

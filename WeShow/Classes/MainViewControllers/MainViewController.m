@@ -59,7 +59,7 @@
         scrollViewBackground.image = [UIImage imageNamed:@"map_background"];
         [_mainScrollView addSubview:scrollViewBackground];
         [self.view addSubview:_mainScrollView];
-        [_mainScrollView setContentOffset:CGPointMake(580, 840)];
+        [_mainScrollView setContentOffset:CGPointMake(617, 891)];
         
 
         
@@ -71,30 +71,55 @@
         [_mainScrollView addSubview:_createVideobutton];
         
         
-        dot1 = [[DotView alloc]initWithFrame:CGRectMake(613, 981.5, 100, 100)];
+        dot1 = [[DotView alloc]initWithFrame:CGRectMake(613, 981.5, 120, 120)];
+        [dot1 loadAnimation:100];
         [_mainScrollView addSubview:dot1];
         __block MainViewController *blockSelf = self;
         [dot1 setClickBlock:^{
-            [blockSelf.bottomView scrollToIndex:1];
-            [blockSelf.mainScrollView setContentOffset:CGPointMake(472, 884) animated:YES];
+            [blockSelf.bottomView scrollToIndex:0];
+            [blockSelf showBottomView];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(485, 904) animated:YES];
 
 
         }];
         
-        dot2 = [[DotView alloc]initWithFrame:CGRectMake(835, 1055, 80, 80)];
+        dot2 = [[DotView alloc]initWithFrame:CGRectMake(835, 1055, 120, 120)];
+        [dot2 loadAnimation:80];
         [_mainScrollView addSubview:dot2];
         [dot2 setClickBlock:^{
-            [blockSelf.bottomView scrollToIndex:2];
-            [blockSelf.mainScrollView setContentOffset:CGPointMake(685, 953) animated:YES];
+            [blockSelf.bottomView scrollToIndex:1];
+            [blockSelf showBottomView];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(706, 970) animated:YES];
         }];
         
-        dot3 = [[DotView alloc]initWithFrame:CGRectMake(842.5, 968, 60, 60)];
+        dot3 = [[DotView alloc]initWithFrame:CGRectMake(842.5, 900, 120, 120)];
+        [dot3 loadAnimation:60];
         [_mainScrollView addSubview:dot3];
         
         [dot3 setClickBlock:^{
-            [blockSelf.bottomView scrollToIndex:0];
-            [blockSelf.mainScrollView setContentOffset:CGPointMake(681, 854.5) animated:YES];
+            [blockSelf.bottomView scrollToIndex:2];
+            [blockSelf showBottomView];
+            [blockSelf.mainScrollView setContentOffset:CGPointMake(712, 817) animated:YES];
         }];
+        
+        //定位和发布按钮
+        UIImageView *locationView = [[UIImageView alloc]initWithFrame:CGRectMake(20, self.view.EA_Height - 20 - 35, 35, 35)];
+        locationView.image = [UIImage imageNamed:@"map_positioning"];
+        locationView.userInteractionEnabled = YES;
+        [self.view addSubview:locationView];
+        UITapGestureRecognizer *locationTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(locationMy)];
+        [locationView addGestureRecognizer:locationTap];
+        
+        UIImageView *myLocation = [[UIImageView alloc]initWithFrame:CGRectMake(796, 970, 30, 30)];
+        myLocation.image = [UIImage imageNamed:@"map_location"];
+        [_mainScrollView addSubview:myLocation];
+        
+        UIImageView *createView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.EA_Width - 20 - 70 , self.view.EA_Height - 20 - 70, 70, 70)];
+        createView.image = [UIImage imageNamed:@"map_create"];
+        createView.userInteractionEnabled = YES;
+        [self.view addSubview:createView];
+        UITapGestureRecognizer *createTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(createNew)];
+        [createView addGestureRecognizer:createTap];
 
         /*
          模拟数据
@@ -155,12 +180,32 @@
         [_bottomView.mainScorll addSubview:test3];
         
 
+
     }
     return self;
 }
 
+- (void)locationMy{
+    [self.mainScrollView setContentOffset:CGPointMake(630, 650) animated:YES];
+}
+
+//地图上的发布入口
+- (void)createNew{
+    
+}
+
+- (void)showBottomView{
+    if (_bottomView.showing == NO) {
+        [UIView animateWithDuration:0.5 animations:^{
+            _bottomView.EA_Top = self.view.frame.size.height - bottomViewHeight;
+            _bottomView.tapImage.image = [UIImage imageNamed:@"map_pull_down"];
+        }];
+        _bottomView.showing = YES;
+    }
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"%f--%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
+//    NSLog(@"%f---%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
 }
 
 - (void)historyClick{
@@ -170,6 +215,8 @@
 
 - (void)didClickIncidentView:(IncidentView *)inview
 {
+
+    
     if (inview.tag == 0) {
         CreateViewController *createView = [[CreateViewController alloc]init];
         [self.navigationController pushViewController:createView animated:YES];
@@ -201,17 +248,17 @@
     switch (index) {
         case 0:
         {
-            [_mainScrollView setContentOffset:CGPointMake(472, 884) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(485, 904) animated:YES];
            break;
         }
         case 1:
         {
-            [_mainScrollView setContentOffset:CGPointMake(685, 953) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(706, 970) animated:YES];
             break;
         }
         case 2:
         {
-            [_mainScrollView setContentOffset:CGPointMake(681, 854.5) animated:YES];
+            [_mainScrollView setContentOffset:CGPointMake(712, 817) animated:YES];
             break;
         }    
         default:
@@ -268,7 +315,6 @@
 -(void) viewDidLoad
 {
     [super viewDidLoad];
-    
 }
 
 - (void)refesh{

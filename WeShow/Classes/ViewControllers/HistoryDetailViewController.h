@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface HistoryDetailViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+#import "CommentPostView.h"
+@interface HistoryDetailViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (nonatomic,strong)UITableView *mainTable;
 @property (nonatomic,strong)NSMutableArray *datas;
+@property (nonatomic,strong)NSMutableArray *cellDatas;
+@property (nonatomic,strong)CommentPostView *commentView;
 @end

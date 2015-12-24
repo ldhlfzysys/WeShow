@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MultiIncidentTableViewCell : UITableViewCell
+
+@property BOOL didShow;
+
 - (void)loadStyle1:(NSDictionary *)dict;
 - (void)loadStyle2:(NSDictionary *)dict;
 - (void)loadStyle3:(NSDictionary *)dict;

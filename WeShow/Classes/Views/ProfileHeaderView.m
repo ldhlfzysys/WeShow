@@ -39,9 +39,9 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = UIColorFromRGB(0x373b47);
         _topImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, 150)];
-        _topImage.EA_Bottom = self.EA_Height - 150;
-        _topImage.backgroundColor = [UIColor grayColor];
+//        _topImage.EA_Bottom = self.EA_Height - 150;
         _topImage.contentMode = UIViewContentModeScaleAspectFill;
+        _topImage.layer.masksToBounds = YES;
         [self addSubview:_topImage];
         
         _headImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 118, 74, 74)];
@@ -78,10 +78,9 @@
 }
 
 - (void)didScroll:(CGFloat)content{
-//    NSLog(@"%f",content);
-//    CGFloat originHeight = 150;
-//    _topImage.EA_Bottom = self.EA_Height - 150 + content;
-//    _topImage.EA_Height = originHeight - content;
+    CGFloat originHeight = 150;
+    _topImage.EA_Top = content;
+    _topImage.EA_Height = originHeight - content;
 
 }
 

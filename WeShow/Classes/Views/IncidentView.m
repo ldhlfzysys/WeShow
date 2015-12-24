@@ -37,6 +37,24 @@
         _redDotImage.image = [UIImage imageNamed:@"map_pull_live"];
         [self addSubview:_redDotImage];
         
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath : @"opacity" ]; // 必须写 opacity 才行。
+        animation. fromValue = [NSNumber numberWithFloat : 1.0f ];
+        
+        animation. toValue = [NSNumber numberWithFloat : 0.0f ]; // 这是透明度。
+        
+        animation. autoreverses = YES ;
+        
+        animation. duration = 0.5;
+        
+        animation. repeatCount = MAXFLOAT ;
+        
+        animation. removedOnCompletion = NO ;
+        
+        animation. fillMode = kCAFillModeForwards ;
+        
+        animation. timingFunction =[CAMediaTimingFunction functionWithName : kCAMediaTimingFunctionEaseIn ]; /// 没有的话是均匀的动
+        [_redDotImage.layer addAnimation:animation forKey:nil];
+        
         _mediaTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(26, 12, 100, 16)];
         _mediaTypeLabel.text = @"Live";
         _mediaTypeLabel.font = [UIFont systemFontOfSize:16];
