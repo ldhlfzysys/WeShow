@@ -92,7 +92,14 @@
 }
 
 - (void)likeClick{
-    _likeIcon.image = [UIImage imageNamed:@"history_like_highlight"];
+    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionAutoreverse animations:^{
+        _likeIcon.image = [UIImage imageNamed:@"history_like_highlight"];
+        _likeIcon.EA_Top -= 10;
+    }completion:^(BOOL finished) {
+        _likeIcon.EA_Top += 10;
+    }];
+    
     _likeLabel.text = [NSString stringWithFormat:@"%ld",[_likeLabel.text integerValue]+1];
+    [_likeLabel sizeToFit];
 }
 @end
