@@ -25,6 +25,18 @@
 		3EA42B4A1C1D2CCD006D0CB7 /* postViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EA42B491C1D2CCD006D0CB7 /* postViewController.m */; };
 		3EBBC1941C1539BB008C53CB /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1931C1539BB008C53CB /* MAMapKit.framework */; };
 		3EBBC1961C1539C6008C53CB /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */; };
+		3ED308941C2C055D001C846C /* 好事青年小李.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED308881C2C055D001C846C /* 好事青年小李.png */; };
+		3ED308951C2C055D001C846C /* 合作媒体微博.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED308891C2C055D001C846C /* 合作媒体微博.png */; };
+		3ED308961C2C055D001C846C /* 路人甲小白.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED3088A1C2C055D001C846C /* 路人甲小白.png */; };
+		3ED308971C2C055D001C846C /* 文艺青年.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED3088B1C2C055D001C846C /* 文艺青年.png */; };
+		3ED308981C2C055D001C846C /* 我叫围观群众.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED3088C1C2C055D001C846C /* 我叫围观群众.png */; };
+		3ED308991C2C055D001C846C /* 小网红.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED3088D1C2C055D001C846C /* 小网红.png */; };
+		3ED3089A1C2C055D001C846C /* 业余记者晓龙.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED3088E1C2C055D001C846C /* 业余记者晓龙.png */; };
+		3ED3089B1C2C055D001C846C /* 娱乐新星俊凯.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED3088F1C2C055D001C846C /* 娱乐新星俊凯.png */; };
+		3ED3089C1C2C055D001C846C /* 直播大咖靖宇.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED308901C2C055D001C846C /* 直播大咖靖宇.png */; };
+		3ED3089D1C2C055D001C846C /* 职业记者一晶.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED308911C2C055D001C846C /* 职业记者一晶.png */; };
+		3ED3089E1C2C055D001C846C /* 自媒体人东寰.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED308921C2C055D001C846C /* 自媒体人东寰.png */; };
+		3ED3089F1C2C055D001C846C /* 自拍达人老王.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ED308931C2C055D001C846C /* 自拍达人老王.png */; };
 		4DE17127B550BF5C66B1D71E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A56768EEA638E15239E03D /* libPods.a */; };
 		B81A65441BEDD0E2008116E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65431BEDD0E2008116E9 /* main.m */; };
 		B81A65471BEDD0E2008116E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A65461BEDD0E2008116E9 /* AppDelegate.m */; };
@@ -153,6 +165,18 @@
 		3EA42B491C1D2CCD006D0CB7 /* postViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = postViewController.m; sourceTree = "<group>"; };
 		3EBBC1931C1539BB008C53CB /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = Pods/AMap2DMap/MAMapKit.framework; sourceTree = "<group>"; };
 		3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = Pods/AMapSearch/AMapSearchKit.framework; sourceTree = "<group>"; };
+		3ED308881C2C055D001C846C /* 好事青年小李.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "好事青年小李.png"; sourceTree = "<group>"; };
+		3ED308891C2C055D001C846C /* 合作媒体微博.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "合作媒体微博.png"; sourceTree = "<group>"; };
+		3ED3088A1C2C055D001C846C /* 路人甲小白.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "路人甲小白.png"; sourceTree = "<group>"; };
+		3ED3088B1C2C055D001C846C /* 文艺青年.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "文艺青年.png"; sourceTree = "<group>"; };
+		3ED3088C1C2C055D001C846C /* 我叫围观群众.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "我叫围观群众.png"; sourceTree = "<group>"; };
+		3ED3088D1C2C055D001C846C /* 小网红.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小网红.png"; sourceTree = "<group>"; };
+		3ED3088E1C2C055D001C846C /* 业余记者晓龙.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "业余记者晓龙.png"; sourceTree = "<group>"; };
+		3ED3088F1C2C055D001C846C /* 娱乐新星俊凯.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "娱乐新星俊凯.png"; sourceTree = "<group>"; };
+		3ED308901C2C055D001C846C /* 直播大咖靖宇.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "直播大咖靖宇.png"; sourceTree = "<group>"; };
+		3ED308911C2C055D001C846C /* 职业记者一晶.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "职业记者一晶.png"; sourceTree = "<group>"; };
+		3ED308921C2C055D001C846C /* 自媒体人东寰.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "自媒体人东寰.png"; sourceTree = "<group>"; };
+		3ED308931C2C055D001C846C /* 自拍达人老王.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "自拍达人老王.png"; sourceTree = "<group>"; };
 		3FDEBCDB569EA7EE40FE7AE2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		75A56768EEA638E15239E03D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCDA592E0BD754126669508 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -566,6 +590,18 @@
 		B8FA92121C2A797C002FBB87 /* testDatas */ = {
 			isa = PBXGroup;
 			children = (
+				3ED308881C2C055D001C846C /* 好事青年小李.png */,
+				3ED308891C2C055D001C846C /* 合作媒体微博.png */,
+				3ED3088A1C2C055D001C846C /* 路人甲小白.png */,
+				3ED3088B1C2C055D001C846C /* 文艺青年.png */,
+				3ED3088C1C2C055D001C846C /* 我叫围观群众.png */,
+				3ED3088D1C2C055D001C846C /* 小网红.png */,
+				3ED3088E1C2C055D001C846C /* 业余记者晓龙.png */,
+				3ED3088F1C2C055D001C846C /* 娱乐新星俊凯.png */,
+				3ED308901C2C055D001C846C /* 直播大咖靖宇.png */,
+				3ED308911C2C055D001C846C /* 职业记者一晶.png */,
+				3ED308921C2C055D001C846C /* 自媒体人东寰.png */,
+				3ED308931C2C055D001C846C /* 自拍达人老王.png */,
 				B8FA92271C2A79B8002FBB87 /* head1.png */,
 				B8FA92281C2A79B8002FBB87 /* head2.png */,
 				B8FA92291C2A79B8002FBB87 /* head3.png */,
@@ -666,6 +702,7 @@
 				B8FA92261C2A7988002FBB87 /* pic10.png in Resources */,
 				B8E691C91C180D4100392B7B /* map_create.png in Resources */,
 				B8E691BC1C1806D200392B7B /* map_live_big.png in Resources */,
+				3ED3089C1C2C055D001C846C /* 直播大咖靖宇.png in Resources */,
 				B8E691E21C1977BF00392B7B /* incident_b2@2x.png in Resources */,
 				B8E691F81C1E63E000392B7B /* photo_refresh.png in Resources */,
 				B8E691F21C1E63CF00392B7B /* create_createlive.png in Resources */,
@@ -687,24 +724,29 @@
 				B87ADA891C26964500C841A5 /* profile_play.png in Resources */,
 				B8E691FB1C1E63E000392B7B /* photo_shoot.png in Resources */,
 				B8FA921D1C2A7988002FBB87 /* pic1.png in Resources */,
+				3ED3089B1C2C055D001C846C /* 娱乐新星俊凯.png in Resources */,
 				B86D9D4F1C170EAB00D844B7 /* map_positioning.png in Resources */,
 				B87ADA351C250CCB00C841A5 /* navigationbar_bg.png in Resources */,
 				B8FA923A1C2A79DC002FBB87 /* head10.png in Resources */,
 				B8E691C01C1806D200392B7B /* map_pull_point_select.png in Resources */,
+				3ED308961C2C055D001C846C /* 路人甲小白.png in Resources */,
 				B8E691E31C1977BF00392B7B /* incident_b1@2x.png in Resources */,
 				3E6A74031C2933DD00F2F707 /* video_barrage_off_highlight.png in Resources */,
 				B87ADA8E1C26965D00C841A5 /* feed_follow_highlight.png in Resources */,
 				B8FA922B1C2A79B8002FBB87 /* head2.png in Resources */,
 				B86D9D4C1C170EAB00D844B7 /* map_history.png in Resources */,
+				3ED3089F1C2C055D001C846C /* 自拍达人老王.png in Resources */,
 				B8FA921E1C2A7988002FBB87 /* pic2.png in Resources */,
 				3E6A740A1C2933DD00F2F707 /* video_profile.png in Resources */,
 				B87ADA911C26965D00C841A5 /* feed_plus.png in Resources */,
 				3E6A74041C2933DD00F2F707 /* video_barrage_off.png in Resources */,
+				3ED3089A1C2C055D001C846C /* 业余记者晓龙.png in Resources */,
 				B81A658D1BEDD19A008116E9 /* ExampleDemo in Resources */,
 				B86D9D511C170EAB00D844B7 /* map_pull_down.png in Resources */,
 				B8FA922A1C2A79B8002FBB87 /* head1.png in Resources */,
 				B87ADA841C26960800C841A5 /* history_send.png in Resources */,
 				B86D9D4D1C170EAB00D844B7 /* map_live.png in Resources */,
+				3ED308951C2C055D001C846C /* 合作媒体微博.png in Resources */,
 				3E6A74091C2933DD00F2F707 /* video_next.png in Resources */,
 				B86D9D4E1C170EAB00D844B7 /* map_location.png in Resources */,
 				3E6A740D1C2933DD00F2F707 /* video_push_yellow.png in Resources */,
@@ -723,9 +765,12 @@
 				B8FA92391C2A79DC002FBB87 /* head9.png in Resources */,
 				B8FA92381C2A79DC002FBB87 /* head8.png in Resources */,
 				B86D9D541C170EAB00D844B7 /* map_range.png in Resources */,
+				3ED3089D1C2C055D001C846C /* 职业记者一晶.png in Resources */,
 				B87ADA831C26960800C841A5 /* history_mark.png in Resources */,
+				3ED3089E1C2C055D001C846C /* 自媒体人东寰.png in Resources */,
 				3E6A74071C2933DD00F2F707 /* video_like_highlight.png in Resources */,
 				B87ADA8F1C26965D00C841A5 /* feed_follow.png in Resources */,
+				3ED308971C2C055D001C846C /* 文艺青年.png in Resources */,
 				B81A65891BEDD19A008116E9 /* PodsUsage in Resources */,
 				3E6A740C1C2933DD00F2F707 /* video_push_red.png in Resources */,
 				B86D9D521C170EAB00D844B7 /* map_pull_up.png in Resources */,
@@ -736,10 +781,13 @@
 				B87ADA901C26965D00C841A5 /* feed_mine.png in Resources */,
 				3E6A74081C2933DD00F2F707 /* video_like.png in Resources */,
 				3E6A74061C2933DD00F2F707 /* video_create.png in Resources */,
+				3ED308941C2C055D001C846C /* 好事青年小李.png in Resources */,
 				B8FA92221C2A7988002FBB87 /* pic6.png in Resources */,
+				3ED308991C2C055D001C846C /* 小网红.png in Resources */,
 				B8E691BA1C1806D200392B7B /* 2 Home p2.png in Resources */,
 				B8E691FA1C1E63E000392B7B /* photo_send.png in Resources */,
 				B87ADA811C26960800C841A5 /* history_like_highlight.png in Resources */,
+				3ED308981C2C055D001C846C /* 我叫围观群众.png in Resources */,
 				3E6A740B1C2933DD00F2F707 /* video_push_blue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

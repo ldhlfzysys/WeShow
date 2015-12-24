@@ -24,6 +24,9 @@
 @property (strong, nonatomic) UIButton *likebutton;
 @property (strong, nonatomic) UIButton *forbidBarragebutton;
 @property (strong, nonatomic) UIButton *createVideobutton;
+@property (strong, nonatomic) UIButton *userImagebutton;
+@property (strong, nonatomic) UIButton *userNameButton;
+
 @property (strong,nonatomic) UIImageView *toastView;
 @property (assign, nonatomic) BOOL liked;
 @property (assign, nonatomic) BOOL forbidenBarrage;
@@ -62,7 +65,7 @@
     self.barrageTextField.delegate = self;
     
     _allBarrageView = [[UIView alloc]initWithFrame:CGRectMake(0, STATUSBAR.size.height + 40, self.view.EA_Width, _createVideobutton.EA_Top - 98 - STATUSBAR.size.height)];
-//    [self.view addSubview:_allBarrageView];
+    [self.view addSubview:_allBarrageView];
     
     UIView *myControlView = [[UIView alloc]initWithFrame:self.view.frame];
     //[myControlView setBackgroundColor:[UIColor clearColor]];
@@ -73,25 +76,24 @@
     
     [myControlView addGestureRecognizer:longPressGr];
     
-
-    
     UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
     [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
     [backbutton setBackgroundColor:[UIColor clearColor]];
     [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     [myControlView addSubview:backbutton];
     
-    UIButton *userImagebutton = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.EA_Bottom - 20 - 30, 30,30)];
-    [userImagebutton setImage:[UIImage imageNamed:@"video_profile.png"] forState:UIControlStateNormal];
-    [userImagebutton setBackgroundColor:[UIColor clearColor]];
-    [userImagebutton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:userImagebutton];
+    _userImagebutton = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.EA_Bottom - 20 - 30, 30,30)];
+    [_userImagebutton setImage:[UIImage imageNamed:@"video_profile.png"] forState:UIControlStateNormal];
+    [_userImagebutton setBackgroundColor:[UIColor clearColor]];
+    [_userImagebutton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
+    [myControlView addSubview:_userImagebutton];
     
-    UIButton *userNameButton = [[UIButton alloc]initWithFrame:CGRectMake(20 + 30 + 7, self.view.EA_Bottom - 20 - 30, 80,30)];
-    [userNameButton setTitle:@"Jean Hanson" forState:UIControlStateNormal];
-    [userNameButton setBackgroundColor:[UIColor clearColor]];
-    [userNameButton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:userNameButton];
+    _userNameButton = [[UIButton alloc]initWithFrame:CGRectMake(20 + 30 + 7, self.view.EA_Bottom - 20 - 30, 80,30)];
+    [_userNameButton setTitle:@"Jean Hanson" forState:UIControlStateNormal];
+    [_userNameButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [_userNameButton setBackgroundColor:[UIColor clearColor]];
+    [_userNameButton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
+    [myControlView addSubview:_userNameButton];
     
     _createVideobutton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 24 - 62, self.view.EA_Bottom - 24 - 62, 62,62)];
     [_createVideobutton setImage:[UIImage imageNamed:@"video_create.png"] forState:UIControlStateNormal];
@@ -195,11 +197,19 @@
         [self.avPlayer pause];
         [self kickbackProgressAnimation];
         [_progressLayer removeAllAnimations];
-        [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum]]]];
+        [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum%7]]]];
+        [self changeUserProfile];
     }
     
     [self.avPlayer play];
     [self startAnimation];
+}
+
+-(void)changeUserProfile
+{
+    NSMutableArray *nameArray = [NSMutableArray arrayWithObjects:@"好事青年小李", @"合作媒体微博",@"路人甲小白",@"文艺青年",@"我叫围观群众",@"小网红",@"业余记者晓龙",@"娱乐新星俊凯",@"直播大咖靖宇",@"职业记者一晶",@"自媒体人东寰",@"自拍达人老王",nil];
+    [_userNameButton setTitle:[nameArray objectAtIndex:_currentNum%12] forState:UIControlStateNormal];
+    [_userImagebutton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[nameArray objectAtIndex:_currentNum%12]]] forState:UIControlStateNormal];
 }
 
 - (void)holdVideo:(UILongPressGestureRecognizer *)gesture
@@ -321,6 +331,13 @@
     }else
     {
         [_likebutton setImage:[UIImage imageNamed:@"video_like_highlight.png"] forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.1 animations:^{
+            _likebutton.transform = CGAffineTransformMakeScale(1.5, 1.5);
+        } completion:^(BOOL finish){
+            [UIView animateWithDuration:0.3 animations:^{
+                _likebutton.transform = CGAffineTransformMakeScale(1, 1);
+            }];
+        }];
         _liked = YES;
     }
     
@@ -398,10 +415,19 @@
 {
     if (_forbidenBarrage) {
         [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
+        [_allBarrageView setHidden:NO];
         _forbidenBarrage = NO;
     }else
     {
         [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off_highlight.png"] forState:UIControlStateNormal];
+        [_allBarrageView setHidden:YES];
+        [UIView animateWithDuration:0.1 animations:^{
+            _forbidBarragebutton.transform = CGAffineTransformMakeScale(1.5, 1.5);
+        } completion:^(BOOL finish){
+            [UIView animateWithDuration:0.3 animations:^{
+                _forbidBarragebutton.transform = CGAffineTransformMakeScale(1, 1);
+            }];
+        }];
         _forbidenBarrage = YES;
     }
 }

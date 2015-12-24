@@ -9,6 +9,7 @@
 #import "soundViewController.h"
 #import "postViewController.h"
 #import <AssetsLibrary/ALAssetsLibrary.h>
+#import "sceneViewController.h"
 #define progressRadius 43
 
 @interface soundViewController ()
@@ -182,7 +183,8 @@
 
 - (void)postFinalVideo
 {
-
+    sceneViewController *VC = [[sceneViewController alloc]init];
+    [self presentViewController:VC animated:NO completion:^{}];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,6 +7,7 @@
 //
 
 #import "postViewController.h"
+#import "sceneViewController.h"
 
 @interface postViewController()
 @property (strong, nonatomic) NSURL* mediaUrl;
@@ -47,6 +48,17 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 40,self.view.EA_Bottom - 110,80,80)];
+    [_capButton setImage:[UIImage imageNamed:@"photo_send_big.png"] forState:UIControlStateNormal];
+    [_capButton setBackgroundColor:[UIColor clearColor]];
+    [_capButton addTarget:self action:@selector(postFinalVideo) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_capButton];
+    
+    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
+    [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
+    [backbutton setBackgroundColor:[UIColor clearColor]];
+    [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backbutton];
     // the video player
     if (!self.mediaUrl) {
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.frame];
@@ -70,26 +82,15 @@
         self.avPlayerLayer.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
         [self.view.layer addSublayer:self.avPlayerLayer];
     }
-    
-    // cancel button
-    _capButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_CenterX - 40,self.view.EA_Bottom - 110,80,80)];
-    [_capButton setImage:[UIImage imageNamed:@"photo_send_big.png"] forState:UIControlStateNormal];
-    [_capButton setBackgroundColor:[UIColor clearColor]];
-    [_capButton addTarget:self action:@selector(postFinalVideo) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_capButton];
-    
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
-    [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
-    [backbutton setBackgroundColor:[UIColor clearColor]];
-    [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backbutton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [self.avPlayer play];
+    if ([self.avPlayer currentItem]) {
+        [self.avPlayer play];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -111,7 +112,8 @@
 
 - (void)postFinalVideo
 {
-
+    sceneViewController *VC = [[sceneViewController alloc]init];
+    [self presentViewController:VC animated:NO completion:^{}];
 }
 
 @end
