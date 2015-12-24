@@ -370,17 +370,18 @@
 - (void) showNotEnoughToast
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    _toastView = [[UIImageView alloc]initWithFrame:CGRectMake(25,80,325,80)];
+    _toastView = [[UIImageView alloc]initWithFrame:CGRectZero];
     _toastView.image = [UIImage imageNamed:@"video_push_red_photo.png"];
     [window addSubview:_toastView];
     [self showAnimation];
-    [self performSelector:@selector(hideAnimation) withObject:nil afterDelay:0.3];
+    [self performSelector:@selector(hideAnimation) withObject:nil afterDelay:1];
 }
 
 -(void)showAnimation{
     [UIView beginAnimations:@"show" context:NULL];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
     [UIView setAnimationDuration:0.3];
+    _toastView.frame = CGRectMake(65.5,72,244,49);
     _toastView.alpha = 1.0f;
     [UIView commitAnimations];
 }

@@ -7,6 +7,5 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface sceneViewController : UIViewController
+@interface sceneViewController : UIViewController<UITextFieldDelegate>
 @end

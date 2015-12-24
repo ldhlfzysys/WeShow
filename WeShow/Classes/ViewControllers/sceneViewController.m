@@ -28,6 +28,7 @@
 @property (assign, nonatomic) BOOL liked;
 @property (assign, nonatomic) BOOL forbidenBarrage;
 @property (strong, nonatomic) UIView *allBarrageView;
+@property (strong, nonatomic) UITextField *barrageTextField;
 
 @property (assign ,nonatomic) NSInteger currentNum;
 
@@ -50,15 +51,29 @@
     self.currentNum = 0;
     [self initVideoPlayer];
     
+    self.barrageTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+    [self.barrageTextField setBorderStyle:UITextBorderStyleRoundedRect]; //外框类型
+    
+    self.barrageTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.barrageTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.barrageTextField.returnKeyType = UIReturnKeyDone;
+    self.barrageTextField.clearButtonMode = UITextFieldViewModeWhileEditing; 
+    
+    self.barrageTextField.delegate = self;
+    
+    _allBarrageView = [[UIView alloc]initWithFrame:CGRectMake(0, STATUSBAR.size.height + 40, self.view.EA_Width, _createVideobutton.EA_Top - 98 - STATUSBAR.size.height)];
+//    [self.view addSubview:_allBarrageView];
+    
     UIView *myControlView = [[UIView alloc]initWithFrame:self.view.frame];
     //[myControlView setBackgroundColor:[UIColor clearColor]];
+    myControlView.userInteractionEnabled = YES;
     [self.view addSubview:myControlView];
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdVideo:)];
     longPressGr.minimumPressDuration = 0.2;
-    [self.view addGestureRecognizer:longPressGr];
     
-    _allBarrageView = [[UIView alloc]initWithFrame:CGRectMake(0, STATUSBAR.size.height + 40, self.view.EA_Width, _createVideobutton.EA_Top - 98 - STATUSBAR.size.height)];
-    [myControlView addSubview:_allBarrageView];
+    [myControlView addGestureRecognizer:longPressGr];
+    
+
     
     UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
     [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
@@ -121,10 +136,18 @@
     [self initBarrageData];
 }
 
+
+
 - (void)initBarrageData
 {
     _dataArray = [NSMutableArray arrayWithObjects:@"1", @"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",nil];
     [self startBarrage];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.barrageTextField resignFirstResponder];
+    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -185,16 +208,16 @@
     {
         _isHold = YES;
         
-        _progressLayer.strokeColor = [UIColor yellowColor].CGColor;
+        _progressLayer.strokeColor = UIColorFromRGB(0xDCAC5B).CGColor;
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        _toastView = [[UIImageView alloc]initWithFrame:CGRectMake(25,80,325,80)];
+        _toastView = [[UIImageView alloc]initWithFrame:CGRectZero];
         _toastView.image = [UIImage imageNamed:@"video_push_yellow.png"];
         [window addSubview:_toastView];
         [self showAnimation];
-        [self performSelector:@selector(hideAnimation) withObject:nil afterDelay:0.3];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         _isHold = NO;
+        [self hideAnimation:YES];
         _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
     }else
     {
@@ -223,7 +246,7 @@
     _progressLayer.lineWidth = 2;
     _progressLayer.fillColor = [UIColor clearColor].CGColor;
     if (_isHold) {
-        _progressLayer.strokeColor = [UIColor yellowColor].CGColor;
+        _progressLayer.strokeColor = UIColorFromRGB(0xDCAC5B).CGColor;
     }else
     {
         _progressLayer.strokeColor = [UIColor whiteColor].CGColor;
@@ -253,29 +276,36 @@
 - (void)createVideo
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    _toastView = [[UIImageView alloc]initWithFrame:CGRectMake(25,80,325,80)];
+    _toastView = [[UIImageView alloc]initWithFrame:CGRectZero];
     _toastView.image = [UIImage imageNamed:@"video_push_red.png"];
     [window addSubview:_toastView];
     [self showAnimation];
-    [self performSelector:@selector(hideAnimation) withObject:nil afterDelay:0.3];
+    [self performSelector:@selector(hideAnimation:) withObject:0 afterDelay:1];
 }
 
 -(void)showAnimation{
+    _toastView.frame = CGRectMake(264,self.view.EA_Bottom - 55,2.44,0.49);
     [UIView beginAnimations:@"show" context:NULL];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
     [UIView setAnimationDuration:0.3];
     _toastView.alpha = 1.0f;
+    _toastView.frame = CGRectMake(20,self.view.EA_Bottom - 104,244,49);
     [UIView commitAnimations];
 }
 
--(void)hideAnimation{
-    [UIView beginAnimations:@"hide" context:NULL];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(dismissToast)];
-    [UIView setAnimationDuration:0.3];
-    _toastView.alpha = 0.0f;
-    [UIView commitAnimations];
+-(void)hideAnimation:(BOOL) immediately{
+    if (immediately) {
+        [_toastView removeFromSuperview];
+    }else
+    {
+        [UIView beginAnimations:@"hide" context:NULL];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(dismissToast)];
+        [UIView setAnimationDuration:0.3];
+        _toastView.alpha = 0.0f;
+        [UIView commitAnimations];
+    }
 }
 
 -(void)dismissToast
@@ -298,6 +328,7 @@
 
 -(void)sendBarrage
 {
+    
     [_dataArray insertObject:@"加的" atIndex:_curbarrageIndex + 1];
 }
 
@@ -348,7 +379,7 @@
         
         item.itemIndex = _curbarrageIndex-1;
         item.tag = indexPath + ITEMTAG;
-        [self.view addSubview:item];
+        [_allBarrageView addSubview:item];
         
         CGFloat speed = 85.;
         speed += random()%20;
