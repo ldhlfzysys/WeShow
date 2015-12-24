@@ -27,6 +27,7 @@
 @property (strong,nonatomic) AVAudioRecorder *recorder;
 @property (strong,nonatomic)NSURL *recordedTmpFile;
 @property (strong,nonatomic)NSError *recordError;
+@property (assign,nonatomic) float itemDuration;
 
 @property (strong,nonatomic) NSTimer *showSecondAniTime;
 @property (assign,nonatomic) BOOL videoEnoughTime;
@@ -40,6 +41,7 @@
     if (self = [super init])
     {
         _mediaUrl = url;
+        _itemDuration = CMTimeGetSeconds([AVAsset assetWithURL:_mediaUrl].duration);
     }
     
     return self;
@@ -163,6 +165,13 @@
     [self startCircleProgressAnimation];
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.avPlayer pause];
+}
+
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     AVPlayerItem *p = [notification object];
     [p seekToTime:kCMTimeZero];
@@ -205,10 +214,10 @@
 - (void) startCircleProgressAnimation
 {
     CGPoint point = [_capButton center];
-    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:6.0f];
-    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:6.0f];
-    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius + 1.5, point.y) endPoint:CGPointMake(10, point.y) duration:6.0f];
-    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius - 1.5, point.y) endPoint:CGPointMake(365, point.y) duration:6.0f];
+    [self startCircleProgressAnimation:_belowLayer startAngle:0 endAngle:M_PI duration:_itemDuration];
+    [self startCircleProgressAnimation:_upLayer startAngle:M_PI endAngle:2*M_PI duration:_itemDuration];
+    [self startLineProgressAnimation:_leftLayer startPoint:CGPointMake(point.x - progressRadius + 1.5, point.y) endPoint:CGPointMake(10, point.y) duration:_itemDuration];
+    [self startLineProgressAnimation:_rightLayer startPoint:CGPointMake(point.x + progressRadius - 1.5, point.y) endPoint:CGPointMake(365, point.y) duration:_itemDuration];
 }
 - (void)startCircleProgressAnimation:(CAShapeLayer *)layer startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle duration:(CFTimeInterval) time
 {
@@ -293,18 +302,19 @@
     if (gesture.state == UIGestureRecognizerStateBegan) {
         NSLog(@"开始");
         [self startCircleProgressAnimation];
-        [[self.avPlayer currentItem] seekToTime:kCMTimeZero];
-        [self.avPlayer setMuted:YES];
+        //[self.avPlayer pause];
+        [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:self.mutedMediaUrl]];
         [self startRecord];
-        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
+        _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
     {
         [self.avPlayer setMuted:NO];
         if (!_videoEnoughTime) {
-            NSLog(@"不足4秒");
+            NSLog(@"不足1秒");
             [_showSecondAniTime invalidate];
             [self kickbackProgressAnimation];
-            
+            //[self.avPlayer pause];
+            [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:self.mediaUrl]];
             NSFileManager * fm = [NSFileManager defaultManager];
             NSError *error = nil;
             [fm removeItemAtPath:[_recordedTmpFile path] error:&error];
@@ -334,8 +344,6 @@
         
         AVAsset* originAsset = [AVAsset assetWithURL:self.mediaUrl];
         
-        NSLog(@"%@",originAsset.tracks);
-        
         AVAsset* personAudioAsset = [AVAsset assetWithURL:_recordedTmpFile];
         
         AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
@@ -355,38 +363,19 @@
         
         AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
                                                                             preferredTrackID:kCMPersistentTrackID_Invalid];
-        float originSec = originAsset.duration.value/originAsset.duration.timescale;
-        float personSec = personAudioAsset.duration.value/personAudioAsset.duration.timescale;
+        [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
+                            ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
         
-        NSLog(@"%d,%d",originAsset.duration.timescale,personAudioAsset.duration.timescale);
-        NSLog(@"origin = %f,person = %f",originSec,personSec);
+        double offset = CMTimeGetSeconds(originAsset.duration) - CMTimeGetSeconds(personAudioAsset.duration);
         
-        if (originSec - personSec < 0.1) {
-            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
-                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-        }else
-        {
-//            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
-//                                ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:originAsset.duration error:nil];
-            
-            [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, personAudioAsset.duration)
-                                ofTrack:[[personAudioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
-
-//            CMTime a = CMTimeSubtract(originAsset.duration, personAudioAsset.duration);
-//            float b = a.value/a.timescale;
-//            NSLog(@"rangetime = %f",b);
-        }
-    
-
-        
+        [audioTrack insertTimeRange:CMTimeRangeMake(personAudioAsset.duration, CMTimeMakeWithSeconds(offset, 44100))
+                            ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:personAudioAsset.duration error:nil];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
                                  [NSString stringWithFormat:@"mergeVideo.mov"]];
         NSURL *url = [NSURL fileURLWithPath:myPathDocs];
-        
-//        [mixComposition removeTrack:[mixComposition mutableTrackCompatibleWithTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0]]];
         
         AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition
                                                                           presetName:AVAssetExportPresetHighestQuality];
@@ -405,7 +394,6 @@
                 
                 postViewController *VC = [[postViewController alloc]initWithMediaUrl:exporter.outputURL];
                 [self presentViewController:VC animated:NO completion:^{}];
-                //[self rotateVideoformURL:exporter.outputURL];
 
             }else if (exporter.status == AVAssetExportSessionStatusFailed)
             {
@@ -419,77 +407,5 @@
         NSLog(@"录音失败");
     }
 
-}
-
-
-- (void)rotateVideoformURL:(NSURL *)url
-{
-    AVMutableVideoCompositionInstruction *instruction = nil;
-    AVMutableVideoCompositionLayerInstruction *layerInstruction = nil;
-    CGAffineTransform t1;
-    CGAffineTransform t2;
-    
-    AVAssetTrack *assetVideoTrack = nil;
-    AVAssetTrack *assetAudioTrack = nil;
-    
-    AVAsset *asset = [AVAsset assetWithURL:url];
-    // Check if the asset contains video and audio tracks
-    if ([[asset tracksWithMediaType:AVMediaTypeVideo] count] != 0) {
-        assetVideoTrack = [asset tracksWithMediaType:AVMediaTypeVideo][0];
-    }
-    if ([[asset tracksWithMediaType:AVMediaTypeAudio] count] != 0) {
-        assetAudioTrack = [asset tracksWithMediaType:AVMediaTypeAudio][0];
-    }
-    
-    CMTime insertionPoint = kCMTimeZero;
-    NSError *error = nil;
-    
-    // Step 1
-    // Create a composition with the given asset and insert audio and video tracks into it from the asset
-    AVMutableComposition *rotateComposition = [AVMutableComposition composition];
-    
-        
-    // Check whether a composition has already been created, i.e, some other tool has already been applied
-    // Create a new composition
-    
-    // Insert the video and audio tracks from AVAsset
-    if (assetVideoTrack != nil) {
-        AVMutableCompositionTrack *compositionVideoTrack = [rotateComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
-        [compositionVideoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, [asset duration]) ofTrack:assetVideoTrack atTime:insertionPoint error:&error];
-    }
-    if (assetAudioTrack != nil) {
-        AVMutableCompositionTrack *compositionAudioTrack = [rotateComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
-        [compositionAudioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, [asset duration]) ofTrack:assetAudioTrack atTime:insertionPoint error:&error];
-    }
-    
-    NSLog(@"rotate --- assetVideoTrack.naturalSize.height:%f", assetVideoTrack.naturalSize.height);
-    NSLog(@"rotate --- assetVideoTrack.naturalSize.width:%f", assetVideoTrack.naturalSize.width);
-    
-    t1 = CGAffineTransformMakeTranslation(assetVideoTrack.naturalSize.height, 0.0);
-    // Rotate transformation
-    t2 = CGAffineTransformRotate(t1, 0.5 * M_PI);
-    
-    // Step 3
-    // Set the appropriate render sizes and rotational transforms
-    AVMutableVideoComposition * videoComposition = [AVMutableVideoComposition videoComposition];
-    videoComposition.renderSize = CGSizeMake(assetVideoTrack.naturalSize.height,assetVideoTrack.naturalSize.width);
-    videoComposition.frameDuration = CMTimeMake(1, 30);
-    
-    // The rotate transform is set on a layer instruction
-    instruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
-    instruction.timeRange = CMTimeRangeMake(kCMTimeZero, [rotateComposition duration]);
-    layerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:(rotateComposition.tracks)[0]];
-    [layerInstruction setTransform:t2 atTime:kCMTimeZero];
-    
-    // Step 4
-    // Add the transform instructions to the video composition
-    instruction.layerInstructions = @[layerInstruction];
-    videoComposition.instructions = @[instruction];
-    
-    
-//    postViewController *VC = [[postViewController alloc]initWithComposition:rotateComposition andVideoComposition:videoComposition];
-//    [self presentViewController:VC animated:YES completion:^{
-//        
-//    }];
 }
 @end

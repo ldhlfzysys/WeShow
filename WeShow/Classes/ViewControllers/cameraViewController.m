@@ -332,7 +332,7 @@
 - (void)clickVideoBtn:(UILongPressGestureRecognizer *)gesture
 {
     //设置录制视频保存的路径
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"myVidio.mov"];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"originalVideo.mov"];
     
     //转为视频保存的url
     NSURL *url = [NSURL fileURLWithPath:path];
@@ -407,13 +407,66 @@
 {
     if (_videoEnoughTime) {
         NSLog(@"完成录制,可以自己做进一步的处理");
-        soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:outputFileURL];
-        [self presentViewController:VC animated:YES completion:^{
-            [_belowLayer removeFromSuperlayer];
-            [_upLayer removeFromSuperlayer];
-            [_leftLayer removeFromSuperlayer];
-            [_rightLayer removeFromSuperlayer];
+        AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
+        AVAsset* originAsset = [AVAsset assetWithURL:outputFileURL];
+        AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
+                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
+        
+        
+        [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
+                            ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+        
+        CGAffineTransform t1;
+        CGAffineTransform t2;
+        
+        t1 = CGAffineTransformMakeTranslation(videoTrack.naturalSize.height, 0.0);
+        // Rotate transformation
+        t2 = CGAffineTransformRotate(t1, 0.5 * M_PI);
+        [videoTrack setPreferredTransform:t2];
+        
+//        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
+//                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
+//        [audioTrack insertEmptyTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)];
+        
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
+                                 [NSString stringWithFormat:@"mutedVideo.mov"]];
+        NSURL *url = [NSURL fileURLWithPath:myPathDocs];
+        
+        //        [mixComposition removeTrack:[mixComposition mutableTrackCompatibleWithTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0]]];
+        
+        AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition
+                                                                          presetName:AVAssetExportPresetHighestQuality];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:myPathDocs])
+        {
+            [[NSFileManager defaultManager] removeItemAtPath:myPathDocs error:nil];
+        }
+        exporter.outputURL = url;
+        exporter.outputFileType = AVFileTypeQuickTimeMovie;
+        exporter.shouldOptimizeForNetworkUse = YES;
+        
+        [exporter exportAsynchronouslyWithCompletionHandler:^{
+            if (exporter.status == AVAssetExportSessionStatusCompleted) {
+                NSLog(@"拼接outputURL:%@",exporter.outputURL);
+                soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:outputFileURL];
+                VC.mutedMediaUrl = exporter.outputURL;
+                [self presentViewController:VC animated:YES completion:^{
+                    [_belowLayer removeFromSuperlayer];
+                    [_upLayer removeFromSuperlayer];
+                    [_leftLayer removeFromSuperlayer];
+                    [_rightLayer removeFromSuperlayer];
+                }];
+                
+            }else if (exporter.status == AVAssetExportSessionStatusFailed)
+            {
+                NSLog(@"拼接失败,error is %@",exporter.error);
+            }
         }];
+        
+
     }
 }
 

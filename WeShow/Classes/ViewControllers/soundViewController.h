@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface soundViewController : UIViewController<AVAudioRecorderDelegate>
-
+@property (strong, nonatomic) NSURL* mutedMediaUrl;
 - (instancetype) initWithMediaUrl:(NSURL*)url;
 
 @end
