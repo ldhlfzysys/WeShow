@@ -68,6 +68,7 @@
     [self.view addSubview:_allBarrageView];
     
     UIView *myControlView = [[UIView alloc]initWithFrame:self.view.frame];
+    [myControlView addSubview:self.barrageTextField];
     //[myControlView setBackgroundColor:[UIColor clearColor]];
     myControlView.userInteractionEnabled = YES;
     [self.view addSubview:myControlView];
@@ -148,8 +149,17 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [_dataArray insertObject:self.barrageTextField.text atIndex:_curbarrageIndex + 1];
     [self.barrageTextField resignFirstResponder];
+    [self.barrageTextField setHidden:YES];
     return YES;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (![self.barrageTextField isExclusiveTouch]) {
+        [self.barrageTextField resignFirstResponder];
+        [self.barrageTextField setHidden:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -345,8 +355,9 @@
 
 -(void)sendBarrage
 {
-    
-    [_dataArray insertObject:@"加的" atIndex:_curbarrageIndex + 1];
+    [_barrageTextField becomeFirstResponder];
+    [self.barrageTextField setHidden:NO];
+    _barrageTextField.frame = CGRectMake(0, 100, 375, 40);
 }
 
 - (void)startBarrage {
