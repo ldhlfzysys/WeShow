@@ -233,19 +233,22 @@
     if (_isHold) {
         AVPlayerItem *p = [notification object];
         [p seekToTime:kCMTimeZero];
+
     }else
     {
         self.currentNum += 1;
-        [self.avPlayer pause];
-        [self kickbackProgressAnimation];
         [_progressLayer removeAllAnimations];
-        [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum%26]]]];
-        [self.avPlayer play];
-
-        [self changeUserProfile];
+        AVPlayer *newPlayer = [[AVPlayer alloc] initWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum%26]]]];
+        _avPlayer = newPlayer;
+        self.avPlayerLayer.player = _avPlayer;
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:[_avPlayer currentItem]];
     }
     
-    [self.avPlayer play];
+    [_avPlayer play];
     [self startAnimation];
 }
 
