@@ -424,18 +424,17 @@
         t2 = CGAffineTransformRotate(t1, 0.5 * M_PI);
         [videoTrack setPreferredTransform:t2];
         
-//        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
-//                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
-//        [audioTrack insertEmptyTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)];
-        
+        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
+                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
+        [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, originAsset.duration)
+                            ofTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeZero error:nil];
+        [audioTrack setPreferredVolume:0.3];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
                                  [NSString stringWithFormat:@"mutedVideo.mov"]];
         NSURL *url = [NSURL fileURLWithPath:myPathDocs];
-        
-        //        [mixComposition removeTrack:[mixComposition mutableTrackCompatibleWithTrack:[[originAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0]]];
         
         AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition
                                                                           presetName:AVAssetExportPresetHighestQuality];
@@ -451,7 +450,8 @@
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
                 NSLog(@"拼接outputURL:%@",exporter.outputURL);
-                soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:outputFileURL];
+                //outputFileURL为真实录制视频url，有录音有问题，先使用降低声音的版本
+                soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:exporter.outputURL];
                 VC.mutedMediaUrl = exporter.outputURL;
                 [self presentViewController:VC animated:YES completion:^{
                     [_belowLayer removeFromSuperlayer];

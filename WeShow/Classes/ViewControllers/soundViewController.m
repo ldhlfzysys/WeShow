@@ -274,14 +274,6 @@
     _upLayer.timeOffset = pausedTime;
     _rightLayer.timeOffset = _rightLayer.beginTime + 6 - pausedTime;
     _leftLayer.timeOffset = _rightLayer.beginTime + 6 - pausedTime;
-    //    NSNumber *num = [_rightLayer.presentationLayer valueForKey:@"strokeEnd"];
-    //
-    //    [_rightLayer removeAnimationForKey:@"LineAnimation"];
-    //    _animationTest.duration = 0.3f;
-    //    _animationTest.fromValue = num;
-    //    _animationTest.toValue = [NSNumber numberWithFloat:0.0];
-    //    _animationTest.fillMode = kCAFillModeBoth;
-    //    [_rightLayer addAnimation:_animationTest forKey:@"layerAnimation_reverse"];
 }
 
 - (void)pauseProgressAnimation
@@ -303,7 +295,7 @@
         NSLog(@"开始");
         [self startCircleProgressAnimation];
         //[self.avPlayer pause];
-        [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:self.mutedMediaUrl]];
+        //[self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:self.mutedMediaUrl]];
         [self startRecord];
         _showSecondAniTime = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(videoIsLongEnough) userInfo:nil repeats:NO];
     }else if (gesture.state == UIGestureRecognizerStateEnded)
@@ -314,7 +306,7 @@
             [_showSecondAniTime invalidate];
             [self kickbackProgressAnimation];
             //[self.avPlayer pause];
-            [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:self.mediaUrl]];
+            //[self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:self.mediaUrl]];
             NSFileManager * fm = [NSFileManager defaultManager];
             NSError *error = nil;
             [fm removeItemAtPath:[_recordedTmpFile path] error:&error];
