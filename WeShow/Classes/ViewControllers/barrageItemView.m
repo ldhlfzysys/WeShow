@@ -8,7 +8,7 @@
 
 #import "barrageItemView.h"
 @interface barrageItemView()
-@property (strong, nonatomic) UILabel *contentLabel;
+
 @end
 
 @implementation barrageItemView
@@ -16,7 +16,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
+//        [self setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 1, 30)];
         [_contentLabel setFont:[UIFont systemFontOfSize:14]];
@@ -25,7 +25,7 @@
         [self addSubview:_contentLabel];
         
         [self.layer setMasksToBounds:YES];
-        [self.layer setCornerRadius:15];
+//        [self.layer setCornerRadius:15];
         //        [self.layer setBorderColor:[UIColor whiteColor].CGColor];
         //        [self.layer setBorderWidth:1.];
         

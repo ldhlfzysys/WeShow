@@ -11,6 +11,84 @@
 #import "barrageItemView.h"
 
 #define ITEMTAG 154
+//弹幕视图
+@implementation BarrageView
+
+-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    UIView *result = [super hitTest:point withEvent:event];
+    if (result == self) {
+        return nil;
+    }
+    return result;
+}
+
+@end
+
+@implementation VedioControlView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.userInteractionEnabled = YES;
+        self.backgroundColor = [UIColor grayColor];
+        _backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
+        [_backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
+        [_backbutton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_backbutton];
+        
+        _userImagebutton = [[UIButton alloc]initWithFrame:CGRectMake(20, self.EA_Bottom - 20 - 30, 30,30)];
+        [_userImagebutton setImage:[UIImage imageNamed:@"video_profile.png"] forState:UIControlStateNormal];
+        [_userImagebutton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_userImagebutton];
+        
+        _userNameButton = [[UIButton alloc]initWithFrame:CGRectMake(20 + 30 + 7, self.EA_Bottom - 20 - 30, 80,30)];
+        [_userNameButton setTitle:@"Jean Hanson" forState:UIControlStateNormal];
+        [_userNameButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_userNameButton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_userNameButton];
+        
+        _createVideobutton = [[UIButton alloc]initWithFrame:CGRectMake(self.EA_Right - 24 - 62, self.EA_Bottom - 24 - 62, 62,62)];
+        [_createVideobutton setImage:[UIImage imageNamed:@"video_create.png"] forState:UIControlStateNormal];
+        [_createVideobutton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_createVideobutton];
+        
+        _skipbutton = [[UIButton alloc]initWithFrame:CGRectMake(self.EA_Right - 20 - 40, _createVideobutton.EA_Top - 18 - 40, 40,40)];
+        [_skipbutton setImage:[UIImage imageNamed:@"video_next.png"] forState:UIControlStateNormal];
+        [_skipbutton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_skipbutton];
+        
+        _likebutton = [[UIButton alloc]initWithFrame:CGRectMake(_createVideobutton.EA_Left - 19 -30, self.EA_Bottom - 20 - 30, 30,30)];
+        [_likebutton setImage:[UIImage imageNamed:@"video_like.png"] forState:UIControlStateNormal];
+        [_likebutton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_likebutton];
+        
+        _sendBarragebutton = [[UIButton alloc]initWithFrame:CGRectMake(_likebutton.EA_Left -10 -30, self.EA_Bottom - 20 - 30, 30,30)];
+        [_sendBarragebutton setImage:[UIImage imageNamed:@"video_barrage.png"] forState:UIControlStateNormal];
+        [_sendBarragebutton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_sendBarragebutton];
+        
+        _forbidBarragebutton = [[UIButton alloc]initWithFrame:CGRectMake(_sendBarragebutton.EA_Left -10 -30, self.EA_Bottom - 20 - 30, 30,30)];
+        [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
+        [_forbidBarragebutton setBackgroundColor:[UIColor clearColor]];
+
+        [self addSubview:_forbidBarragebutton];
+        
+        _commentView = [[CommentPostView alloc]initWithFrame:CGRectMake(0, 0, self.EA_Width, 50)];
+        _commentView.EA_Top = self.EA_Bottom;
+        [self addSubview:_commentView];
+    }
+    return self;
+}
+
+@end
 
 @interface sceneViewController()
 @property (strong,nonatomic) NSArray *mediaURLs;
@@ -21,17 +99,10 @@
 
 @property (strong,nonatomic) CAShapeLayer *progressLayer;
 
-@property (strong, nonatomic) UIButton *likebutton;
-@property (strong, nonatomic) UIButton *forbidBarragebutton;
-@property (strong, nonatomic) UIButton *createVideobutton;
-@property (strong, nonatomic) UIButton *userImagebutton;
-@property (strong, nonatomic) UIButton *userNameButton;
-
 @property (strong,nonatomic) UIImageView *toastView;
 @property (assign, nonatomic) BOOL liked;
 @property (assign, nonatomic) BOOL forbidenBarrage;
-@property (strong, nonatomic) UIView *allBarrageView;
-@property (strong, nonatomic) UITextField *barrageTextField;
+
 
 @property (assign ,nonatomic) NSInteger currentNum;
 
@@ -45,6 +116,16 @@
 
 @implementation sceneViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     _isHold = NO;
@@ -54,82 +135,41 @@
     self.currentNum = 0;
     [self initVideoPlayer];
     
-    self.barrageTextField = [[UITextField alloc] initWithFrame:CGRectZero];
-    [self.barrageTextField setBorderStyle:UITextBorderStyleRoundedRect]; //外框类型
+    _controlView = [[VedioControlView alloc]initWithFrame:self.view.frame];
+    [self.view addSubview:_controlView];
+    _controlView.commentView.commentFiled.delegate = self;
+    [_controlView.backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    [_controlView.userImagebutton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
+    [_controlView.userNameButton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
+    [_controlView.createVideobutton addTarget:self action:@selector(createVideo) forControlEvents:UIControlEventTouchUpInside];
+    [_controlView.skipbutton addTarget:self action:@selector(playerItemDidReachEnd:) forControlEvents:UIControlEventTouchUpInside];
+    [_controlView.likebutton addTarget:self action:@selector(like) forControlEvents:UIControlEventTouchUpInside];
+    [_controlView.sendBarragebutton addTarget:self action:@selector(sendBarrage) forControlEvents:UIControlEventTouchUpInside];
+    [_controlView.forbidBarragebutton addTarget:self action:@selector(forbidBarrage) forControlEvents:UIControlEventTouchUpInside];
     
-    self.barrageTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.barrageTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.barrageTextField.returnKeyType = UIReturnKeyDone;
-    self.barrageTextField.clearButtonMode = UITextFieldViewModeWhileEditing; 
+    __block sceneViewController *blockSelf = self;
+    [_controlView.commentView setPostBtnBlock:^{
+        [blockSelf addItem:blockSelf.controlView.commentView.commentFiled.text Highlight:YES];
+        [blockSelf.controlView.commentView.commentFiled resignFirstResponder];
+    }];
     
-    self.barrageTextField.delegate = self;
+    _barrageView = [[BarrageView alloc]initWithFrame:CGRectMake(0, STATUSBAR.size.height + 40, self.view.EA_Width, 400)];
+    _barrageView.layer.masksToBounds = YES;
+    [_controlView addSubview:_barrageView];
     
-    _allBarrageView = [[UIView alloc]initWithFrame:CGRectMake(0, STATUSBAR.size.height + 40, self.view.EA_Width, _createVideobutton.EA_Top - 98 - STATUSBAR.size.height)];
-    [self.view addSubview:_allBarrageView];
+
     
-    UIView *myControlView = [[UIView alloc]initWithFrame:self.view.frame];
-    [myControlView addSubview:self.barrageTextField];
-    //[myControlView setBackgroundColor:[UIColor clearColor]];
-    myControlView.userInteractionEnabled = YES;
-    [self.view addSubview:myControlView];
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdVideo:)];
     longPressGr.minimumPressDuration = 0.2;
     
-    [myControlView addGestureRecognizer:longPressGr];
+    [_controlView addGestureRecognizer:longPressGr];
     
-    UIButton *backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
-    [backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
-    [backbutton setBackgroundColor:[UIColor clearColor]];
-    [backbutton addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:backbutton];
     
-    _userImagebutton = [[UIButton alloc]initWithFrame:CGRectMake(20, self.view.EA_Bottom - 20 - 30, 30,30)];
-    [_userImagebutton setImage:[UIImage imageNamed:@"video_profile.png"] forState:UIControlStateNormal];
-    [_userImagebutton setBackgroundColor:[UIColor clearColor]];
-    [_userImagebutton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:_userImagebutton];
-    
-    _userNameButton = [[UIButton alloc]initWithFrame:CGRectMake(20 + 30 + 7, self.view.EA_Bottom - 20 - 30, 80,30)];
-    [_userNameButton setTitle:@"Jean Hanson" forState:UIControlStateNormal];
-    [_userNameButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    [_userNameButton setBackgroundColor:[UIColor clearColor]];
-    [_userNameButton addTarget:self action:@selector(userProfile) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:_userNameButton];
-    
-    _createVideobutton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 24 - 62, self.view.EA_Bottom - 24 - 62, 62,62)];
-    [_createVideobutton setImage:[UIImage imageNamed:@"video_create.png"] forState:UIControlStateNormal];
-    [_createVideobutton setBackgroundColor:[UIColor clearColor]];
-    [_createVideobutton addTarget:self action:@selector(createVideo) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:_createVideobutton];
-    
-    UIButton *skipbutton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 20 - 40, _createVideobutton.EA_Top - 18 - 40, 40,40)];
-    [skipbutton setImage:[UIImage imageNamed:@"video_next.png"] forState:UIControlStateNormal];
-    [skipbutton setBackgroundColor:[UIColor clearColor]];
-    [skipbutton addTarget:self action:@selector(playerItemDidReachEnd:) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:skipbutton];
-    
-    _likebutton = [[UIButton alloc]initWithFrame:CGRectMake(_createVideobutton.EA_Left - 19 -30, self.view.EA_Bottom - 20 - 30, 30,30)];
-    [_likebutton setImage:[UIImage imageNamed:@"video_like.png"] forState:UIControlStateNormal];
-    [_likebutton setBackgroundColor:[UIColor clearColor]];
-    [_likebutton addTarget:self action:@selector(like) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:_likebutton];
-    
-    UIButton *sendBarragebutton = [[UIButton alloc]initWithFrame:CGRectMake(_likebutton.EA_Left -10 -30, self.view.EA_Bottom - 20 - 30, 30,30)];
-    [sendBarragebutton setImage:[UIImage imageNamed:@"video_barrage.png"] forState:UIControlStateNormal];
-    [sendBarragebutton setBackgroundColor:[UIColor clearColor]];
-    [sendBarragebutton addTarget:self action:@selector(sendBarrage) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:sendBarragebutton];
-    
-    _forbidBarragebutton = [[UIButton alloc]initWithFrame:CGRectMake(sendBarragebutton.EA_Left -10 -30, self.view.EA_Bottom - 20 - 30, 30,30)];
-    [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
-    [_forbidBarragebutton setBackgroundColor:[UIColor clearColor]];
-    [_forbidBarragebutton addTarget:self action:@selector(forbidBarrage) forControlEvents:UIControlEventTouchUpInside];
-    [myControlView addSubview:_forbidBarragebutton];
     
     _progressLayer = [[CAShapeLayer alloc] init];
     [self.view.layer addSublayer:_progressLayer];
     
-    CGPoint point = [_createVideobutton center];
+    CGPoint point = [_controlView.createVideobutton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:33.5 startAngle:0 endAngle:2*M_PI clockwise:YES];
     _progressLayer.path = path.CGPath;
     _progressLayer.lineWidth = 2;
@@ -139,8 +179,6 @@
     [self initBarrageData];
 }
 
-
-
 - (void)initBarrageData
 {
     _dataArray = [NSMutableArray arrayWithObjects:@"1", @"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",nil];
@@ -149,18 +187,12 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [_dataArray insertObject:self.barrageTextField.text atIndex:_curbarrageIndex + 1];
-    [self.barrageTextField resignFirstResponder];
-    [self.barrageTextField setHidden:YES];
+    [_dataArray insertObject:_controlView.commentView.commentFiled.text atIndex:_curbarrageIndex + 1];
+    [_controlView.commentView.commentFiled resignFirstResponder];
+    [_controlView.commentView.commentFiled setHidden:YES];
     return YES;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (![self.barrageTextField isExclusiveTouch]) {
-        [self.barrageTextField resignFirstResponder];
-        [self.barrageTextField setHidden:YES];
-    }
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -218,8 +250,8 @@
 -(void)changeUserProfile
 {
     NSMutableArray *nameArray = [NSMutableArray arrayWithObjects:@"好事青年小李", @"合作媒体微博",@"路人甲小白",@"文艺青年",@"我叫围观群众",@"小网红",@"业余记者晓龙",@"娱乐新星俊凯",@"直播大咖靖宇",@"职业记者一晶",@"自媒体人东寰",@"自拍达人老王",nil];
-    [_userNameButton setTitle:[nameArray objectAtIndex:_currentNum%12] forState:UIControlStateNormal];
-    [_userImagebutton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[nameArray objectAtIndex:_currentNum%12]]] forState:UIControlStateNormal];
+    [_controlView.userNameButton setTitle:[nameArray objectAtIndex:_currentNum%12] forState:UIControlStateNormal];
+    [_controlView.userImagebutton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[nameArray objectAtIndex:_currentNum%12]]] forState:UIControlStateNormal];
 }
 
 - (void)holdVideo:(UILongPressGestureRecognizer *)gesture
@@ -279,7 +311,7 @@
 
 - (void) startAnimation
 {
-    CGPoint point = [_createVideobutton center];
+    CGPoint point = [_controlView.createVideobutton center];
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:point radius:33.5 startAngle:3.5*M_PI endAngle:1.5*M_PI clockwise:NO];
     _progressLayer.path = path.CGPath;
     _progressLayer.lineWidth = 2;
@@ -355,16 +387,16 @@
 - (void)like
 {
     if (_liked) {
-        [_likebutton setImage:[UIImage imageNamed:@"video_like.png"] forState:UIControlStateNormal];
+        [_controlView.likebutton setImage:[UIImage imageNamed:@"video_like.png"] forState:UIControlStateNormal];
         _liked = NO;
     }else
     {
-        [_likebutton setImage:[UIImage imageNamed:@"video_like_highlight.png"] forState:UIControlStateNormal];
+        [_controlView.likebutton setImage:[UIImage imageNamed:@"video_like_highlight.png"] forState:UIControlStateNormal];
         [UIView animateWithDuration:0.1 animations:^{
-            _likebutton.transform = CGAffineTransformMakeScale(1.5, 1.5);
+            _controlView.likebutton.transform = CGAffineTransformMakeScale(1.5, 1.5);
         } completion:^(BOOL finish){
             [UIView animateWithDuration:0.3 animations:^{
-                _likebutton.transform = CGAffineTransformMakeScale(1, 1);
+                _controlView.likebutton.transform = CGAffineTransformMakeScale(1, 1);
             }];
         }];
         _liked = YES;
@@ -374,9 +406,7 @@
 
 -(void)sendBarrage
 {
-    [_barrageTextField becomeFirstResponder];
-    [self.barrageTextField setHidden:NO];
-    _barrageTextField.frame = CGRectMake(0, 100, 375, 40);
+    [_controlView.commentView.commentFiled becomeFirstResponder];
 }
 
 - (void)startBarrage {
@@ -397,8 +427,6 @@
 - (void)postView {
     if (_dataArray && _dataArray.count > 0) {
         int indexPath = random()%(int)((self.view.frame.size.height)/30);
-        int top = indexPath * 30;
-        
         UIView *view = [self.view viewWithTag:indexPath + ITEMTAG];
         if (view && [view isKindOfClass:[barrageItemView class]]) {
             return;
@@ -420,46 +448,71 @@
             }
         }
         
-        barrageItemView *item = [[barrageItemView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width, top, 10, 30)];
-        
-        [item setContent:content];
-        
-        item.itemIndex = _curbarrageIndex-1;
-        item.tag = indexPath + ITEMTAG;
-        [_allBarrageView addSubview:item];
-        
-        CGFloat speed = 85.;
-        speed += random()%20;
-        CGFloat time = (item.EA_Width+[[UIScreen mainScreen] bounds].size.width) / speed;
-        
-        [UIView animateWithDuration:time delay:0.f options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut  animations:^{
-            item.EA_Left = -item.EA_Width;
-        } completion:^(BOOL finished) {
-            [item removeFromSuperview];
-        }];
+        [self addItem:content Highlight:NO];
         
     }
+}
+
+- (void)addItem:(NSString *)content Highlight:(BOOL)highlight{
+    int indexPath = random()%(int)((self.view.frame.size.height)/30);
+    int top = indexPath * 30;
+    barrageItemView *item = [[barrageItemView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width, MIN(top, _barrageView.EA_Height - 30) , 10, 30)];
+    if (highlight) {
+        item.contentLabel.textColor = [UIColor redColor];
+    }
+    else{
+        item.contentLabel.textColor = [UIColor whiteColor];
+    }
+    [item setContent:content];
+    
+    item.itemIndex = _curbarrageIndex-1;
+    item.tag = indexPath + ITEMTAG;
+    [_barrageView addSubview:item];
+    
+    CGFloat speed = 85.;
+    speed += random()%20;
+    CGFloat time = (item.EA_Width+[[UIScreen mainScreen] bounds].size.width) / speed;
+    
+    [UIView animateWithDuration:time delay:0.f options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut  animations:^{
+        item.EA_Left = -item.EA_Width;
+    } completion:^(BOOL finished) {
+        [item removeFromSuperview];
+    }];
 }
 
 -(void)forbidBarrage
 {
     if (_forbidenBarrage) {
-        [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
-        [_allBarrageView setHidden:NO];
+        [_controlView.forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
+        [_barrageView setHidden:NO];
         _forbidenBarrage = NO;
     }else
     {
-        [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off_highlight.png"] forState:UIControlStateNormal];
-        [_allBarrageView setHidden:YES];
+        [_controlView.forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off_highlight.png"] forState:UIControlStateNormal];
+        [_barrageView setHidden:YES];
         [UIView animateWithDuration:0.1 animations:^{
-            _forbidBarragebutton.transform = CGAffineTransformMakeScale(1.5, 1.5);
+            _controlView.forbidBarragebutton.transform = CGAffineTransformMakeScale(1.5, 1.5);
         } completion:^(BOOL finish){
             [UIView animateWithDuration:0.3 animations:^{
-                _forbidBarragebutton.transform = CGAffineTransformMakeScale(1, 1);
+                _controlView.forbidBarragebutton.transform = CGAffineTransformMakeScale(1, 1);
             }];
         }];
         _forbidenBarrage = YES;
     }
+}
+
+- (void)keyBoardShow:(NSNotification *)noti{
+    NSDictionary *info = [noti userInfo];
+    
+    CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat yOffset = endKeyboardRect.origin.y - beginKeyboardRect.origin.y;
+    _controlView.commentView.EA_Bottom = _controlView.EA_Height + yOffset;
+    
+}
+
+- (void)keyBoardHide:(NSNotification *)noti{
+    _controlView.commentView.EA_Top = _controlView.EA_Bottom;
 }
 
 @end
