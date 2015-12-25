@@ -31,7 +31,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.userInteractionEnabled = YES;
-        self.backgroundColor = [UIColor grayColor];
+        //self.backgroundColor = [UIColor grayColor];
         _backbutton = [[UIButton alloc]initWithFrame:CGRectMake(15, 15 + STATUSBAR.size.height, 25,25)];
         [_backbutton setImage:[UIImage imageNamed:@"video_back.png"] forState:UIControlStateNormal];
         [_backbutton setBackgroundColor:[UIColor clearColor]];
@@ -240,6 +240,8 @@
         [self kickbackProgressAnimation];
         [_progressLayer removeAllAnimations];
         [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum%26]]]];
+        [self.avPlayer play];
+
         [self changeUserProfile];
     }
     
