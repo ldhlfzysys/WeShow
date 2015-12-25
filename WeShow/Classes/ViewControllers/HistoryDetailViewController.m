@@ -29,17 +29,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
+    UIImageView *backImage = [[UIImageView alloc]initWithFrame:self.view.frame];
+    backImage.image = [UIImage imageNamed:@"Nipic_18962734_20141026204812045000"];
+    [self.view addSubview:backImage];
+    
     self.navigationItem.titleView = [Tools getTitleLab:@"历史实况"];
     UIButton *backBtn = [Tools getNavigationItemWithImage:@"video_back"];
     [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    UIButton *rightButton = [Tools getNavigationItemWithImage:@"map_profile"];
-    [rightButton addTarget:self action:@selector(testClick) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+//    UIButton *rightButton = [Tools getNavigationItemWithImage:@"map_profile"];
+//    [rightButton addTarget:self action:@selector(testClick) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     
     _mainTable = [[UITableView alloc]initWithFrame:CGRectMake(0, -64, self.view.EA_Width, self.view.EA_Height + 64)];
-    _mainTable.backgroundColor = UIColorFromRGB(0x373b47);
+//    _mainTable.backgroundColor = UIColorFromRGB(0x373b47);
+    _mainTable.backgroundColor = [UIColor clearColor];
     
     _mainTable.delegate = self;
     _mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -51,29 +56,29 @@
     _datas = [@[@"105",@"105",@"105",@"105",@"105"] mutableCopy];
     _cellDatas = [@[@{
                         @"headImageName":@"head1",
-                        @"name":@"killer",
+                        @"name":@"老王",
                         @"likeNum":@"112",
-                        @"comment":@"asdfjsakdjflkasjdfklasjdflkjsadlkfjalksdjfklasdjfaslkdf"},
+                        @"comment":@"周杰伦和费玉清简直搭配的天衣无缝啊！！"},
                     @{
                         @"headImageName":@"head2",
-                        @"name":@"ddd",
+                        @"name":@"靖宇",
                         @"likeNum":@"33",
-                        @"comment":@"asdfkjasdklfjaslkdjfksdjfklsajdflkajsdlkfj"},
+                        @"comment":@"周杰伦的歌陪伴了我整个青春期。一路走来，感谢有你。"},
                     @{
                         @"headImageName":@"head3",
-                        @"name":@"老王",
+                        @"name":@"一晶",
                         @"likeNum":@"323",
-                        @"comment":@"cccccccccccasdcasdcasdcasdcasdcsda"},
+                        @"comment":@"杰伦和昆凌你们一定要幸福啊啊啊啊啊啊啊啊"},
                     @{
                         @"headImageName":@"head4",
-                        @"name":@"小明",
+                        @"name":@"晓龙",
                         @"likeNum":@"543",
-                        @"comment":@"asdfjwejflksjdflkjasdklfjalks"},
+                        @"comment":@"钢琴和星空，周杰伦你是我梦中的王子！"},
                     @{
                         @"headImageName":@"head5",
                         @"name":@"俊凯",
                         @"likeNum":@"232",
-                        @"comment":@"qweqwefsadfqweffqwef"},
+                        @"comment":@"周董的歌每首都非常的精彩！在现场太激动了！"},
 
                     ] mutableCopy];
 

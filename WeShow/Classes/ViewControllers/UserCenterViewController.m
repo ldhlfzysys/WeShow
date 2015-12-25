@@ -152,18 +152,20 @@
                     
                     ] mutableCopy];
 
-    
-    IncidentViewNew *test1 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(0,  10, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 20)];
+    IncidentViewNew *test1 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(0,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height )];
+    test1.headImage.image = [UIImage imageNamed:@"head1"];
     test1.delegate = self;
     [test1 updateDatas:dataDict1];
     [_bottomView.myScroll addSubview:test1];
     
-    IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  5, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 10)];
+    IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
+    test2.headImage.image = [UIImage imageNamed:@"head2"];
     test2.delegate = self;
     [test2 updateDatas:dataDict2];
     [_bottomView.myScroll addSubview:test2];
     
     IncidentViewNew *test3 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width*2, 0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
+    test3.headImage.image = [UIImage imageNamed:@"head3"];
     test3.delegate = self;
     [test3 updateDatas:dataDict3];
     [_bottomView.myScroll addSubview:test3];

@@ -41,7 +41,7 @@
     if (self = [super init])
     {
         _mediaUrl = url;
-        _itemDuration = CMTimeGetSeconds([AVAsset assetWithURL:_mediaUrl].duration);
+        _itemDuration = 5;//CMTimeGetSeconds([AVAsset assetWithURL:_mediaUrl].duration);
     }
     
     return self;
@@ -160,7 +160,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [_capButton setEnabled:NO];
     [self.avPlayer play];
     [self startCircleProgressAnimation];
 }

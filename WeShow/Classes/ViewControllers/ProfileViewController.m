@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.titleView = [Tools getTitleLab:@"我"];
+    self.navigationItem.titleView = [Tools getTitleLab:@"Jack"];
     UIButton *backBtn = [Tools getNavigationItemWithImage:@"video_back"];
     [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
@@ -99,7 +99,7 @@
      NSString *historydesc = [dict objectForKey:@"historydesc"];
      */
     NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic1",@"topImageName",
+                               @"profile_head",@"topImageName",
                                @"head1",@"headImageName",
                                @"欢迎来到我的个人主页，喜欢我的直播就关注我吧！让你足不出户，看尽天下事！",@"desc",
                                @"4532",@"viewerNum",

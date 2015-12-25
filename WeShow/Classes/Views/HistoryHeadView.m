@@ -15,7 +15,7 @@
         _headImage = [[UIImageView alloc]initWithFrame:CGRectMake(15, 11, 70, 70)];
         _headImage.layer.masksToBounds = YES;
         _headImage.layer.cornerRadius = _headImage.EA_Width/2;
-        _headImage.backgroundColor = [UIColor grayColor];
+//        _headImage.backgroundColor = [UIColor grayColor];
         [self addSubview:_headImage];
         
         _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, _headImage.EA_Bottom + 10, 0, 12)];
@@ -52,18 +52,20 @@
         
         _vedioImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 367, 100, 150)];
         _vedioImage.backgroundColor = [UIColor brownColor];
+//        _vedioImage.contentMode = UIViewContentModeScaleAspectFit;
+        _vedioImage.image = [UIImage imageNamed:@"pic10.png"];
         [self addSubview:_vedioImage];
         
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_vedioImage.EA_Right + 10, 442 + 14, self.EA_Width - _vedioImage.EA_Right - 20, 18)];
         _titleLabel.font = [UIFont systemFontOfSize:18];
         _titleLabel.textColor = UIColorFromRGB(0x636466);
-        _titleLabel.text = @"标题";
+        _titleLabel.text = @"周杰伦演唱会";
         [self addSubview:_titleLabel];
         
         _addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(_titleLabel.EA_Left, _titleLabel.EA_Bottom + 6, self.EA_Width - 90, 12)];
         _addressLabel.font = [UIFont systemFontOfSize:12];
         _addressLabel.textColor = UIColorFromRGB(0xc4c7cc);
-        _addressLabel.text = @"地址";
+        _addressLabel.text = @"北京市";
         [self addSubview:_addressLabel];
         
         _timeIcon = [[UIImageView alloc]initWithFrame:CGRectMake(_titleLabel.EA_Left, _addressLabel.EA_Bottom+12, 12, 12)];
@@ -110,6 +112,8 @@
         
         CGFloat baseX = 0;
 
+        NSArray *ar = [NSArray arrayWithObjects:@"head1",@"head8",@"head3",@"head4",@"head5",@"head6",@"head7", nil];
+        NSArray *arname = [NSArray arrayWithObjects:@"老王",@"Dwigh",@"Janel",@"晓龙",@"一晶",@"靖宇",@"微博", nil];
         for (int i = 0; i<7; i ++) {
             HeadNameView *eV;
             if (i != 0) {
@@ -117,6 +121,8 @@
             }else{
                 eV = [[HeadNameView alloc]initWithFrame:CGRectMake(baseX, 11, 100,100)];
             }
+            eV.headImage.image = [UIImage imageNamed:[ar objectAtIndex:i]];
+            eV.nameLabel.text = [arname objectAtIndex:i];
 
             [_multiHeadScroll addSubview:eV];
             baseX += 100;
@@ -127,6 +133,7 @@
         [self addSubview:_niceView];
         
         _niceScroll = [[MultiIncidentScrollView alloc]initWithFrame:CGRectMake(20, _niceView.EA_Bottom, self.EA_Width - 20, 170)];
+        [_niceScroll updateDatas:@{@"images":@[@"pic1_1",@"pic1_2",@"pic1_3",@"pic1_4",@"pic1_5",@"pic1_1"]}];
         [self addSubview:_niceScroll];
         
     }

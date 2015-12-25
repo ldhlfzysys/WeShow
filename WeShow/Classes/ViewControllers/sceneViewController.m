@@ -120,8 +120,8 @@
 {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
@@ -151,13 +151,13 @@
     [_controlView.commentView setPostBtnBlock:^{
         [blockSelf addItem:blockSelf.controlView.commentView.commentFiled.text Highlight:YES];
         [blockSelf.controlView.commentView.commentFiled resignFirstResponder];
+        blockSelf.controlView.commentView.EA_Top = _controlView.EA_Bottom;
     }];
     
     _barrageView = [[BarrageView alloc]initWithFrame:CGRectMake(0, STATUSBAR.size.height + 40, self.view.EA_Width, 400)];
     _barrageView.layer.masksToBounds = YES;
     [_controlView addSubview:_barrageView];
-    
-
+    [_barrageView setHidden:YES];
     
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(holdVideo:)];
     longPressGr.minimumPressDuration = 0.2;
@@ -200,6 +200,11 @@
     
     [self.avPlayer play];
     [self startAnimation];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.avPlayer pause];
 }
 
 - (void)dismissVC
@@ -412,6 +417,7 @@
 -(void)sendBarrage
 {
     [_controlView.commentView.commentFiled becomeFirstResponder];
+    _controlView.commentView.EA_Bottom = _controlView.EA_Height - 258;
 }
 
 - (void)startBarrage {
