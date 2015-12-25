@@ -65,21 +65,21 @@
      NSString *memberNum = [dict objectForKey:@"memberNum"];
      */
     NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic1",@"imageName",
-                               @"微博发布会",@"title",
-                               @"新浪大厦",@"address",
+                               @"pic4",@"imageName",
+                               @"滴滴总部遭受出租车司机围堵",@"title",
+                               @"滴滴总部",@"address",
                                @"1h 10m",@"distance",
                                @"21345人",@"memberNum",nil];
     NSDictionary *dataDict2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic2",@"imageName",
-                               @"苹果发布会",@"title",
-                               @"苹果大厦",@"address",
+                               @"pic5",@"imageName",
+                               @"第十届北京马拉松",@"title",
+                               @"北京",@"address",
                                @"3h 1.5km",@"distance",
                                @"2123人",@"memberNum",nil];
     NSDictionary *dataDict3 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic3",@"imageName",
-                               @"清华运动会",@"title",
-                               @"清华大学",@"address",
+                               @"pic6",@"imageName",
+                               @"京郊百车连撞事故现场",@"title",
+                               @"京郊",@"address",
                                @"2h 3km",@"distance",
                                @"323人",@"memberNum",nil];
     
@@ -95,15 +95,15 @@
                               },
                       
                       @"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic4",
-                              @"title":@"阿拉斯加滑雪",
-                              @"address":@"阿拉斯加",
+                              @"imageName":@"pic1",
+                              @"title":@"三里屯发生恐怖袭击，武警持枪戒备",
+                              @"address":@"北京",
                               @"distance":@"10km",
                               @"memberNum":@"23人"},
                       
                       @"onelineViewData":@{@"name":@""},
                       
-                      @"multiIncidentData":@{@"images":@[@"pic5",@"pic6",@"pic7",@"pic8",@"pic9",@"pic10"]}//6个图片
+                      @"multiIncidentData":@{@"images":@[@"pic1_1",@"pic1_2",@"pic1_3",@"pic1_4",@"pic1_5",@"pic1_1"]}//6个图片
                       },
                     
                     @{@"userInfoData":@{
@@ -112,9 +112,9 @@
                               @"desc":@"游泳爱好者",
                               },
                         @"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic2",
-                              @"title":@"夏威夷冲浪",
-                              @"address":@"夏威夷",
+                              @"imageName":@"pic8",
+                              @"title":@"五月天鸟巢演唱会",
+                              @"address":@"鸟巢",
                               @"distance":@"20km",
                               @"memberNum":@"100人"}},
                     
@@ -124,9 +124,9 @@
                               @"desc":@"战争记着",
                               },
                         @"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic3",
-                              @"title":@"阿富汗激战",
-                              @"address":@"阿富汗",
+                              @"imageName":@"pic7",
+                              @"title":@"随手拍北京雾霾",
+                              @"address":@"海淀区",
                               @"distance":@"23km",
                               @"memberNum":@"432人"},
                       
@@ -140,9 +140,9 @@
                               @"desc":@"我是志愿者",
                               },
                         @"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic4",
-                              @"title":@"伦敦奥运会开幕式",
-                              @"address":@"伦敦",
+                              @"imageName":@"pic9",
+                              @"title":@"周杰伦演唱会",
+                              @"address":@"小巨蛋",
                               @"distance":@"30km",
                               @"memberNum":@"3200人"},
                       

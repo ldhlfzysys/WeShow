@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommontView : UIView
+@interface CommentView : UIView
 @property (nonatomic,strong)UILabel *commontLabel;
 - (void)updateDatas:(NSDictionary *)dict;
 @end
