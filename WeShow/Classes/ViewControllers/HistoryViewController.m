@@ -32,7 +32,7 @@
      临时数据，用3种高度表示3种展示。
      **/
     _datas = [@[@"91",@"91",@"91",@"91",@"91"] mutableCopy];
-    _datasDidShow = [@[@"0",@"0",@"0",@"0",@"0"] mutableCopy];
+    _datasDidShow = [@[@"1",@"1",@"0",@"0",@"0"] mutableCopy];
     _cellDatas = [@[@{@"imageMultiLineIncidentData":@{
                               @"imageName":@"pic4",
                               @"title":@"北极光",
@@ -141,7 +141,7 @@
         [_datasDidShow setObject:@"1" atIndexedSubscript:indexPath.row];
         cell.EA_Right = 0;
         [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.8];
+        [UIView setAnimationDuration:0.4];
         cell.EA_Left = 0;
         [UIView commitAnimations];
     }

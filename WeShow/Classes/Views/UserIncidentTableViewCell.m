@@ -86,6 +86,17 @@
     CommontView *view3 = [[CommontView alloc]initWithFrame:CGRectMake(46, view2.EA_Bottom, self.EA_Width - 56, 65)];
     [view3 updateDatas:[dict objectForKey:@"commontData"]];
     [_bgView addSubview:view3];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view1.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = view1.bounds;
+    maskLayer.path = maskPath.CGPath;
+    view1.layer.mask = maskLayer;
+    
+    UIBezierPath *maskPath1 = [UIBezierPath bezierPathWithRoundedRect:view3.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer1 = [[CAShapeLayer alloc] init];
+    maskLayer1.frame = view3.bounds;
+    maskLayer1.path = maskPath1.CGPath;
+    view3.layer.mask = maskLayer1;
     
 }
 
