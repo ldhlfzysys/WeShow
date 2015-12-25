@@ -133,22 +133,22 @@
         NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"pic1",@"imageName",
                                   @"Live",@"mediaType",
-                                  @"微博发布会",@"title",
-                                  @"新浪大厦",@"address",
+                                  @"三里屯发生恐怖袭击，武警持枪戒备",@"title",
+                                  @"三里屯",@"address",
                                   @"10m",@"distance",
                                   @"21345人",@"memberNum",nil];
         NSDictionary *dataDict2 = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"pic2",@"imageName",
                                    @"Live",@"mediaType",
-                                   @"苹果发布会",@"title",
-                                   @"苹果大厦",@"address",
+                                   @"朝阳区万人圣诞马拉松现场",@"title",
+                                   @"朝阳区",@"address",
                                    @"1.5km",@"distance",
                                    @"2123人",@"memberNum",nil];
         NSDictionary *dataDict3 = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"pic3",@"imageName",
                                    @"Live",@"mediaType",
-                                   @"大航巡回演唱会",@"title",
-                                   @"鸟巢",@"address",
+                                   @"新浪UDC-M圣诞交换礼物幸福大会",@"title",
+                                   @"新浪大厦",@"address",
                                    @"3km",@"distance",
                                    @"323人",@"memberNum",nil];
 

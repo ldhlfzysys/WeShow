@@ -10,7 +10,7 @@
 #import "ImageMultiLineIncident.h"
 #import "OnelineView.h"
 #import "MultiIncidentScrollView.h"
-#import "CommontView.h"
+#import "CommentView.h"
 
 
 @implementation UserIncidentTableViewCell
@@ -83,7 +83,7 @@
     [view2 updateDatas:[dict objectForKey:@"onelineViewData"]];
     [_bgView addSubview:view2];
     
-    CommontView *view3 = [[CommontView alloc]initWithFrame:CGRectMake(46, view2.EA_Bottom, self.EA_Width - 56, 65)];
+    CommentView *view3 = [[CommentView alloc]initWithFrame:CGRectMake(46, view2.EA_Bottom, self.EA_Width - 56, 65)];
     [view3 updateDatas:[dict objectForKey:@"commontData"]];
     [_bgView addSubview:view3];
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view1.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];

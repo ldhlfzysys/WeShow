@@ -34,35 +34,35 @@
     _datas = [@[@"91",@"91",@"91",@"91",@"91"] mutableCopy];
     _datasDidShow = [@[@"1",@"1",@"0",@"0",@"0"] mutableCopy];
     _cellDatas = [@[@{@"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic4",
-                              @"title":@"北极光",
-                              @"address":@"南极",
-                              @"distance":@"23km",
-                              @"memberNum":@"12人"}},
-                    @{@"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic5",
-                              @"title":@"夏威夷冲浪节",
-                              @"address":@"夏威夷",
-                              @"distance":@"23km",
+                              @"imageName":@"pic8",
+                              @"title":@"五月天鸟巢演唱会",
+                              @"address":@"鸟巢",
+                              @"distance":@"20km",
                               @"memberNum":@"100人"}},
                     @{@"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic6",
-                              @"title":@"张家界",
-                              @"address":@"",
-                              @"distance":@"",
-                              @"memberNum":@""}},
-                    @{@"imageMultiLineIncidentData":@{
                               @"imageName":@"pic7",
-                              @"title":@"",
-                              @"address":@"",
-                              @"distance":@"",
-                              @"memberNum":@""}},
+                              @"title":@"随手拍北京雾霾",
+                              @"address":@"海淀区",
+                              @"distance":@"23km",
+                              @"memberNum":@"432人"}},
                     @{@"imageMultiLineIncidentData":@{
-                              @"imageName":@"pic8",
-                              @"title":@"",
-                              @"address":@"",
-                              @"distance":@"",
-                              @"memberNum":@""}},
+                              @"imageName":@"pic9",
+                              @"title":@"周杰伦演唱会",
+                              @"address":@"小巨蛋",
+                              @"distance":@"30km",
+                              @"memberNum":@"3200人"}},
+                    @{@"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic1",
+                              @"title":@"三里屯发生恐怖袭击，武警持枪戒备",
+                              @"address":@"北京",
+                              @"distance":@"10km",
+                              @"memberNum":@"23人"}},
+                    @{@"imageMultiLineIncidentData":@{
+                              @"imageName":@"pic5",
+                              @"title":@"第十届北京马拉松",
+                              @"address":@"北京",
+                              @"distance":@"10km",
+                              @"memberNum":@"2321人"}},
                     ] mutableCopy];
     
     CGFloat bottomViewHeight = self.view.EA_Width * 1.215;
@@ -80,24 +80,21 @@
      NSString *memberNum = [dict objectForKey:@"memberNum"];
      */
     NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic1",@"imageName",
-                               @"Live",@"mediaType",
-                               @"微博发布会",@"title",
-                               @"新浪大厦",@"address",
+                               @"pic4",@"imageName",
+                               @"滴滴总部遭受出租车司机围堵",@"title",
+                               @"滴滴总部",@"address",
                                @"1h 10m",@"distance",
                                @"21345人",@"memberNum",nil];
     NSDictionary *dataDict2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic2",@"imageName",
-                               @"Live",@"mediaType",
-                               @"苹果发布会",@"title",
-                               @"苹果大厦",@"address",
+                               @"pic5",@"imageName",
+                               @"第十届北京马拉松",@"title",
+                               @"北京",@"address",
                                @"3h 1.5km",@"distance",
                                @"2123人",@"memberNum",nil];
     NSDictionary *dataDict3 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic3",@"imageName",
-                               @"Live",@"mediaType",
-                               @"清华运动会",@"title",
-                               @"清华大学",@"address",
+                               @"pic6",@"imageName",
+                               @"京郊百车连撞事故现场",@"title",
+                               @"京郊",@"address",
                                @"2h 3km",@"distance",
                                @"323人",@"memberNum",nil];
     
@@ -107,12 +104,12 @@
     [test1 updateDatas:dataDict1];
     [_bottomView.myScroll addSubview:test1];
     
-    IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
+    IncidentViewNew *test2 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width,  5, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 10)];
     test2.delegate = self;
     [test2 updateDatas:dataDict2];
     [_bottomView.myScroll addSubview:test2];
     
-    IncidentViewNew *test3 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width*2, 10, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height - 20)];
+    IncidentViewNew *test3 = [[IncidentViewNew alloc]initWithFrame:CGRectMake(_bottomView.myScroll.EA_Width*2, 0, _bottomView.myScroll.EA_Width, _bottomView.myScroll.EA_Height)];
     test3.delegate = self;
     [test3 updateDatas:dataDict3];
     [_bottomView.myScroll addSubview:test3];

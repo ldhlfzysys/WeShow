@@ -6,9 +6,9 @@
 //  Copyright © 2015年 Weibo. All rights reserved.
 //
 
-#import "CommontView.h"
+#import "CommentView.h"
 
-@implementation CommontView
+@implementation CommentView
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
