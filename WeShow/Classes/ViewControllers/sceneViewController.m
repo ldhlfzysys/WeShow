@@ -239,7 +239,7 @@
         [self.avPlayer pause];
         [self kickbackProgressAnimation];
         [_progressLayer removeAllAnimations];
-        [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum%7]]]];
+        [self.avPlayer replaceCurrentItemWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum%26]]]];
         [self changeUserProfile];
     }
     

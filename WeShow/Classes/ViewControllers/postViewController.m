@@ -92,6 +92,14 @@
         [self.avPlayer play];
     }
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self.avPlayer currentItem]) {
+        [self.avPlayer pause];
+    }
+}
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
