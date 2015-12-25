@@ -223,7 +223,7 @@
     }else
     {
         sceneViewController *VC = [[sceneViewController alloc]init];
-        [self presentViewController:VC animated:YES completion:^{
+        [self presentViewController:VC animated:NO completion:^{
         }];
     }
 

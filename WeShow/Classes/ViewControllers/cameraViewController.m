@@ -190,7 +190,7 @@
 
 - (void)dismissVC
 {
-    [self dismissViewControllerAnimated:YES completion:^{
+    [self dismissViewControllerAnimated:NO completion:^{
         
     }];
 }
@@ -453,6 +453,7 @@
                 //outputFileURL为真实录制视频url，有录音有问题，先使用降低声音的版本
                 soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:exporter.outputURL];
                 VC.mutedMediaUrl = exporter.outputURL;
+                //[self.navigationController pushViewController:VC animated:YES];
                 [self presentViewController:VC animated:YES completion:^{
                     [_belowLayer removeFromSuperlayer];
                     [_upLayer removeFromSuperlayer];
