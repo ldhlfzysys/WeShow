@@ -23,6 +23,7 @@
 @property (strong, nonatomic) UIButton *backbutton;
 @property (strong, nonatomic) UIButton *sendBarragebutton;
 @property (strong, nonatomic) UIButton *skipbutton;
+@property (assign, nonatomic) BOOL forbidenBarrage;
 
 @end
 

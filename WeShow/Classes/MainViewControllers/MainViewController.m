@@ -65,7 +65,7 @@
         
 
         _createVideobutton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.EA_Right - 24 - 62, self.view.EA_Bottom, 62,62)];
-        [_createVideobutton setImage:[UIImage imageNamed:@"video_create.png"] forState:UIControlStateNormal];
+        [_createVideobutton setImage:[UIImage imageNamed:@"video_create"] forState:UIControlStateNormal];
         [_createVideobutton setBackgroundColor:[UIColor clearColor]];
         [_createVideobutton addTarget:self action:@selector(createVideo) forControlEvents:UIControlEventTouchUpInside];
         [_mainScrollView addSubview:_createVideobutton];
@@ -127,7 +127,7 @@
          NSString *mediaLabelStr = [dict objectForKey:@"mediaType"];
          NSString *title = [dict objectForKey:@"title"];
          NSString *address = [dict objectForKey:@"address"];
-         NSString *distance = [dict objectForKey:@"distance"];
+         NSString *distance = [dict objectForKey:@"distance"];pic
          NSString *memberNum = [dict objectForKey:@"memberNum"];
          */
         NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -191,7 +191,8 @@
 
 //地图上的发布入口
 - (void)createNew{
-    
+    CreateViewController *createView = [[CreateViewController alloc]init];
+    [self.navigationController pushViewController:createView animated:YES];
 }
 
 - (void)showBottomView{
@@ -215,18 +216,9 @@
 
 - (void)didClickIncidentView:(IncidentView *)inview
 {
-
-    
-    if (inview.tag == 0) {
-        CreateViewController *createView = [[CreateViewController alloc]init];
-        [self.navigationController pushViewController:createView animated:YES];
-    }else
-    {
-        sceneViewController *VC = [[sceneViewController alloc]init];
-        [self presentViewController:VC animated:NO completion:^{
-        }];
-    }
-
+    sceneViewController *VC = [[sceneViewController alloc]init];
+    [self presentViewController:VC animated:NO completion:^{
+    }];
 }
 
 - (void)userCenterClick

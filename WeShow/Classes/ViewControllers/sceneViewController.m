@@ -76,7 +76,8 @@
         [self addSubview:_sendBarragebutton];
         
         _forbidBarragebutton = [[UIButton alloc]initWithFrame:CGRectMake(_sendBarragebutton.EA_Left -10 -30, self.EA_Bottom - 20 - 30, 30,30)];
-        [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
+        [_forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off_highlight.png"] forState:UIControlStateNormal];
+        _forbidenBarrage = YES;
         [_forbidBarragebutton setBackgroundColor:[UIColor clearColor]];
 
         [self addSubview:_forbidBarragebutton];
@@ -101,7 +102,6 @@
 
 @property (strong,nonatomic) UIImageView *toastView;
 @property (assign, nonatomic) BOOL liked;
-@property (assign, nonatomic) BOOL forbidenBarrage;
 
 
 @property (assign ,nonatomic) NSInteger currentNum;
@@ -181,7 +181,7 @@
 
 - (void)initBarrageData
 {
-    _dataArray = [NSMutableArray arrayWithObjects:@"1", @"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",nil];
+    _dataArray = [NSMutableArray arrayWithObjects:@"呵呵哒，(〜￣△￣)〜", @"真的好喜欢",@"不能去参加好遗憾",@"我也要礼物！",@"天使好漂亮",@"新浪好福利",@"礼物礼物礼物礼物！！！",@"美女好多！！！",@"节操呢节操呢！",@"简直不忍直视",@"表白华哥！",@"圣诞快乐",@"快回去搬砖",@"大家都好有活力",@"感觉受到了10000点伤害",@"这里是？",@"这服装",@"Merry Christmas",@"啊！华斌华斌华斌华斌华斌！",@"礼物+1",@"新浪好福利啊！",@"礼物堆成山！",@"酷",nil];
     [self startBarrage];
 }
 
@@ -487,10 +487,10 @@
 
 -(void)forbidBarrage
 {
-    if (_forbidenBarrage) {
+    if (self.controlView.forbidenBarrage) {
         [_controlView.forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off.png"] forState:UIControlStateNormal];
         [_barrageView setHidden:NO];
-        _forbidenBarrage = NO;
+        self.controlView.forbidenBarrage = NO;
     }else
     {
         [_controlView.forbidBarragebutton setImage:[UIImage imageNamed:@"video_barrage_off_highlight.png"] forState:UIControlStateNormal];
@@ -502,7 +502,7 @@
                 _controlView.forbidBarragebutton.transform = CGAffineTransformMakeScale(1, 1);
             }];
         }];
-        _forbidenBarrage = YES;
+        self.controlView.forbidenBarrage = YES;
     }
 }
 
