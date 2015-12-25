@@ -357,14 +357,12 @@
 
 - (void)createVideo
 {
-    cameraViewController *VC = [[cameraViewController alloc]init];
-    [self presentViewController:VC animated:NO completion:^{}];
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//    _toastView = [[UIImageView alloc]initWithFrame:CGRectZero];
-//    _toastView.image = [UIImage imageNamed:@"video_push_red.png"];
-//    [window addSubview:_toastView];
-//    [self showAnimation];
-//    [self performSelector:@selector(hideAnimation:) withObject:0 afterDelay:1];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    _toastView = [[UIImageView alloc]initWithFrame:CGRectZero];
+    _toastView.image = [UIImage imageNamed:@"video_push_red.png"];
+    [window addSubview:_toastView];
+    [self showAnimation];
+    [self performSelector:@selector(hideAnimation:) withObject:0 afterDelay:1];
 }
 
 -(void)showAnimation{
