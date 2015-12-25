@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeShow/Classes/ViewControllers/sceneViewController.m"
-            timestampString = "472709423.080257"
+            timestampString = "472713713.110021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "-holdVideo:"
             landmarkType = "5">
          </BreakpointContent>

@@ -11,4 +11,5 @@
 @interface barrageItemView : UIView
 - (void) setContent:(NSString *)str;
 @property (assign, nonatomic) NSInteger itemIndex;
+@property (strong, nonatomic) UILabel *contentLabel;
 @end

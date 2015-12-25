@@ -19,7 +19,7 @@
     if (result == self) {
         return nil;
     }
-    return self;
+    return result;
 }
 
 @end
@@ -149,6 +149,7 @@
     
     __block sceneViewController *blockSelf = self;
     [_controlView.commentView setPostBtnBlock:^{
+        [blockSelf addItem:blockSelf.controlView.commentView.commentFiled.text Highlight:YES];
         [blockSelf.controlView.commentView.commentFiled resignFirstResponder];
     }];
     
@@ -407,8 +408,6 @@
 - (void)postView {
     if (_dataArray && _dataArray.count > 0) {
         int indexPath = random()%(int)((self.view.frame.size.height)/30);
-        int top = indexPath * 30;
-        
         UIView *view = [self.view viewWithTag:indexPath + ITEMTAG];
         if (view && [view isKindOfClass:[barrageItemView class]]) {
             return;
@@ -430,25 +429,36 @@
             }
         }
         
-        barrageItemView *item = [[barrageItemView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width, top, 10, 30)];
-        
-        [item setContent:content];
-        
-        item.itemIndex = _curbarrageIndex-1;
-        item.tag = indexPath + ITEMTAG;
-        [_barrageView addSubview:item];
-        
-        CGFloat speed = 85.;
-        speed += random()%20;
-        CGFloat time = (item.EA_Width+[[UIScreen mainScreen] bounds].size.width) / speed;
-        
-        [UIView animateWithDuration:time delay:0.f options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut  animations:^{
-            item.EA_Left = -item.EA_Width;
-        } completion:^(BOOL finished) {
-            [item removeFromSuperview];
-        }];
+        [self addItem:content Highlight:NO];
         
     }
+}
+
+- (void)addItem:(NSString *)content Highlight:(BOOL)highlight{
+    int indexPath = random()%(int)((self.view.frame.size.height)/30);
+    int top = indexPath * 30;
+    barrageItemView *item = [[barrageItemView alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width, MIN(top, _barrageView.EA_Height - 30) , 10, 30)];
+    if (highlight) {
+        item.contentLabel.textColor = [UIColor redColor];
+    }
+    else{
+        item.contentLabel.textColor = [UIColor whiteColor];
+    }
+    [item setContent:content];
+    
+    item.itemIndex = _curbarrageIndex-1;
+    item.tag = indexPath + ITEMTAG;
+    [_barrageView addSubview:item];
+    
+    CGFloat speed = 85.;
+    speed += random()%20;
+    CGFloat time = (item.EA_Width+[[UIScreen mainScreen] bounds].size.width) / speed;
+    
+    [UIView animateWithDuration:time delay:0.f options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut  animations:^{
+        item.EA_Left = -item.EA_Width;
+    } completion:^(BOOL finished) {
+        [item removeFromSuperview];
+    }];
 }
 
 -(void)forbidBarrage
