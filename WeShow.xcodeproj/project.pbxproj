@@ -149,6 +149,7 @@
 		B8FA92541C2D3841002FBB87 /* pic1_5.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FA924F1C2D3841002FBB87 /* pic1_5.png */; };
 		B8FA925C1C2D427B002FBB87 /* WSBaseModel+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA925B1C2D427B002FBB87 /* WSBaseModel+UI.m */; };
 		B8FA925F1C2D4C26002FBB87 /* WSBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA925E1C2D4C26002FBB87 /* WSBaseTableViewCell.m */; };
+		B8FA926B1C2D71ED002FBB87 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = B8FA926A1C2D71ED002FBB87 /* Images */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -340,6 +341,7 @@
 		B8FA925B1C2D427B002FBB87 /* WSBaseModel+UI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WSBaseModel+UI.m"; sourceTree = "<group>"; };
 		B8FA925D1C2D4C26002FBB87 /* WSBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSBaseTableViewCell.h; sourceTree = "<group>"; };
 		B8FA925E1C2D4C26002FBB87 /* WSBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSBaseTableViewCell.m; sourceTree = "<group>"; };
+		B8FA926A1C2D71ED002FBB87 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +412,7 @@
 		B81A655E1BEDD19A008116E9 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B8FA926A1C2D71ED002FBB87 /* Images */,
 				B8FA92121C2A797C002FBB87 /* testDatas */,
 				B86D9D3C1C170E9D00D844B7 /* Images */,
 				B81A65601BEDD19A008116E9 /* DataCenter */,
@@ -827,6 +830,7 @@
 				B81A655D1BEDD163008116E9 /* ProjectDeclare in Resources */,
 				B87ADA851C26960800C841A5 /* history_trophy.png in Resources */,
 				B87ADA901C26965D00C841A5 /* feed_mine.png in Resources */,
+				B8FA926B1C2D71ED002FBB87 /* Images in Resources */,
 				3E6A74081C2933DD00F2F707 /* video_like.png in Resources */,
 				3E6A74061C2933DD00F2F707 /* video_create.png in Resources */,
 				3ED308941C2C055D001C846C /* 好事青年小李.png in Resources */,
