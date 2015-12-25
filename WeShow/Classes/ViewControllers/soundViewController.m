@@ -160,7 +160,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [_capButton setEnabled:NO];
+    [_capButton setEnabled:YES];
     [self.avPlayer play];
     [self startCircleProgressAnimation];
 }
@@ -314,7 +314,7 @@
         }
         //停止动画
         [self pauseProgressAnimation];
-        [_capButton setEnabled:NO];
+        //[_capButton setEnabled:NO];
         [_recorder stop];
 
         
@@ -383,17 +383,13 @@
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
                 NSLog(@"拼接outputURL:%@",exporter.outputURL);
-                
                 postViewController *VC = [[postViewController alloc]initWithMediaUrl:exporter.outputURL];
                 [self presentViewController:VC animated:NO completion:^{}];
-
             }else if (exporter.status == AVAssetExportSessionStatusFailed)
             {
                 NSLog(@"拼接失败,error is %@",exporter.error);
             }
         }];
-        
-
     }else
     {
         NSLog(@"录音失败");

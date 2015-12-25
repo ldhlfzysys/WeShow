@@ -65,9 +65,9 @@
      NSString *memberNum = [dict objectForKey:@"memberNum"];
      */
     NSDictionary *dataDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"pic4",@"imageName",
-                               @"滴滴总部遭受出租车司机围堵",@"title",
-                               @"滴滴总部",@"address",
+                               @"pic7",@"imageName",
+                               @"随手拍北京雾霾",@"title",
+                               @"北京",@"address",
                                @"1h 10m",@"distance",
                                @"21345人",@"memberNum",nil];
     NSDictionary *dataDict2 = [NSDictionary dictionaryWithObjectsAndKeys:

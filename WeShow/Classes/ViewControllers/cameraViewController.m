@@ -407,6 +407,7 @@
 {
     if (_videoEnoughTime) {
         NSLog(@"完成录制,可以自己做进一步的处理");
+
         AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
         AVAsset* originAsset = [AVAsset assetWithURL:outputFileURL];
         AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
@@ -450,23 +451,19 @@
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             if (exporter.status == AVAssetExportSessionStatusCompleted) {
                 NSLog(@"拼接outputURL:%@",exporter.outputURL);
-                //outputFileURL为真实录制视频url，有录音有问题，先使用降低声音的版本
-                soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:exporter.outputURL];
-                VC.mutedMediaUrl = exporter.outputURL;
-                //[self.navigationController pushViewController:VC animated:YES];
-                [self presentViewController:VC animated:YES completion:^{
-                    [_belowLayer removeFromSuperlayer];
-                    [_upLayer removeFromSuperlayer];
-                    [_leftLayer removeFromSuperlayer];
-                    [_rightLayer removeFromSuperlayer];
-                }];
                 
             }else if (exporter.status == AVAssetExportSessionStatusFailed)
             {
                 NSLog(@"拼接失败,error is %@",exporter.error);
             }
         }];
-        
+        soundViewController *VC = [[soundViewController alloc]initWithMediaUrl:outputFileURL];
+        [self presentViewController:VC animated:NO completion:^{
+            [_belowLayer removeFromSuperlayer];
+            [_upLayer removeFromSuperlayer];
+            [_leftLayer removeFromSuperlayer];
+            [_rightLayer removeFromSuperlayer];
+        }];
 
     }
 }

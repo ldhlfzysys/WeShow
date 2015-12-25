@@ -92,6 +92,8 @@
 		3EB487A71C2DB1EE00FEB10D /* video_push_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EB487561C2DB1EE00FEB10D /* video_push_blue.png */; };
 		3EB487A81C2DB1EE00FEB10D /* video_push_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EB487571C2DB1EE00FEB10D /* video_push_red.png */; };
 		3EB487A91C2DB1EE00FEB10D /* video_push_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EB487581C2DB1EE00FEB10D /* video_push_yellow.png */; };
+		3EB487AB1C2DB47400FEB10D /* jielun.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EB487AA1C2DB47400FEB10D /* jielun.png */; };
+		3EB487AD1C2DB74100FEB10D /* video_push_red_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EB487AC1C2DB74100FEB10D /* video_push_red_photo.png */; };
 		3EBBC1941C1539BB008C53CB /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1931C1539BB008C53CB /* MAMapKit.framework */; };
 		3EBBC1961C1539C6008C53CB /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */; };
 		4DE17127B550BF5C66B1D71E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A56768EEA638E15239E03D /* libPods.a */; };
@@ -228,6 +230,8 @@
 		3EB487561C2DB1EE00FEB10D /* video_push_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_push_blue.png; sourceTree = "<group>"; };
 		3EB487571C2DB1EE00FEB10D /* video_push_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_push_red.png; sourceTree = "<group>"; };
 		3EB487581C2DB1EE00FEB10D /* video_push_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_push_yellow.png; sourceTree = "<group>"; };
+		3EB487AA1C2DB47400FEB10D /* jielun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jielun.png; sourceTree = "<group>"; };
+		3EB487AC1C2DB74100FEB10D /* video_push_red_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_push_red_photo.png; sourceTree = "<group>"; };
 		3EBBC1931C1539BB008C53CB /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = Pods/AMap2DMap/MAMapKit.framework; sourceTree = "<group>"; };
 		3EBBC1951C1539C6008C53CB /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = Pods/AMapSearch/AMapSearchKit.framework; sourceTree = "<group>"; };
 		3FDEBCDB569EA7EE40FE7AE2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -343,6 +347,8 @@
 		3EB487071C2DB1D200FEB10D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3EB487AA1C2DB47400FEB10D /* jielun.png */,
+				3EB487AC1C2DB74100FEB10D /* video_push_red_photo.png */,
 				3EB487081C2DB1EE00FEB10D /* create_createlive.png */,
 				3EB487091C2DB1EE00FEB10D /* feed_follow_highlight.png */,
 				3EB4870A1C2DB1EE00FEB10D /* feed_follow.png */,
@@ -714,6 +720,7 @@
 				3EB4878B1C2DB1EE00FEB10D /* photo_sound.png in Resources */,
 				3EB4875B1C2DB1EE00FEB10D /* feed_follow.png in Resources */,
 				3EB487961C2DB1EE00FEB10D /* pic6.png in Resources */,
+				3EB487AD1C2DB74100FEB10D /* video_push_red_photo.png in Resources */,
 				3EB487891C2DB1EE00FEB10D /* photo_send.png in Resources */,
 				3EB487651C2DB1EE00FEB10D /* head8.png in Resources */,
 				3EB487731C2DB1EE00FEB10D /* map_create.png in Resources */,
@@ -746,6 +753,7 @@
 				3EB4876A1C2DB1EE00FEB10D /* history_found.png in Resources */,
 				3EB4879F1C2DB1EE00FEB10D /* video_barrage_off_highlight.png in Resources */,
 				3EB487861C2DB1EE00FEB10D /* opacity.png in Resources */,
+				3EB487AB1C2DB47400FEB10D /* jielun.png in Resources */,
 				3EB487941C2DB1EE00FEB10D /* pic4.png in Resources */,
 				3EB487751C2DB1EE00FEB10D /* map_live_big.png in Resources */,
 				3EB4876D1C2DB1EE00FEB10D /* history_mark.png in Resources */,
