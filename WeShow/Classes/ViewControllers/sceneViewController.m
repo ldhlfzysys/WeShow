@@ -247,6 +247,7 @@
         AVPlayer *newPlayer = [[AVPlayer alloc] initWithPlayerItem:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:[self.mediaURLs objectAtIndex:_currentNum%26]]]];
         _avPlayer = newPlayer;
         self.avPlayerLayer.player = _avPlayer;
+        [self changeUserProfile];
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(playerItemDidReachEnd:)
